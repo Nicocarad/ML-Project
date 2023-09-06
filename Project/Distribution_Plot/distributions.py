@@ -215,15 +215,48 @@ def plot_heatmaps_female(D, L):
     cmap_name = "Reds"
     filename = "Heat/correlation_female.png"
     plot_heatmap(D, L == 1, cmap_name, filename)
+    
+def createCenteredCov(DC):
+    C = 0
+    for i in range(DC.shape[1]):
+        C += numpy.dot(DC[:, i:i+1], DC[:, i:i+1].T)
+    
+    C /= float(DC.shape[1])
+    return C
+    
+def centerData(D):
+    mu = D.mean(1)
+    DC = D - mcol(mu)
+    return DC
 
-
+def PCA_plot(D):
+    # Calcola i valori propri della matrice di covarianza
+    DC = centerData(D)
+    C = createCenteredCov(DC)
+    eigenvalues, _ = numpy.linalg.eigh(C)
+    
+    # Ordina i valori propri in ordine decrescente
+    eigenvalues = eigenvalues[::-1]
+    
+    # Calcola la varianza spiegata per ogni componente principale
+    explained_variance = eigenvalues / numpy.sum(eigenvalues)
+    y_min, y_max = plt.ylim()
+    y_values = numpy.linspace(y_min, y_max, 20)
+    plt.yticks(y_values)
+    plt.xlim(0,11)
+    # Creare un grafico della varianza spiegata
+    plt.plot(numpy.cumsum(explained_variance), c='red', marker='.')
+    plt.xlabel('Number of components')
+    plt.ylabel('Fraction of explained variance')
+    plt.grid()
+    plt.savefig("PCA/exp_var")
 
 if __name__ == "__main__":
     D, L = load("Train.txt")
     # plot_centered_hist(D, L, "true")
     # plot_scatter(D,L)
     # plot_LDA_hist(D,L,1)
-    plot_heatmaps_dataset(D)
-    plot_heatmaps_male(D,L)
-    plot_heatmaps_female(D,L)
-    
+    # plot_heatmaps_dataset(D)
+    # plot_heatmaps_male(D,L)
+    # plot_heatmaps_female(D,L)
+    PCA_plot(D)
