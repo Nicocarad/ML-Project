@@ -230,10 +230,12 @@ def centerData(D):
     return DC
 
 def PCA_plot(D):
-    # Calcola i valori propri della matrice di covarianza
-    DC = centerData(D)
-    C = createCenteredCov(DC)
-    eigenvalues, _ = numpy.linalg.eigh(C)
+    
+    N = D.shape[1] 
+    mu = mcol(D.mean(1)) 
+    DC = D - mu  
+    C = numpy.dot(DC, DC.T)/N
+    eigenvalues = numpy.linalg.eigh(C)[0]
     
     # Ordina i valori propri in ordine decrescente
     eigenvalues = eigenvalues[::-1]
@@ -241,7 +243,7 @@ def PCA_plot(D):
     # Calcola la varianza spiegata per ogni componente principale
     explained_variance = eigenvalues / numpy.sum(eigenvalues)
     y_min, y_max = plt.ylim()
-    y_values = numpy.linspace(y_min, y_max, 20)
+    y_values = numpy.linspace(y_min, y_max, 40)
     plt.yticks(y_values)
     plt.xlim(0,11)
     # Creare un grafico della varianza spiegata
