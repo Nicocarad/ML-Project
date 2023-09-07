@@ -1,38 +1,18 @@
 import numpy
 import scipy
-import Library.functions as lib
 
 
 
 def mcol(v):
-    return v.reshape((v.size, 1)) # takes a row vector and emit a column vector
+    return v.reshape((v.size, 1))
 
-def load(fname): 
-    DList = []
-    labelsList = []
-    hLabels = {
-        '0': 0,
-        '1': 1
-        }
 
-    with open(fname) as f:
-        for line in f:
-            try:
-                attrs = line.split(',')[0:12] # list of string ( the first 4 string)
-                attrs = mcol(numpy.array([float(i) for i in attrs])) # list compr
-                name = line.split(',')[-1].strip()
-                label = hLabels[name]
-                DList.append(attrs)
-                labelsList.append(label)
-            except: #if the file contains an empty line at the end
-                pass
-
-    return numpy.hstack(DList), numpy.array(labelsList, dtype=numpy.int32)
-
+def mrow(array):
+    return array.reshape((1,array.size))
 
 def mean_and_covariance(data_matrix):
     N = data_matrix.shape[1]
-    mu = lib.vcol(data_matrix.mean(1)) 
+    mu = mcol(data_matrix.mean(1)) 
     DC = data_matrix - mu 
     C = numpy.dot(DC, DC.T)/N
     
@@ -40,6 +20,16 @@ def mean_and_covariance(data_matrix):
 
 
 
+def logpdf_GAU_ND_fast(X, mu, C):
+    
+    X_c = X - mu
+    M = X.shape[0]
+    const = - 0.5 * M * numpy.log(2*numpy.pi)
+    logdet = numpy.linalg.slogdet(C)[1]
+    L = numpy.linalg.inv(C)
+    v = (X_c*numpy.dot(L, X_c)).sum(0)
+    
+    return const - 0.5 * logdet - 0.5 *v 
 
 
 
@@ -52,14 +42,14 @@ def LogGaussianClassifier(DTR,LTR,DTE,LTE,eff_prior):
     for i in range(LTR.max()+1):
         D_c = DTR[:,LTR == i] 
         mu,C = mean_and_covariance(D_c)
-        f_conditional = lib.logpdf_GAU_ND_fast(DTE, mu, C)
-        S.append(lib.vrow(f_conditional))
+        f_conditional = logpdf_GAU_ND_fast(DTE, mu, C)
+        S.append(mrow(f_conditional))
     S = numpy.vstack(S)
     
     prior = numpy.ones(S.shape) * [[eff_prior], [sec_prior]]
     
     logSJoint = S + numpy.log(prior)
-    logSMarginal = lib.vrow(scipy.special.logsumexp(logSJoint, axis=0))
+    logSMarginal = mrow(scipy.special.logsumexp(logSJoint, axis=0))
     logSPost = logSJoint - logSMarginal
     
     llr = logSPost[1,:] - logSPost[0,:] - numpy.log(eff_prior/sec_prior)
@@ -77,15 +67,15 @@ def NaiveBayes_GaussianClassifier(DTR,LTR,DTE,LTE,eff_prior):
         mu,C = mean_and_covariance(D_c)
         identity = numpy.identity(C.shape[0])
         C = C*identity
-        f_conditional = lib.logpdf_GAU_ND_fast(DTE, mu, C)
-        S.append(lib.vrow(f_conditional))
+        f_conditional = logpdf_GAU_ND_fast(DTE, mu, C)
+        S.append(mrow(f_conditional))
     S = numpy.vstack(S)
     
     prior = numpy.ones(S.shape) * [[eff_prior], [sec_prior]]
     print(S.shape)
    
     logSJoint = S + numpy.log(prior)
-    logSMarginal = lib.vrow(scipy.special.logsumexp(logSJoint, axis=0))
+    logSMarginal = mrow(scipy.special.logsumexp(logSJoint, axis=0))
     logSPost = logSJoint - logSMarginal
     llr = logSPost[1,:] - logSPost[0,:] - numpy.log(eff_prior/sec_prior)
 
@@ -110,14 +100,14 @@ def TiedGaussianClassifier(DTR,LTR,DTE,LTE,eff_prior):
     for i in range(LTR.max()+1):
         D_c = DTR[:,LTR == i] 
         mu = mean_and_covariance(D_c)[0]
-        f_conditional = lib.logpdf_GAU_ND_fast(DTE, mu, C_star)
-        S.append(lib.vrow(f_conditional))
+        f_conditional = logpdf_GAU_ND_fast(DTE, mu, C_star)
+        S.append(mrow(f_conditional))
     S = numpy.vstack(S)
         
     prior = numpy.ones(S.shape) * [[eff_prior], [sec_prior]]
     
     logSJoint = S + numpy.log(prior)
-    logSMarginal = lib.vrow(scipy.special.logsumexp(logSJoint, axis=0))
+    logSMarginal = mrow(scipy.special.logsumexp(logSJoint, axis=0))
     logSPost = logSJoint - logSMarginal
     llr = logSPost[1,:] - logSPost[0,:] - numpy.log(eff_prior/sec_prior)
     
@@ -146,14 +136,14 @@ def Tied_NaiveBayes_GaussianClassifier(DTR,LTR,DTE,LTE,eff_prior):
     for i in range(LTR.max()+1):
         D_c = DTR[:,LTR == i] 
         mu = mean_and_covariance(D_c)[0]
-        f_conditional = lib.logpdf_GAU_ND_fast(DTE, mu, C_star)
-        S.append(lib.vrow(f_conditional))
+        f_conditional = logpdf_GAU_ND_fast(DTE, mu, C_star)
+        S.append(mrow(f_conditional))
     S = numpy.vstack(S)  
     
     prior = numpy.ones(S.shape) * [[eff_prior], [sec_prior]]
     
     logSJoint = S + numpy.log(prior)
-    logSMarginal = lib.vrow(scipy.special.logsumexp(logSJoint, axis=0))
+    logSMarginal = mrow(scipy.special.logsumexp(logSJoint, axis=0))
     logSPost = logSJoint - logSMarginal
     llr = logSPost[1,:] - logSPost[0,:] - numpy.log(eff_prior/sec_prior)
     
@@ -167,7 +157,7 @@ def Tied_NaiveBayes_GaussianClassifier(DTR,LTR,DTE,LTE,eff_prior):
 
 
 
-def kfold(model,k,D,L,eff_prior=None,seed=0):
+def kfold(model,k,D,L,eff_prior=None,seed=4):
     
 
     SPost_partial = []

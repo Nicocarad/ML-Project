@@ -1,7 +1,7 @@
 import numpy
 import matplotlib.pyplot as plt
 from scipy.stats import pearsonr
-from Utils.utils import mcol
+
 from Utils.LDA import LDA1
 
 # Plot Distributions for each feature
