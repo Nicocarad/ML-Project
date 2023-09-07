@@ -276,8 +276,6 @@ if __name__ == '__main__':
     D,L = load("Train.txt")
     
     SPost,Label = kfold(NaiveBayes_GaussianClassifier,5,D,L)
-    print(SPost)
-    print(Label.shape)
     res = min_DCF(0.5,1,1,Label,SPost)
     print("Min DCF: ", res)
     
