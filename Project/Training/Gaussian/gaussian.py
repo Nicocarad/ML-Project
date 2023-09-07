@@ -1,20 +1,7 @@
-import numpy
+from Training.Gaussian.gaussian_utils import *
 import scipy
 
 
-
-
-   
-
-
-
-
-
-
-   
-   
-   
-   
 def LogGaussianClassifier(DTR,LTR,DTE,LTE,eff_prior):
     
     S = []
@@ -53,7 +40,7 @@ def NaiveBayes_GaussianClassifier(DTR,LTR,DTE,LTE,eff_prior):
     S = numpy.vstack(S)
     
     prior = numpy.ones(S.shape) * [[eff_prior], [sec_prior]]
-    print(S.shape)
+    
    
     logSJoint = S + numpy.log(prior)
     logSMarginal = mrow(scipy.special.logsumexp(logSJoint, axis=0))
@@ -130,40 +117,3 @@ def Tied_NaiveBayes_GaussianClassifier(DTR,LTR,DTE,LTE,eff_prior):
     
     
     return  llr
-
-
-
-
-
-
-
-
-
-    
-    
-
-
-if __name__ == '__main__':
-    
-    
-    #DTR: Training data
-    #LTR: Training labels
-    #DTE: Evaluation data
-    #LTE: Evaluation labels
-    D,L = load("Train.txt")
-    
-    SPost,Label = kfold(Tied_NaiveBayes_GaussianClassifier,5,D,L,0.1)
-    res = min_DCF(0.1,1,1,Label,SPost)
-    print("Min DCF: ", res)
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    

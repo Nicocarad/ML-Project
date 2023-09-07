@@ -11,5 +11,5 @@ def PCA(data_matrix,m):
     C = numpy.dot(DC, DC.T)/N
     s, U = numpy.linalg.eigh(C) # compute the eigenvalues and eigenvectors
     P = U[:, ::-1][:, 0:m] # reverse the matrix in order to move leading eigenvectors in the first "m" column
-    DP = numpy.dot(P.T, data_matrix) ##CHECK IF IT IS CORRECT
+    DP = numpy.dot(P.T, data_matrix) 
     return DP
