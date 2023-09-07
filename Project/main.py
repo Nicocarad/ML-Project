@@ -32,4 +32,5 @@ if __name__ == '__main__':
     
 # Train Gaussian Classifiers
 train_gaussianClassifiers(D1,L1)
+
     
