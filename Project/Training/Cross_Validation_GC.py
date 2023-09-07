@@ -42,30 +42,13 @@ def mean_and_covariance(data_matrix):
 
 
 
-def GaussianClassifier(DTR,LTR,DTE,LTE):
-    
-    S = []
 
-    for i in range(LTR.max()+1):
-        D_c = DTR[:,LTR == i] 
-        mu,C = mean_and_covariance(D_c)
-        f_conditional = numpy.exp(lib.logpdf_GAU_ND_fast(DTE, mu, C))
-        S.append(lib.vrow(f_conditional))
-    S = numpy.vstack(S)
-    
-
-    prior = numpy.ones(S.shape)/3.0  
-    SJoint = S*prior
-    SMarginal = lib.vrow(SJoint.sum(0))
-    SPost = SJoint/SMarginal
-     
-    return SPost
    
-def LogGaussianClassifier(DTR,LTR,DTE,LTE):
+def LogGaussianClassifier(DTR,LTR,DTE,LTE,eff_prior):
     
     S = []
     
-
+    sec_prior = 1 - eff_prior
     for i in range(LTR.max()+1):
         D_c = DTR[:,LTR == i] 
         mu,C = mean_and_covariance(D_c)
@@ -73,16 +56,19 @@ def LogGaussianClassifier(DTR,LTR,DTE,LTE):
         S.append(lib.vrow(f_conditional))
     S = numpy.vstack(S)
     
-    prior = numpy.ones(S.shape)/3.0
+    prior = numpy.ones(S.shape) * [[eff_prior], [sec_prior]]
     
     logSJoint = S + numpy.log(prior)
     logSMarginal = lib.vrow(scipy.special.logsumexp(logSJoint, axis=0))
     logSPost = logSJoint - logSMarginal
-    SPost = numpy.exp(logSPost)
     
-    return SPost
+    llr = logSPost[1,:] - logSPost[0,:] - numpy.log(eff_prior/sec_prior)
+    return llr
        
-def NaiveBayes_GaussianClassifier(DTR,LTR,DTE,LTE):
+def NaiveBayes_GaussianClassifier(DTR,LTR,DTE,LTE,eff_prior):
+    
+    
+    sec_prior = 1 - eff_prior
     
     S = []
     
@@ -95,18 +81,19 @@ def NaiveBayes_GaussianClassifier(DTR,LTR,DTE,LTE):
         S.append(lib.vrow(f_conditional))
     S = numpy.vstack(S)
     
-    prior = numpy.ones(S.shape)/2
-    
+    prior = numpy.ones(S.shape) * [[eff_prior], [sec_prior]]
+    print(S.shape)
    
     logSJoint = S + numpy.log(prior)
     logSMarginal = lib.vrow(scipy.special.logsumexp(logSJoint, axis=0))
     logSPost = logSJoint - logSMarginal
-    llr = logSPost[1,:] - logSPost[0,:] - numpy.log(0.5/0.5)
+    llr = logSPost[1,:] - logSPost[0,:] - numpy.log(eff_prior/sec_prior)
 
     return  llr
 
-def TiedGaussianClassifier(DTR,LTR,DTE,LTE):
+def TiedGaussianClassifier(DTR,LTR,DTE,LTE,eff_prior):
     
+    sec_prior = 1 - eff_prior
     # Calculate the Tied Covariance Matrix
     C_star = 0 
     N = DTR.shape[1]
@@ -127,17 +114,18 @@ def TiedGaussianClassifier(DTR,LTR,DTE,LTE):
         S.append(lib.vrow(f_conditional))
     S = numpy.vstack(S)
         
-    prior = numpy.ones(S.shape)/3.0
+    prior = numpy.ones(S.shape) * [[eff_prior], [sec_prior]]
     
     logSJoint = S + numpy.log(prior)
     logSMarginal = lib.vrow(scipy.special.logsumexp(logSJoint, axis=0))
     logSPost = logSJoint - logSMarginal
-    SPost = numpy.exp(logSPost)
+    llr = logSPost[1,:] - logSPost[0,:] - numpy.log(eff_prior/sec_prior)
     
-    return SPost
+    return llr
     
-def Tied_NaiveBayes_GaussianClassifier(DTR,LTR,DTE,LTE):
+def Tied_NaiveBayes_GaussianClassifier(DTR,LTR,DTE,LTE,eff_prior):
     
+    sec_prior = 1 - eff_prior
     # Calculate the Tied Covariance Matrix
     C_star = 0 
     N = DTR.shape[1]
@@ -162,18 +150,24 @@ def Tied_NaiveBayes_GaussianClassifier(DTR,LTR,DTE,LTE):
         S.append(lib.vrow(f_conditional))
     S = numpy.vstack(S)  
     
-    prior = numpy.ones(S.shape)/3.0
+    prior = numpy.ones(S.shape) * [[eff_prior], [sec_prior]]
     
     logSJoint = S + numpy.log(prior)
     logSMarginal = lib.vrow(scipy.special.logsumexp(logSJoint, axis=0))
     logSPost = logSJoint - logSMarginal
-    SPost = numpy.exp(logSPost)
+    llr = logSPost[1,:] - logSPost[0,:] - numpy.log(eff_prior/sec_prior)
     
     
-    return  SPost
+    return  llr
 
 
-def kfold(model,k,D,L,seed=0):
+
+
+
+
+
+
+def kfold(model,k,D,L,eff_prior=None,seed=0):
     
 
     SPost_partial = []
@@ -210,10 +204,13 @@ def kfold(model,k,D,L,seed=0):
         DTR = D[:,train_indices] 
         LTR = L[train_indices]
         # Append in the list the Scores (posterior probabilities) for the samples of the training fold
+        if eff_prior is None:
+            
+           Spost = model(DTR, LTR, DTE, LTE)
+        else:
+           Spost = model(DTR, LTR, DTE, LTE,eff_prior)
         
-        Spost = model(DTR, LTR, DTE, LTE)
-        
-        print(Spost.shape)
+       
         SPost_partial.append(Spost)
        
           
@@ -275,8 +272,8 @@ if __name__ == '__main__':
     #LTE: Evaluation labels
     D,L = load("Train.txt")
     
-    SPost,Label = kfold(NaiveBayes_GaussianClassifier,5,D,L)
-    res = min_DCF(0.5,1,1,Label,SPost)
+    SPost,Label = kfold(Tied_NaiveBayes_GaussianClassifier,5,D,L,0.1)
+    res = min_DCF(0.1,1,1,Label,SPost)
     print("Min DCF: ", res)
     
 
