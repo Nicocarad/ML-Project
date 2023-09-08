@@ -31,6 +31,9 @@ if __name__ == '__main__':
     
     
 # Train Gaussian Classifiers
-train_gaussianClassifiers(D1,L1)
+train_MVG(D1,L1)
+train_NB(D1,L1)
+train_TMVG(D1,L1)
+train_TNB(D1,L1)
 
     
