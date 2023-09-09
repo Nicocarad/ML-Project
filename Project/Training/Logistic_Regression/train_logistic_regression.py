@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from Utils.Kfold import kfold
 from Utils.DCF import min_DCF
-from Training.Logistic_Regression.logistic_regression import Logistic_Regression
+from Training.Logistic_Regression.logistic_regression import *
 from Utils.PCA import PCA
 from Utils.Znorm import *
 
@@ -156,31 +156,37 @@ def LR_PCA(D, L, prior):
    
 
    
-# def LR_diff_priors(D, L):
-#     l = 0
-#     priors = [(0.5, 0.5), (0.5, 0.1), (0.5, 0.9), (0.1, 0.5), (0.1, 0.1), (0.1, 0.9), (0.9, 0.5), (0.9, 0.1), (0.9, 0.9)]
-
-#     for pi_T, pi in priors:
-#         regression = Logistic_Regression(l)
-#         SPost, Label = kfold(regression, 5, D, L, pi_T)
-#         res = min_DCF(pi, 1, 1, Label, SPost)
-#         print(f"min_DCF (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
-
-
-
 def LR_diff_priors(D, L):
     l = 0
     priors = [(0.5, 0.5), (0.5, 0.1), (0.5, 0.9), (0.1, 0.5), (0.1, 0.1), (0.1, 0.9), (0.9, 0.5), (0.9, 0.1), (0.9, 0.9)]
-    D = znorm(D)
+
     for pi_T, pi in priors:
         regression = Logistic_Regression(l)
         SPost, Label = kfold(regression, 5, D, L, pi_T)
         res = min_DCF(pi, 1, 1, Label, SPost)
-        print(f"min_DCF znorm (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
+        print(f"min_DCF (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
+
+
+
+# def LR_diff_priors_zscore(D, L):
+#     l = 0
+#     priors = [(0.5, 0.5), (0.5, 0.1), (0.5, 0.9), (0.1, 0.5), (0.1, 0.1), (0.1, 0.9), (0.9, 0.5), (0.9, 0.1), (0.9, 0.9)]
+#     D = znorm(D)
+#     for pi_T, pi in priors:
+#         regression = Logistic_Regression(l)
+#         SPost, Label = kfold(regression, 5, D, L, pi_T)
+#         res = min_DCF(pi, 1, 1, Label, SPost)
+#         print(f"min_DCF znorm (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
     
 
     
-    
+def prova_Quad(D,L):
+    l = 100
+    regression = Quad_Logistic_Regression(l)
+    SPost, Label = kfold(regression, 5, D, L, 0.5)
+    print("SONO ARRIVATO QUI")
+    res = min_DCF(0.5, 1, 1, Label, SPost)
+    print("mind_DCF: ",res)
 
 
 
