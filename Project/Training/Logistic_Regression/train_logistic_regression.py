@@ -190,4 +190,35 @@ def prova_Quad(D,L):
 
 
 
+def Quad_LR_RAW(D, L, prior):
     
+    
+    l_values = np.logspace(-5, 2, num=8)
+
+    value = [0.5]
+    
+    
+    min_dcf_results_05 = []
+    
+
+    for i, l in enumerate(l_values):
+        regression = Quad_Logistic_Regression(l)
+
+        SPost_1, Label_1 = kfold(regression, 5, D, L, prior)
+        res_1 = min_DCF(value[0], 1, 1, Label_1, SPost_1)
+        min_dcf_results_05.append(res_1)
+
+
+        print(i)
+    
+    plt.figure()
+    plt.xlabel('\u03BB')
+    plt.xscale('log')
+    plt.ylabel("minDCF")
+    plt.title("RAW")
+
+    plt.plot(l_values, min_dcf_results_05, label="minDCF(\u03C0 = 0.5) RAW")
+    
+    
+    plt.xlim(l_values[0], l_values[-1])
+    plt.legend()

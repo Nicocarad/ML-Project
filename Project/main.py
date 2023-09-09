@@ -50,7 +50,7 @@ if __name__ == '__main__':
 # LR_PCA(D1,L1,0.1)
 # LR_PCA(D1,L1,0.9)
 #LR_diff_priors(D1,L1)
-prova_Quad(D1,L1)
+Quad_LR_RAW(D1, L1, 0.5)
 
 
     
