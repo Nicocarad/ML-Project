@@ -135,22 +135,19 @@ def polynomial_transformation(DTR, DTE):
     DTR_reshaped = DTR.reshape(n_f, 1, n_train)
     DTE_reshaped = DTE.reshape(n_f, 1, n_eval)
 
-    # Create an array with shape (n_f**2 + n_f, 1, n_train)
-    quad_dtr = numpy.zeros((n_f**2 + n_f, 1, n_train))
-    quad_dte = numpy.zeros((n_f**2 + n_f, 1, n_eval))
+    # Create an array with shape (n_f**2 + n_f, n_train) and (n_f**2 + n_f, n_eval)
+    quad_dtr = numpy.zeros((n_f**2 + n_f, n_train))
+    quad_dte = numpy.zeros((n_f**2 + n_f, n_eval))
 
     # Compute the outer product and stack horizontally
-    quad_dtr[:n_f**2] = DTR_reshaped * DTR_reshaped.transpose(1, 0, 2)
-    quad_dtr[n_f**2:] = DTR_reshaped
-    
-    quad_dte[:n_f**2] = DTE_reshaped * DTE_reshaped.transpose(1, 0, 2)
-    quad_dte[n_f**2:] = DTE_reshaped
+    quad_dtr[:n_f**2] = numpy.multiply.outer(DTR_reshaped, DTR_reshaped).reshape(n_f**2, n_train)
+    quad_dtr[n_f**2:] = DTR_reshaped.squeeze()
 
-    # Reshape quad_dtr and quad_dte to have shape (n_f**2 + n_f, n_train) and (n_f**2 + n_f, n_eval) respectively
-    quad_dtr = quad_dtr.squeeze()
-    quad_dte = quad_dte.squeeze()
+    quad_dte[:n_f**2] = numpy.multiply.outer(DTE_reshaped, DTE_reshaped).reshape(n_f**2, n_eval)
+    quad_dte[n_f**2:] = DTE_reshaped.squeeze()
 
     return quad_dtr, quad_dte
+
 
 
 def stack(array, n_f):
