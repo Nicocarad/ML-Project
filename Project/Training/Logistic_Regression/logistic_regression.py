@@ -130,11 +130,11 @@ def polynomial_transformation(DTR, DTE):
     n_eval = DTE.shape[1]
     n_f = DTR.shape[0]
     
-    xx_dtr = np.dot(DTR.T, DTR)
-    xx_dte = np.dot(DTE.T, DTE)
+    xx_dtr = numpy.dot(DTR.T, DTR)
+    xx_dte = numpy.dot(DTE.T, DTE)
     
-    quad_dtr = np.zeros((n_f**2 + n_f, n_train))
-    quad_dte = np.zeros((n_f**2 + n_f, n_eval))
+    quad_dtr = numpy.zeros((n_f**2 + n_f, n_train))
+    quad_dte = numpy.zeros((n_f**2 + n_f, n_eval))
     
     quad_dtr[:n_f**2] = xx_dtr.flatten().reshape(n_f**2, 1)
     quad_dtr[n_f**2:] = DTR.reshape(n_f, -1)
