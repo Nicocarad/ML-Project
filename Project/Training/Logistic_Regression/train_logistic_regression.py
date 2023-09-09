@@ -36,7 +36,7 @@ def LR_RAW(D, L, prior):
     l_values = np.logspace(-5, 2, num=41)
 
     value = [0.5, 0.1, 0.9]
-    prior = 0.5
+    
     
     min_dcf_results_05 = []
     min_dcf_results_01 = []
@@ -63,14 +63,13 @@ def LR_RAW(D, L, prior):
     
 def LR_RAW_Znorm(D, L, prior):
     
-    name = "LR_RAW_Znorm"
     D = znorm(D)
-    print(D.shape)
+    name = "LR_RAW_znorm"
     l_values = np.logspace(-5, 2, num=41)
 
     value = [0.5, 0.1, 0.9]
-    prior = 0.5
-
+    
+    
     min_dcf_results_05 = []
     min_dcf_results_01 = []
     min_dcf_results_09 = []
