@@ -156,22 +156,25 @@ def LR_PCA(D, L, prior):
    
 
    
-def LR_diff_priors(D,L):
-    
-  l = 0
-  regression = Logistic_Regression(l)
-  SPost_1, Label_1 = kfold(regression, 5, D, L, 0.5)
-  res_1 = min_DCF(0.5, 1, 1, Label_1, SPost_1)
-  
-  regression = Logistic_Regression(l)
-  SPost_2, Label_2 = kfold(regression, 5, D, L, 0.5)
-  res_2 = min_DCF(0.1, 1, 1, Label_1, SPost_1)
-  
-  regression = Logistic_Regression(l)
-  SPost_3, Label_3 = kfold(regression, 5, D, L, 0.5)
-  res_3 = min_DCF(0.9, 1, 1, Label_1, SPost_1)
+def LR_diff_priors(D, L):
+    l = 0
+    priors = [(0.5, 0.5), (0.5, 0.1), (0.5, 0.9), (0.1, 0.5), (0.1, 0.1), (0.1, 0.9), (0.9, 0.5), (0.9, 0.1), (0.9, 0.9)]
 
+    for pi_T, pi in priors:
+        regression = Logistic_Regression(l)
+        SPost, Label = kfold(regression, 5, D, L, pi)
+        res = min_DCF(pi_T, 1, 1, Label, SPost)
+        print(f"min_DCF (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
 
+def LR_diff_priors_Znorm(D, L):
+    l = 0
+    priors = [(0.5, 0.5), (0.5, 0.1), (0.5, 0.9), (0.1, 0.5), (0.1, 0.1), (0.1, 0.9), (0.9, 0.5), (0.9, 0.1), (0.9, 0.9)]
+    D = znorm(D)
+    for pi_T, pi in priors:
+        regression = Logistic_Regression(l)
+        SPost, Label = kfold(regression, 5, D, L, pi)
+        res = min_DCF(pi_T, 1, 1, Label, SPost)
+        print(f"min_DCF Znorm (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
 
     
     

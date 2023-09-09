@@ -46,8 +46,10 @@ if __name__ == '__main__':
 # Train LR
 #LR_RAW(D1,L1,0.5)
 #LR_RAW_Znorm(D1,L1,0.5)
-LR_PCA(D1,L1,0.5)
-LR_PCA(D1,L1,0.1)
-LR_PCA(D1,L1,0.9)
+# LR_PCA(D1,L1,0.5)
+# LR_PCA(D1,L1,0.1)
+# LR_PCA(D1,L1,0.9)
+LR_diff_priors(D1,L1)
+LR_diff_priors_Znorm(D1,L1)
 
     
