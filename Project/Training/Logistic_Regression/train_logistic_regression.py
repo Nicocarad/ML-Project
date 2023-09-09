@@ -219,7 +219,7 @@ def Quad_LR_RAW(D, L, prior):
     plt.xlabel('\u03BB')
     plt.xscale('log')
     plt.ylabel("minDCF")
-    plt.title("RAW")
+    
 
     plt.plot(l_values, min_dcf_results_05, label="minDCF(\u03C0 = 0.5) RAW")
     plt.plot(l_values, min_dcf_results_05_znorm, label="minDCF(\u03C0 = 0.5) Z-norm")
