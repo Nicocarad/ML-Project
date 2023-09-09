@@ -96,35 +96,63 @@ def LR_RAW_Znorm(D, L, prior):
     
     
 def LR_PCA(D, L, prior):
-    m_values = [11, 10, 9]
+    
+    m = [11,10,9]
+    
     name = "LR_PCA"
     l_values = np.logspace(-5, 2, num=41)
+
     value = [0.5]
+    
+    
+    min_dcf_results_raw = []
+    min_dcf_results_11 = []
+    min_dcf_results_10 = []
+    min_dcf_results_09 = []
 
-    min_dcf_results = [[] for _ in range(len(m_values))]
+    for l in l_values:
+        regression = Logistic_Regression(l)
+        SPost_1, Label_1 = kfold(regression, 5, D, L, prior)
+        res_1 = min_DCF(value[0], 1, 1, Label_1, SPost_1)
+        min_dcf_results_raw.append(res_1)
+    print("END1")
+    D_11 = PCA(D,11)
+    for l in l_values:
+        regression = Logistic_Regression(l)
+        SPost_2, Label_2 = kfold(regression, 5, D_11, L, prior)
+        res_2 = min_DCF(value[0], 1, 1, Label_2, SPost_2)
+        min_dcf_results_11.append(res_2)
+    print("END2")  
+    D_10 = PCA(D,10)
+    for l in l_values:
+        regression = Logistic_Regression(l)
+        SPost_3, Label_3 = kfold(regression, 5, D_10, L, prior)
+        res_3 = min_DCF(value[0], 1, 1, Label_3, SPost_3)
+        min_dcf_results_10.append(res_3)
+    print("END3") 
+    D_9 = PCA(D,9)
+    for l in l_values:
+        regression = Logistic_Regression(l)
+        SPost_4, Label_4 = kfold(regression, 5, D_9, L, prior)
+        res_4 = min_DCF(value[0], 1, 1, Label_4, SPost_4)
+        min_dcf_results_09.append(res_4)
 
-    for i, m in enumerate(m_values):
-        D_pca = PCA(D, m)
-        
-        for l in l_values:
-            regression = Logistic_Regression(l)
-            SPost, Label = kfold(regression, 5, D_pca, L, prior)
-            res = min_DCF(value[0], 1, 1, Label, SPost)
-            min_dcf_results[i].append(res)
-
+    
     plt.figure()
     plt.xlabel('\u03BB')
     plt.xscale('log')
     plt.ylabel("minDCF")
     plt.title("RAW + PCA")
 
-    m_labels = ['RAW', 'PCA 11', 'PCA 10', 'PCA 9']
-    for i, results in enumerate(min_dcf_results):
-        plt.plot(l_values, results, label=f"minDCF(\u03C0 = 0.5) {m_labels[i]}")
-
+    plt.plot(l_values, min_dcf_results_raw, label="minDCF(\u03C0 = 0.5) RAW")
+    plt.plot(l_values, min_dcf_results_11, label="minDCF(\u03C0 = 0.5) PCA 11")
+    plt.plot(l_values, min_dcf_results_10, label="minDCF(\u03C0 = 0.5) PCA 10")
+    plt.plot(l_values, min_dcf_results_09, label="minDCF(\u03C0 = 0.5) PCA 9")
+    
     plt.xlim(l_values[0], l_values[-1])
     plt.legend()
 
+   
     plt.savefig("Training/Logistic_Regression/Plot/" + name + ".pdf")
     plt.close()
    
