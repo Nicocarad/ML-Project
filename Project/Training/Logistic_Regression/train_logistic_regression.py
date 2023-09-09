@@ -91,9 +91,7 @@ def LR_RAW_Znorm(D, L, prior):
 
         print(i)
     plot_RAW_results(min_dcf_results_05,min_dcf_results_01,min_dcf_results_09,name,"Z-NORM")
-    
-    
-    
+       
     
 def LR_PCA(D, L, prior):
     
@@ -153,13 +151,25 @@ def LR_PCA(D, L, prior):
     plt.legend()
 
    
-    plt.savefig("Training/Logistic_Regression/Plot/" + name + "_" + prior + ".pdf")
+    plt.savefig("Training/Logistic_Regression/Plot/" + name + "_" + str(prior) + ".pdf")
     plt.close()
    
 
    
-
-
+def LR_diff_priors(D,L):
+    
+  l = 0
+  regression = Logistic_Regression(l)
+  SPost_1, Label_1 = kfold(regression, 5, D, L, 0.5)
+  res_1 = min_DCF(0.5, 1, 1, Label_1, SPost_1)
+  
+  regression = Logistic_Regression(l)
+  SPost_2, Label_2 = kfold(regression, 5, D, L, 0.5)
+  res_2 = min_DCF(0.1, 1, 1, Label_1, SPost_1)
+  
+  regression = Logistic_Regression(l)
+  SPost_3, Label_3 = kfold(regression, 5, D, L, 0.5)
+  res_3 = min_DCF(0.9, 1, 1, Label_1, SPost_1)
 
 
 
