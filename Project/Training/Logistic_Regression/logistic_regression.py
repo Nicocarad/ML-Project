@@ -150,6 +150,7 @@ def polynomial_transformation(DTR, DTE):
 
 
 
+
 def stack(array, n_f):
     xx_t = numpy.dot(array, array.T).ravel()  # Calculate xx_t using vectorized dot product and flatten it
     
