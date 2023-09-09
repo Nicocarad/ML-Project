@@ -10,7 +10,7 @@ from Utils.Znorm import *
 
 def plot_RAW_results(min_dcf_05,min_dcf_01,min_dcf_09, name,title):
     
-    lambda_values = np.logspace(-5, 2, num=41)
+    lambda_values = np.logspace(-5, 2, num=8)
     plt.figure()
     plt.xlabel('\u03BB')
     plt.xscale('log')
@@ -24,7 +24,7 @@ def plot_RAW_results(min_dcf_05,min_dcf_01,min_dcf_09, name,title):
     plt.legend()
 
    
-    plt.savefig("Training/Logistic_Regression/Plot/" + name + ".pdf")
+    plt.savefig("Training/Logistic_Regression/Plot/PROVA" + name + ".pdf")
     plt.close()
 
 
@@ -33,7 +33,7 @@ def plot_RAW_results(min_dcf_05,min_dcf_01,min_dcf_09, name,title):
 def LR_RAW(D, L, prior):
     
     name = "LR_RAW"
-    l_values = np.logspace(-5, 2, num=41)
+    l_values = np.logspace(-5, 2, num=8)
 
     value = [0.5, 0.1, 0.9]
     
@@ -180,20 +180,14 @@ def LR_diff_priors(D, L):
     
 
     
-def prova_Quad(D,L):
-    l = 100
-    regression = Quad_Logistic_Regression(l)
-    SPost, Label = kfold(regression, 5, D, L, 0.5)
-    print("SONO ARRIVATO QUI")
-    res = min_DCF(0.5, 1, 1, Label, SPost)
-    print("mind_DCF: ",res)
+
 
 
 
 def Quad_LR_RAW(D, L, prior):
     
     
-    l_values = np.logspace(-5, 2, num=8)
+    l_values = np.logspace(-5, 5, num=11)
 
     value = [0.5]
     
@@ -224,3 +218,37 @@ def Quad_LR_RAW(D, L, prior):
     plt.legend()
     plt.savefig("Training/Logistic_Regression/Plot/Quad_LR_RAW.pdf")
     plt.close()
+    
+    
+    
+    
+    
+def Quad_LR_RAW_Znorm(D, L, prior):
+    
+    name = "Quad_LR_RAW"
+    l_values = np.logspace(-5, 2, num=20)
+
+    value = [0.5, 0.1, 0.9]
+    
+    
+    min_dcf_results_05 = []
+    min_dcf_results_01 = []
+    min_dcf_results_09 = []
+
+    for i, l in enumerate(l_values):
+        regression = Logistic_Regression(l)
+
+        SPost_1, Label_1 = kfold(regression, 5, D, L, prior)
+        res_1 = min_DCF(value[0], 1, 1, Label_1, SPost_1)
+        min_dcf_results_05.append(res_1)
+
+        SPost_2, Label_2 = kfold(regression, 5, D, L, prior)
+        res_2 = min_DCF(value[1], 1, 1, Label_2, SPost_2)
+        min_dcf_results_01.append(res_2)
+
+        SPost_3, Label_3 = kfold(regression, 5, D, L, prior)
+        res_3 = min_DCF(value[2], 1, 1, Label_3, SPost_3)
+        min_dcf_results_09.append(res_3)
+
+        print(i)
+    plot_RAW_results(min_dcf_results_05,min_dcf_results_01,min_dcf_results_09,name,"Z-NORM")
