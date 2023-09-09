@@ -33,7 +33,7 @@ def plot_RAW_results(min_dcf_05,min_dcf_01,min_dcf_09, name,title):
 def LR_RAW(D, L, prior):
     
     name = "LR_RAW"
-    l_values = np.logspace(-5, 2, num=8)
+    l_values = np.logspace(-5, 2, num=41)
 
     value = [0.5, 0.1, 0.9]
     
@@ -187,7 +187,7 @@ def LR_diff_priors(D, L):
 def Quad_LR_RAW(D, L, prior):
     
     
-    l_values = np.logspace(-5, 5, num=11)
+    l_values = np.logspace(-5, 5, num=31)
 
     value = [0.5]
     
@@ -202,7 +202,7 @@ def Quad_LR_RAW(D, L, prior):
         SPost_1, Label_1 = kfold(regression, 5, D, L, prior)
         res_1 = min_DCF(value[0], 1, 1, Label_1, SPost_1)
         min_dcf_results_05.append(res_1)
-      
+        print(i)
       
     D = znorm(D)  
     for i, l in enumerate(l_values):
@@ -211,8 +211,6 @@ def Quad_LR_RAW(D, L, prior):
         SPost_2, Label_2 = kfold(regression, 5, D, L, prior)
         res_2 = min_DCF(value[0], 1, 1, Label_2, SPost_2)
         min_dcf_results_05_znorm.append(res_2)
-
-
         print(i)
     
     plt.figure()
