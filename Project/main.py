@@ -2,6 +2,7 @@ from Utils.load import load
 from Features_Analysis.feature_analysis import *
 from Training.Gaussian.train_gaussian import *
 import numpy
+from Training.Logistic_Regression.train_logistic_regression import *
 
 
 if __name__ == '__main__':
@@ -30,10 +31,14 @@ if __name__ == '__main__':
 #     PCA_plot(D1)
     
     
-# Train Gaussian Classifiers
-train_MVG(D1,L1)
-train_NB(D1,L1)
-train_TMVG(D1,L1)
-train_TNB(D1,L1)
+# # Train Gaussian Classifiers
+# train_MVG(D1,L1)
+# train_NB(D1,L1)
+# train_TMVG(D1,L1)
+# train_TNB(D1,L1)
+
+
+# Train LR
+LR_RAW(D1,L1)
 
     
