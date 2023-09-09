@@ -97,7 +97,7 @@ def LR_RAW_Znorm(D, L, prior):
     
 def LR_PCA(D, L, prior):
     
-    m = [11,10,9]
+   
     
     name = "LR_PCA"
     l_values = np.logspace(-5, 2, num=41)
@@ -153,7 +153,7 @@ def LR_PCA(D, L, prior):
     plt.legend()
 
    
-    plt.savefig("Training/Logistic_Regression/Plot/" + name + ".pdf")
+    plt.savefig("Training/Logistic_Regression/Plot/" + name + "_" + prior + ".pdf")
     plt.close()
    
 
