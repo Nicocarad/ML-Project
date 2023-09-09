@@ -64,7 +64,9 @@ class Logistic_Regression:
 
 
 
-class   Quad_Logistic_Regression:
+
+
+class Quad_Logistic_Regression:
     def __init__(self, l):
         self.DTR = 0
         self.LTR = 0
@@ -76,11 +78,9 @@ class   Quad_Logistic_Regression:
         self.scores = 0
 
     def train(self, DTR, LTR, DTE, eff_prior):
-        
-        new_DTR,new_DTE = polynomial_transformation(DTR,DTE)
-        self.DTR = new_DTR
+
+        self.DTR, self.DTE = polynomial_transformation(DTR, DTE)
         self.LTR = LTR
-        self.DTE = new_DTE
         self.eff_prior = eff_prior
         
         x, _, _ = fmin_l_bfgs_b(
@@ -115,39 +115,12 @@ class   Quad_Logistic_Regression:
 
     def compute_scores(self):
         self.scores = numpy.dot(self.w.T, self.DTE) + self.b
-        
-        
-        
-    
-    
-    
-    
-
-
-
 
 def polynomial_transformation(DTR, DTE):
-    n_train = DTR.shape[1]
-    n_eval = DTE.shape[1]
-    n_f = DTR.shape[0]
+    quad_dtr = numpy.concatenate((numpy.outer(DTR.ravel(), DTR.ravel()), DTR), axis=0)
+    quad_dte = numpy.concatenate((numpy.outer(DTE.ravel(), DTE.ravel()), DTE), axis=0)
 
-    quad_dtr = numpy.zeros((n_f**2 + n_f, n_train))
-    quad_dte = numpy.zeros((n_f**2 + n_f, n_eval))
+    return quad_dtr, quad_dte
 
-    for i in range(n_train):
-        quad_dtr[:, i:i + 1] = stack(DTR[:, i:i + 1], n_f)
-    for i in range(n_eval):
-        quad_dte[:, i:i + 1] = stack(DTE[:, i:i + 1], n_f)
-
-    return quad_dtr, quad_dte 
-
-def stack(array, n_f):
-    xx_t = numpy.dot(array, array.T).ravel()  # Calculate xx_t using vectorized dot product and flatten it
-    
-    column = numpy.zeros((n_f ** 2 + n_f, 1))
-    column[:n_f**2] = xx_t.reshape(n_f**2, 1)
-    column[n_f**2:] = array.reshape(n_f, 1)
-    
-    return column
 
 
