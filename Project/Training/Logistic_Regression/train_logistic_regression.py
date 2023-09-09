@@ -193,6 +193,7 @@ def Quad_LR_RAW(D, L, prior):
     
     
     min_dcf_results_05 = []
+    min_dcf_results_05_znorm = []
     
 
     for i, l in enumerate(l_values):
@@ -201,6 +202,15 @@ def Quad_LR_RAW(D, L, prior):
         SPost_1, Label_1 = kfold(regression, 5, D, L, prior)
         res_1 = min_DCF(value[0], 1, 1, Label_1, SPost_1)
         min_dcf_results_05.append(res_1)
+      
+      
+    D = znorm(D)  
+    for i, l in enumerate(l_values):
+        regression = Quad_Logistic_Regression(l)
+
+        SPost_2, Label_2 = kfold(regression, 5, D, L, prior)
+        res_2 = min_DCF(value[0], 1, 1, Label_2, SPost_2)
+        min_dcf_results_05_znorm.append(res_2)
 
 
         print(i)
@@ -212,43 +222,14 @@ def Quad_LR_RAW(D, L, prior):
     plt.title("RAW")
 
     plt.plot(l_values, min_dcf_results_05, label="minDCF(\u03C0 = 0.5) RAW")
+    plt.plot(l_values, min_dcf_results_05_znorm, label="minDCF(\u03C0 = 0.5) Z-norm")
     
     
     plt.xlim(l_values[0], l_values[-1])
     plt.legend()
-    plt.savefig("Training/Logistic_Regression/Plot/Quad_LR_RAW.pdf")
+    plt.savefig("Training/Logistic_Regression/Plot/Quad_LR.pdf")
     plt.close()
     
     
     
     
-    
-def Quad_LR_RAW_Znorm(D, L, prior):
-    
-    name = "Quad_LR_RAW"
-    l_values = np.logspace(-5, 2, num=20)
-
-    value = [0.5, 0.1, 0.9]
-    
-    
-    min_dcf_results_05 = []
-    min_dcf_results_01 = []
-    min_dcf_results_09 = []
-
-    for i, l in enumerate(l_values):
-        regression = Logistic_Regression(l)
-
-        SPost_1, Label_1 = kfold(regression, 5, D, L, prior)
-        res_1 = min_DCF(value[0], 1, 1, Label_1, SPost_1)
-        min_dcf_results_05.append(res_1)
-
-        SPost_2, Label_2 = kfold(regression, 5, D, L, prior)
-        res_2 = min_DCF(value[1], 1, 1, Label_2, SPost_2)
-        min_dcf_results_01.append(res_2)
-
-        SPost_3, Label_3 = kfold(regression, 5, D, L, prior)
-        res_3 = min_DCF(value[2], 1, 1, Label_3, SPost_3)
-        min_dcf_results_09.append(res_3)
-
-        print(i)
-    plot_RAW_results(min_dcf_results_05,min_dcf_results_01,min_dcf_results_09,name,"Z-NORM")
