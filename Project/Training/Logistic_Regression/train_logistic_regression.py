@@ -222,3 +222,5 @@ def Quad_LR_RAW(D, L, prior):
     
     plt.xlim(l_values[0], l_values[-1])
     plt.legend()
+    plt.savefig("Training/Logistic_Regression/Plot/Quad_LR_RAW.pdf")
+    plt.close()
