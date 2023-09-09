@@ -106,5 +106,8 @@ def train_TNB(D,L):
             print(f"Min DCF ({classifier.name}, {value}): {round(res, 3)}")       
             
             
-            
+
+    
+    
+    
     

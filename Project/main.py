@@ -8,9 +8,12 @@ from Training.Logistic_Regression.train_logistic_regression import *
 if __name__ == '__main__':
 
 
+# Dataset Load
+      D1, L1 = load('Dataset/Train.txt')
+      D2, L2 = load('Dataset/Test.txt')
+      
 # Dataset Info
-    D1, L1 = load('Dataset/Train.txt')
-    D2, L2 = load('Dataset/Test.txt')
+    
 #     num_label_0 = numpy.count_nonzero(L1 == 0)
 #     num_label_1 = numpy.count_nonzero(L1 == 1)
 #     num_label_0 = numpy.count_nonzero(L2 == 0)
@@ -22,6 +25,7 @@ if __name__ == '__main__':
     
     
 # #Feature Analysis
+
 #     plot_centered_hist(D1, L1, "true")
 #     plot_scatter(D1,L1)
 #     plot_LDA_hist(D1,L1,1)
@@ -32,6 +36,7 @@ if __name__ == '__main__':
     
     
 # # Train Gaussian Classifiers
+
 # train_MVG(D1,L1)
 # train_NB(D1,L1)
 # train_TMVG(D1,L1)
@@ -39,6 +44,7 @@ if __name__ == '__main__':
 
 
 # Train LR
-LR_RAW(D1,L1)
+LR_RAW(D1,L1,0.5)
+LR_RAW_Znorm(D1,L1,0.5)
 
     

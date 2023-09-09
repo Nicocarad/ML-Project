@@ -5,7 +5,6 @@ import numpy
 
 def confusionMatrix(Real,Predicted):
     K = Real.max() + 1 # number of classes
-    
     confMatrix = numpy.zeros((K,K), dtype=int)
     
     numpy.add.at(confMatrix, (Predicted, Real), 1)
