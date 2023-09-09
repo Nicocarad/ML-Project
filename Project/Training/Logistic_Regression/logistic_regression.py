@@ -124,6 +124,7 @@ class   Quad_Logistic_Regression:
     
 
 
+
 def polynomial_transformation(DTR, DTE):
     n_train = DTR.shape[1]
     n_eval = DTE.shape[1]
@@ -139,9 +140,10 @@ def stack(array):
     xx_t = numpy.dot(array, array.T)
     
     column = numpy.zeros((n_f ** 2 + n_f, array.shape[1]))
-    column[:n_f**2] = xx_t.reshape(n_f**2, array.shape[1])
+    column[:n_f**2] = xx_t.reshape(n_f**2, 1)
     column[n_f**2:] = array
     
     return column
+
 
 
