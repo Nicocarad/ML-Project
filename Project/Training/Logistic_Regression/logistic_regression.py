@@ -64,9 +64,7 @@ class Logistic_Regression:
 
 
 
-
-
-class Quad_Logistic_Regression:
+class   Quad_Logistic_Regression:
     def __init__(self, l):
         self.DTR = 0
         self.LTR = 0
@@ -78,9 +76,11 @@ class Quad_Logistic_Regression:
         self.scores = 0
 
     def train(self, DTR, LTR, DTE, eff_prior):
-
-        self.DTR, self.DTE = polynomial_transformation(DTR, DTE)
+        
+        new_DTR,new_DTE = polynomial_transformation(DTR,DTE)
+        self.DTR = new_DTR
         self.LTR = LTR
+        self.DTE = new_DTE
         self.eff_prior = eff_prior
         
         x, _, _ = fmin_l_bfgs_b(
@@ -115,12 +115,51 @@ class Quad_Logistic_Regression:
 
     def compute_scores(self):
         self.scores = numpy.dot(self.w.T, self.DTE) + self.b
+        
+        
+        
+    
+    
+    
+    
+
+
+
 
 def polynomial_transformation(DTR, DTE):
-    quad_dtr = numpy.concatenate((numpy.outer(DTR.ravel(), DTR.ravel()), DTR), axis=0)
-    quad_dte = numpy.concatenate((numpy.outer(DTE.ravel(), DTE.ravel()), DTE), axis=0)
+    n_train = DTR.shape[1]
+    n_eval = DTE.shape[1]
+    n_f = DTR.shape[0]
+
+    # Reshape DTR and DTE to have shape (n_f, 1, n_train) and (n_f, 1, n_eval) respectively
+    DTR_reshaped = DTR.reshape(n_f, 1, n_train)
+    DTE_reshaped = DTE.reshape(n_f, 1, n_eval)
+
+    # Create an array with shape (n_f**2 + n_f, 1, n_train)
+    quad_dtr = numpy.zeros((n_f**2 + n_f, 1, n_train))
+    quad_dte = numpy.zeros((n_f**2 + n_f, 1, n_eval))
+
+    # Compute the outer product and stack horizontally
+    quad_dtr[:n_f**2] = DTR_reshaped * DTR_reshaped.transpose(1, 0, 2)
+    quad_dtr[n_f**2:] = DTR_reshaped
+    
+    quad_dte[:n_f**2] = DTE_reshaped * DTE_reshaped.transpose(1, 0, 2)
+    quad_dte[n_f**2:] = DTE_reshaped
+
+    # Reshape quad_dtr and quad_dte to have shape (n_f**2 + n_f, n_train) and (n_f**2 + n_f, n_eval) respectively
+    quad_dtr = quad_dtr.squeeze()
+    quad_dte = quad_dte.squeeze()
 
     return quad_dtr, quad_dte
 
+
+def stack(array, n_f):
+    xx_t = numpy.dot(array, array.T).ravel()  # Calculate xx_t using vectorized dot product and flatten it
+    
+    column = numpy.zeros((n_f ** 2 + n_f, 1))
+    column[:n_f**2] = xx_t.reshape(n_f**2, 1)
+    column[n_f**2:] = array.reshape(n_f, 1)
+    
+    return column
 
 
