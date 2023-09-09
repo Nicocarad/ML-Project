@@ -125,6 +125,7 @@ class   Quad_Logistic_Regression:
 
 
 
+
 def polynomial_transformation(DTR, DTE):
     n_train = DTR.shape[1]
     n_eval = DTE.shape[1]
