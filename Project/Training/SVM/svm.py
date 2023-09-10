@@ -1,13 +1,8 @@
 import numpy
 from scipy.optimize import fmin_l_bfgs_b
+from Training.SVM.svm_utils import *
 
 
-def mcol(v):
-    return v.reshape((v.size, 1))
-
-
-def mrow(array):
-    return array.reshape((1,array.size))
 
 
 
@@ -34,7 +29,7 @@ class Linear_SVM:
         g_hat = numpy.dot(d_hat.T, d_hat)
         z = 2 * self.LTR - 1
         h_hat = numpy.outer(z, z) * g_hat
-        obj = obj_svm_wrapper(h_hat)
+        obj = compute_lagrangian_wrapper(h_hat)
         alpha, _, _ = fmin_l_bfgs_b(
             obj,
             numpy.zeros(self.LTR.size),
@@ -54,22 +49,7 @@ class Linear_SVM:
  
  
         
-def compute_weights(C, LTR, prior):
-    bounds = numpy.zeros((LTR.shape[0]))
-    empirical_pi_t = (LTR == 1).sum() / LTR.shape[0]
-    bounds[LTR == 1] = C * prior[1] / empirical_pi_t
-    bounds[LTR == 0] = C * prior[0] / (1 - empirical_pi_t)
-    return list(zip(numpy.zeros(LTR.shape[0]), bounds))
 
-
-def obj_svm_wrapper(H_hat):
-    def obj_svm(alpha):
-        alpha = mcol(alpha)
-        gradient = mrow(H_hat.dot(alpha) - numpy.ones((alpha.shape[0], 1)))
-        obj_l = 0.5 * alpha.T.dot(H_hat).dot(alpha) - alpha.T @ numpy.ones(alpha.shape[0])
-        return obj_l, gradient
-
-    return obj_svm
 
 
 
@@ -99,7 +79,7 @@ class PolynomialSvm:
         z = self.LTR * 2 - 1
         k_dtr = ((numpy.dot(self.DTR.T, self.DTR) + self.c) ** self.d) + (self.K ** 2)
         h_hat = mcol(z) * mrow(z) * k_dtr
-        dual_obj = obj_svm_wrapper(h_hat)
+        dual_obj = compute_lagrangian_wrapper(h_hat)
         alpha, _, _ = fmin_l_bfgs_b(
             dual_obj,
             numpy.zeros(self.DTR.shape[1]),
@@ -144,7 +124,7 @@ class RadialKernelBasedSvm:
                 kernel_dtr[i][j] = numpy.exp(
                     - self.gamma * numpy.linalg.norm(self.DTR[:, i] - self.DTR[:, j]) ** 2) + self.K ** 2
         h_hat = mcol(z) * mrow(z) * kernel_dtr
-        dual_obj = obj_svm_wrapper(h_hat)
+        dual_obj = compute_lagrangian_wrapper(h_hat)
         alpha, _, _ = fmin_l_bfgs_b(
             dual_obj,
             numpy.zeros(self.DTR.shape[1]),
@@ -161,4 +141,5 @@ class RadialKernelBasedSvm:
                 dist[i][j] += numpy.exp(-self.gamma * numpy.linalg.norm(self.DTR[:, i:i+1] - self.DTE[:, j:j+1]) ** 2) + (self.K)**2
         self.scores = (mcol(self.alpha) * mcol(z) * dist).sum(0)
 
-    
+
+
