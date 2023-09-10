@@ -231,3 +231,12 @@ def Quad_LR_RAW(D, L, prior):
     
     
     
+def Quad_LR_diff_priors(D, L):
+    l = 100
+    priors = [(0.5, 0.5), (0.5, 0.1), (0.5, 0.9), (0.1, 0.5), (0.1, 0.1), (0.1, 0.9), (0.9, 0.5), (0.9, 0.1), (0.9, 0.9)]
+
+    for pi_T, pi in priors:
+        regression = Quad_Logistic_Regression(l)
+        SPost, Label = kfold(regression, 5, D, L, pi_T)
+        res = min_DCF(pi, 1, 1, Label, SPost)
+        print(f"min_DCF (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
