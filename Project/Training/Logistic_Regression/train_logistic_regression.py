@@ -163,6 +163,7 @@ def LR_diff_priors(D, L):
     for pi_T, pi in priors:
         regression = Logistic_Regression(l)
         SPost, Label = kfold(regression, 5, D, L, pi_T)
+        print("Before DCF", SPost.shape)
         res = min_DCF(pi, 1, 1, Label, SPost)
         print(f"min_DCF (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
 

@@ -35,7 +35,7 @@ def kfold(model, k, D, L, eff_prior=None, seed=4):
         print(i)
 
     S = np.hstack(SPost_partial)
-
+    print("Inside K-FOLD",S.shape)
     return S, Label
 
 
