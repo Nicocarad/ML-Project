@@ -9,15 +9,7 @@ from Utils.Znorm import *
 
 
 
-def Lin_SVM(D,L):
-    
-    linear_svm = Linear_SVM(1,10)
 
-    SPost_1, Label_1 = kfold(linear_svm, 5, D, L, 0.5)
-    print("Before DCF", SPost_1.shape)
-    res_1 = min_DCF(0.5, 1, 1, Label_1, SPost_1)
-    print("min_DCF", res_1)
-    
     
     
 def SVM_RAW_znorm_01(D, L, prior):
