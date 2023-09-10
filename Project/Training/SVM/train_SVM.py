@@ -379,6 +379,7 @@ def RadKernBased_znorm(D, L, prior):
 
 
 def test(D,L):
+    D = znorm(D)
     svm = RadialKernelBasedSvm(1,10,0.01)
     SPost_3, Label_3 = kfold(svm, 5, D, L, 0.5)
     res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)

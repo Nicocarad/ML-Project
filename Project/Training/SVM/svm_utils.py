@@ -11,7 +11,7 @@ def mrow(array):
 
 
 
-def compute_weights(C, LTR, prior):
+def weighted_bounds(C, LTR, prior):
     bounds = numpy.zeros(LTR.shape[0])
     emp = numpy.sum(LTR == 1) / LTR.shape[0]
     
