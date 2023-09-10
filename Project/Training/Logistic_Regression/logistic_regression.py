@@ -4,12 +4,6 @@ from scipy.optimize import fmin_l_bfgs_b
 
 
 
-
-
-
-
-
-
 class Logistic_Regression:
     def __init__(self, l):
         self.DTR = 0

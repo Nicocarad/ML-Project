@@ -12,9 +12,6 @@ def mrow(array):
 
 
 
-
-
-
 class Linear_SVM:
     
     def __init__(self,K,C):
@@ -26,8 +23,6 @@ class Linear_SVM:
         self.priors = 0
         self.w = None
         self.scores = 0
-        self.w_star = 0
-        self.b_star = 0
         
     def train(self, DTR, LTR, DTE, eff_prior):
         self.DTR = DTR
@@ -75,3 +70,44 @@ def obj_svm_wrapper(H_hat):
         return obj_l, gradient
 
     return obj_svm
+
+
+
+class PolynomialSvm:
+
+    def __init__(self, K, C, d, c):
+        
+        self.DTR = 0
+        self.LTR = 0
+        self.DTE = 0
+        self.K = K
+        self.C = C
+        self.c = c
+        self.d = d
+        self.priors = 0
+        self.scores = 0
+        self.alpha = None
+
+   
+
+    def train(self, DTR, LTR, DTE, eff_prior):
+        self.DTR = DTR
+        self.LTR = LTR
+        self.DTE = DTE
+        self.priors = [eff_prior, 1 - eff_prior]
+
+        z = self.LTR * 2 - 1
+        k_dtr = ((numpy.dot(self.DTR.T, self.DTR) + self.c) ** self.d) + (self.K ** 2)
+        h_hat = mcol(z) * mrow(z) * k_dtr
+        dual_obj = obj_svm_wrapper(h_hat)
+        alpha, _, _ = fmin_l_bfgs_b(
+            dual_obj,
+            numpy.zeros(self.DTR.shape[1]),
+            bounds=compute_weights(self.C, self.LTR, self.priors),
+            factr=1.0)
+        self.alpha = alpha
+
+    def compute_scores(self):
+        z = self.LTR * 2 - 1
+        self.scores = (
+                mcol(self.alpha) * mcol(z) * ((self.DTR.T.dot(self.DTE) + self.c) ** self.d + self.K ** 2)).sum(0)

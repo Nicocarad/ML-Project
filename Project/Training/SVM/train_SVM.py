@@ -101,3 +101,27 @@ def SVM_RAW_znorm_09(D, L, prior):
     plt.legend()
     plt.savefig("Training/SVM/Plot/Lin_SVM_RAW_Znorm_09.pdf")
     plt.close()
+    
+    
+    
+    
+def SVM_diff_priors(D, L):
+    C = 10
+    priors = [(0.5, 0.5), (0.5, 0.1), (0.5, 0.9), (0.1, 0.5), (0.1, 0.1), (0.1, 0.9), (0.9, 0.5), (0.9, 0.1), (0.9, 0.9)]
+
+    for pi_T, pi in priors:
+        svm = Linear_SVM(1,C)
+        SPost, Label = kfold(svm, 5, D, L, pi_T)
+        res = min_DCF(pi, 1, 1, Label, SPost)
+        print(f"min_DCF (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
+        
+
+def SVM_diff_priors_znorm(D, L):
+    C = 10
+    priors = [(0.5, 0.5), (0.5, 0.1), (0.5, 0.9), (0.1, 0.5), (0.1, 0.1), (0.1, 0.9), (0.9, 0.5), (0.9, 0.1), (0.9, 0.9)]
+    D = znorm(D)
+    for pi_T, pi in priors:
+        svm = Linear_SVM(1,C)
+        SPost, Label = kfold(svm, 5, D, L, pi_T)
+        res = min_DCF(pi, 1, 1, Label, SPost)
+        print(f"min_DCF_znorm (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
