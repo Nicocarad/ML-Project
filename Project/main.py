@@ -65,8 +65,9 @@ if __name__ == '__main__':
 #SVM_diff_priors_znorm(D1, L1)
 
 # DA FARE
-Poly_SVM_RAW_znorm_05(D1, L1, 0.5)
-Poly_SVM_RAW_znorm_01(D1, L1, 0.5)
-Poly_SVM_RAW_znorm_09(D1, L1, 0.5)
+# Poly_SVM_RAW_znorm_05(D1, L1, 0.5)
+# Poly_SVM_RAW_znorm_01(D1, L1, 0.5)
+# Poly_SVM_RAW_znorm_09(D1, L1, 0.5)
 
-#test(D1,L1)
+RadKernBased_RAW(D1,L1,0.5)
+RadKernBased_znorm(D1,L1,0.5)
