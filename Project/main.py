@@ -3,6 +3,7 @@ from Features_Analysis.feature_analysis import *
 from Training.Gaussian.train_gaussian import *
 import numpy
 from Training.Logistic_Regression.train_logistic_regression import *
+from Training.SVM.train_SVM import *
 
 
 if __name__ == '__main__':
@@ -51,7 +52,11 @@ if __name__ == '__main__':
 # LR_PCA(D1,L1,0.9)
 #LR_diff_priors(D1,L1)
 #Quad_LR_RAW(D1, L1, 0.5)
-Quad_LR_diff_priors(D1, L1)
+#Quad_LR_diff_priors(D1, L1)
+#Quad_LR_diff_priors_Zscore(D1, L1)
 
 
+# Train SVM
+
+Lin_SVM(D1,L1)
     
