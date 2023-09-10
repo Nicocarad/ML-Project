@@ -4,20 +4,14 @@ from Utils.Kfold import kfold
 import matplotlib.pyplot as plt
 from Utils.Znorm import *
 
-
-
-
-
-
-
-    
+ 
     
 def SVM_RAW_znorm_01(D, L, prior):
     
     
     C_values = numpy.logspace(-5, 5, num=11)
 
-    value = [0.5]
+    
     
     
     min_dcf_results_05 = []
@@ -63,7 +57,7 @@ def SVM_RAW_znorm_09(D, L, prior):
     
     C_values = numpy.logspace(-5, 5, num=11)
 
-    value = [0.5]
+   
     
     
     min_dcf_results_05 = []
@@ -126,8 +120,7 @@ def SVM_diff_priors_znorm(D, L):
         res = min_DCF(pi, 1, 1, Label, SPost)
         print(f"min_DCF_znorm (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
         
-        
-        
+                
         
 def Poly_SVM_RAW_znorm_05(D, L, prior):
     
@@ -260,3 +253,14 @@ def Poly_SVM_RAW_znorm_09(D, L, prior):
     plt.legend()
     plt.savefig("Training/SVM/Plot/Poly_SVM_RAW_Znorm_09.pdf")
     plt.close()   
+    
+    
+    
+def test(D,L):
+    
+    
+    svm = RadialKernelBasedSvm(1,0.00001,0.1)
+
+    SPost_1, Label_1 = kfold(svm, 5, D, L, 0.5)
+    res_1 = min_DCF(0.5, 1, 1, Label_1, SPost_1)
+    print("min_dcf", res_1)
