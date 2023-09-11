@@ -281,7 +281,7 @@ def RadKernBased_RAW(D, L, prior):
     
 
     for i, c in enumerate(C_values):
-        svm = RadialKernelBasedSvm(1,c,1)
+        svm = RadialKernelBasedSvm(1,c,0.1)
 
         SPost_1, Label_1 = kfold(svm, 5, D, L, prior)
         res_1 = min_DCF(0.5, 1, 1, Label_1, SPost_1)
@@ -290,7 +290,7 @@ def RadKernBased_RAW(D, L, prior):
       
       
     for i, c in enumerate(C_values):
-        svm = RadialKernelBasedSvm(1,c,0.1)
+        svm = RadialKernelBasedSvm(1,c,0.01)
 
         SPost_2, Label_2 = kfold(svm, 5, D, L, prior)
         res_2 = min_DCF(0.5, 1, 1, Label_2, SPost_2)
@@ -298,7 +298,7 @@ def RadKernBased_RAW(D, L, prior):
         print(i)
         
     for i, c in enumerate(C_values):
-        svm = RadialKernelBasedSvm(1,c,0.01)
+        svm = RadialKernelBasedSvm(1,c,0.001)
 
         SPost_3, Label_3 = kfold(svm, 5, D, L, prior)
         res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
@@ -311,9 +311,9 @@ def RadKernBased_RAW(D, L, prior):
     plt.ylabel("minDCF")
     
     
-    plt.plot(C_values, min_dcf_results_log1, label="logγ = 0")
-    plt.plot(C_values, min_dcf_results_log2, label="logγ = -1")
-    plt.plot(C_values, min_dcf_results_log3, label="logγ = -2")
+    plt.plot(C_values, min_dcf_results_log1, label="logγ = -1")
+    plt.plot(C_values, min_dcf_results_log2, label="logγ = -2")
+    plt.plot(C_values, min_dcf_results_log3, label="logγ = -3")
     
     
     
@@ -326,8 +326,8 @@ def RadKernBased_znorm(D, L, prior):
     
     
     C_values = numpy.logspace(-5, 5, num=11)
+
     D = znorm(D)
-    
     min_dcf_results_log1= []
     min_dcf_results_log2 = []
     min_dcf_results_log3 = []
@@ -335,7 +335,7 @@ def RadKernBased_znorm(D, L, prior):
     
 
     for i, c in enumerate(C_values):
-        svm = RadialKernelBasedSvm(1,c,1)
+        svm = RadialKernelBasedSvm(1,c,0.1)
 
         SPost_1, Label_1 = kfold(svm, 5, D, L, prior)
         res_1 = min_DCF(0.5, 1, 1, Label_1, SPost_1)
@@ -344,7 +344,7 @@ def RadKernBased_znorm(D, L, prior):
       
       
     for i, c in enumerate(C_values):
-        svm = RadialKernelBasedSvm(1,c,0.1)
+        svm = RadialKernelBasedSvm(1,c,0.01)
 
         SPost_2, Label_2 = kfold(svm, 5, D, L, prior)
         res_2 = min_DCF(0.5, 1, 1, Label_2, SPost_2)
@@ -352,7 +352,7 @@ def RadKernBased_znorm(D, L, prior):
         print(i)
         
     for i, c in enumerate(C_values):
-        svm = RadialKernelBasedSvm(1,c,0.01)
+        svm = RadialKernelBasedSvm(1,c,0.001)
 
         SPost_3, Label_3 = kfold(svm, 5, D, L, prior)
         res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
@@ -365,9 +365,9 @@ def RadKernBased_znorm(D, L, prior):
     plt.ylabel("minDCF")
     
     
-    plt.plot(C_values, min_dcf_results_log1, label="logγ = 0")
-    plt.plot(C_values, min_dcf_results_log2, label="logγ = -1")
-    plt.plot(C_values, min_dcf_results_log3, label="logγ = -2")
+    plt.plot(C_values, min_dcf_results_log1, label="logγ = -1")
+    plt.plot(C_values, min_dcf_results_log2, label="logγ = -2")
+    plt.plot(C_values, min_dcf_results_log3, label="logγ = -3")
     
     
     
@@ -379,8 +379,8 @@ def RadKernBased_znorm(D, L, prior):
 
 
 def test(D,L):
-    D = znorm(D)
-    svm = RadialKernelBasedSvm(1,10,0.01)
+    
+    svm = RadialKernelBasedSvm(1,0.00001,0.001)
     SPost_3, Label_3 = kfold(svm, 5, D, L, 0.5)
     res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
     print("min_dcf",res_3)
