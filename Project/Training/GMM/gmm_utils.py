@@ -47,7 +47,7 @@ def lbg_algorithm(iterations, X, start_gmm, alpha, psi, covariance_func=None):
     start_gmm = em_algorithm(X, start_gmm, psi, covariance_func)
 
     for i in range(iterations):
-        gmm_new = list()
+        gmm_new = []
         for g in start_gmm:
             new_w = g[0]/2
             
@@ -115,7 +115,7 @@ def em_algorithm(X, gmm, psi, covariance_func=None):
         
     return gmm
 
-def compute_gmm_scores(D, L, gmm):
+def gmm_scores(D, L, gmm):
     scores = numpy.zeros((numpy.unique(L).size, D.shape[1]))
     for classes in range(numpy.unique(L).size):
         scores[classes, :] = numpy.exp(logpdf_gmm(D, gmm[classes]))

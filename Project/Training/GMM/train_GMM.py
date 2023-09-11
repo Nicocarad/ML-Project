@@ -12,13 +12,12 @@ import matplotlib.pyplot as plt
 def test_gmm(D,L):
     
     gmm = GMM_TiedDiagonal(4)
-    SPost_3, Label_3 = kfold(gmm, 5, D, L, None)
-    res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
-    print("min_dcf",res_3)
+    SPost, Label = kfold(gmm, 5, D, L, None)
+    res = min_DCF(0.5, 1, 1, Label, SPost)
+    print("min_dcf", res)
     
     
     
-
 
 def GMM_plot_diff_component(D, L):
     min_dcf_values = []
@@ -26,18 +25,16 @@ def GMM_plot_diff_component(D, L):
     
     for i in range(5):
         gmm = GMM(i)
-        SPost_3, Label_3 = kfold(gmm, 5, D, L, None)
-        res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
-        print("min_dcf",res_3)
-        min_dcf_values.append(res_3)
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(0.5, 1, 1, Label, SPost)
+        min_dcf_values.append(res)
         
     D = znorm(D)
     for i in range(5):
         gmm = GMM(i)
-        SPost_3, Label_3 = kfold(gmm, 5, D, L, None)
-        res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
-        print("min_dcf",res_3)
-        min_dcf_values_znorm.append(res_3)    
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(0.5, 1, 1, Label, SPost)
+        min_dcf_values_znorm.append(res)    
     
     plt.figure()
     plt.xlabel("GMM components")
@@ -64,24 +61,22 @@ def GMM_plot_diff_component(D, L):
     
     
     
-def GMM_plot_diff_component_PCA(D, L):
+def GMM_plot_diff_component_PCA(D, L, m):
     min_dcf_values_pca = []
     min_dcf_values = []
     
     for i in range(5):
         gmm = GMM(i)
-        SPost_3, Label_3 = kfold(gmm, 5, D, L, None)
-        res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
-        print("min_dcf",res_3)
-        min_dcf_values.append(res_3)
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(0.5, 1, 1, Label, SPost)
+        min_dcf_values.append(res)
         
     D = PCA(D,10)
     for i in range(5):
         gmm = GMM(i)
-        SPost_3, Label_3 = kfold(gmm, 5, D, L, None)
-        res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
-        print("min_dcf",res_3)
-        min_dcf_values_pca.append(res_3)    
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(0.5, 1, 1, Label, SPost)
+        min_dcf_values_pca.append(res)    
     
     plt.figure()
     plt.xlabel("GMM components")
@@ -93,13 +88,13 @@ def GMM_plot_diff_component_PCA(D, L):
     plt.bar(x_axis + 0.00, min_dcf_values, width=0.25, linewidth=1.0, edgecolor='black', color="Red",
             label="RAW")
     plt.bar(x_axis + 0.25, min_dcf_values_pca, width=0.25, linewidth=1.0, edgecolor='black', color="Orange",
-            label="PCA m=10")
+            label="PCA m= " +str(m))
 
     plt.xticks([r + 0.125 for r in range(len(bounds))], [2**i for i in bounds])
     plt.legend()
 
     
-    plt.savefig("Training/GMM/Plot/Std_GMM_RAW+PCA10.pdf")
+    plt.savefig("Training/GMM/Plot/Std_GMM_RAW+PCA"+str(m)+".pdf")
     
     
     
@@ -113,18 +108,16 @@ def GMM_Tied_plot_diff_component(D, L):
     
     for i in range(5):
         gmm = GMM_Tied(i)
-        SPost_3, Label_3 = kfold(gmm, 5, D, L, None)
-        res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
-        print("min_dcf",res_3)
-        min_dcf_values.append(res_3)
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(0.5, 1, 1, Label, SPost)
+        min_dcf_values.append(res)
         
     D = znorm(D)
     for i in range(5):
         gmm = GMM_Tied(i)
-        SPost_3, Label_3 = kfold(gmm, 5, D, L, None)
-        res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
-        print("min_dcf",res_3)
-        min_dcf_values_znorm.append(res_3)    
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(0.5, 1, 1, Label, SPost)
+        min_dcf_values_znorm.append(res)    
     
     plt.figure()
     plt.xlabel("Tied_GMM components")
@@ -150,24 +143,22 @@ def GMM_Tied_plot_diff_component(D, L):
     
     
     
-def GMM_Tied_plot_diff_component_PCA(D, L):
+def GMM_Tied_plot_diff_component_PCA(D, L, m):
     min_dcf_values_pca = []
     min_dcf_values = []
     
     for i in range(5):
         gmm = GMM_Tied(i)
-        SPost_3, Label_3 = kfold(gmm, 5, D, L, None)
-        res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
-        print("min_dcf",res_3)
-        min_dcf_values.append(res_3)
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(0.5, 1, 1, Label, SPost)
+        min_dcf_values.append(res)
         
-    D = PCA(D,10)
+    D = PCA(D,m)
     for i in range(5):
         gmm = GMM_Tied(i)
-        SPost_3, Label_3 = kfold(gmm, 5, D, L, None)
-        res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
-        print("min_dcf",res_3)
-        min_dcf_values_pca.append(res_3)    
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(0.5, 1, 1, Label, SPost)
+        min_dcf_values_pca.append(res)    
     
     plt.figure()
     plt.xlabel("Tied_GMM components")
@@ -179,13 +170,13 @@ def GMM_Tied_plot_diff_component_PCA(D, L):
     plt.bar(x_axis + 0.00, min_dcf_values, width=0.25, linewidth=1.0, edgecolor='black', color="Red",
             label="RAW")
     plt.bar(x_axis + 0.25, min_dcf_values_pca, width=0.25, linewidth=1.0, edgecolor='black', color="Orange",
-            label="PCA m=10")
+            label="PCA m = " + str(m))
 
     plt.xticks([r + 0.125 for r in range(len(bounds))], [2**i for i in bounds])
     plt.legend()
 
     
-    plt.savefig("Training/GMM/Plot/Tied_GMM_RAW+PCA10.pdf")
+    plt.savefig("Training/GMM/Plot/Tied_GMM_RAW+PCA" + str(m) + ".pdf")
     
     
     
@@ -198,18 +189,16 @@ def GMM_Diagonal_plot_diff_component(D, L):
     
     for i in range(5):
         gmm = GMM_Diagonal(i)
-        SPost_3, Label_3 = kfold(gmm, 5, D, L, None)
-        res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
-        print("min_dcf",res_3)
-        min_dcf_values.append(res_3)
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(0.5, 1, 1, Label, SPost)
+        min_dcf_values.append(res)
         
     D = znorm(D)
     for i in range(5):
         gmm = GMM_Diagonal(i)
-        SPost_3, Label_3 = kfold(gmm, 5, D, L, None)
-        res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
-        print("min_dcf",res_3)
-        min_dcf_values_znorm.append(res_3)    
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(0.5, 1, 1, Label, SPost)
+        min_dcf_values_znorm.append(res)    
     
     plt.figure()
     plt.xlabel("Diagonal_GMM components")
@@ -239,18 +228,18 @@ def GMM_Diagonal_plot_diff_component_PCA(D, L):
     
     for i in range(5):
         gmm = GMM_Diagonal(i)
-        SPost_3, Label_3 = kfold(gmm, 5, D, L, None)
-        res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
-        print("min_dcf",res_3)
-        min_dcf_values.append(res_3)
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(0.5, 1, 1, Label, SPost)
+
+        min_dcf_values.append(res)
         
     D = PCA(D,11)
     for i in range(5):
         gmm = GMM_Diagonal(i)
-        SPost_3, Label_3 = kfold(gmm, 5, D, L, None)
-        res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
-        print("min_dcf",res_3)
-        min_dcf_values_pca.append(res_3)    
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(0.5, 1, 1, Label, SPost)
+
+        min_dcf_values_pca.append(res)    
     
     plt.figure()
     plt.xlabel("Tied_GMM components")
@@ -269,3 +258,44 @@ def GMM_Diagonal_plot_diff_component_PCA(D, L):
 
     
     plt.savefig("Training/GMM/Plot/Diagonal_GMM_RAW+PCA11.pdf")
+    
+    
+    
+    
+def GMM_TiedDiagonal_plot_diff_component(D, L):
+    min_dcf_values = []
+    min_dcf_values_znorm = []
+    
+    for i in range(5):
+        gmm = GMM_TiedDiagonal(i)
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(0.5, 1, 1, Label, SPost)
+
+        min_dcf_values.append(res)
+        
+    D = znorm(D)
+    for i in range(5):
+        gmm = GMM_TiedDiagonal(i)
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(0.5, 1, 1, Label, SPost)
+
+        min_dcf_values_znorm.append(res)    
+    
+    plt.figure()
+    plt.xlabel("Tied Diagonal_GMM components")
+    plt.ylabel("minDCF")
+    plt.title("Tied Diagonal GMM")
+    iterations = range(5)
+    x_axis = np.arange(len(iterations))
+    bounds = np.array(iterations)
+    plt.bar(x_axis + 0.00, min_dcf_values, width=0.25, linewidth=1.0, edgecolor='black', color="Red",
+            label="RAW")
+    plt.bar(x_axis + 0.25, min_dcf_values_znorm, width=0.25, linewidth=1.0, edgecolor='black', color="Orange",
+            label="Znorm")
+    
+
+    plt.xticks([r + 0.125 for r in range(len(bounds))], [2**i for i in bounds])
+    plt.legend()
+
+    
+    plt.savefig("Training/GMM/Plot/Tied_Diagonal_GMM_RAW+znorm.pdf")

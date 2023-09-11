@@ -81,10 +81,13 @@ if __name__ == '__main__':
 
 
 #TRAIN GMM
-test_gmm(D1,L1)
-#GMM_plot_diff_component(D1, L1)
-#GMM_plot_diff_component_PCA(D1, L1)
-#GMM_Tied_plot_diff_component(D1, L1)
-#GMM_Tied_plot_diff_component_PCA(D1, L1)
-#GMM_Diagonal_plot_diff_component(D1, L1)
-#GMM_Diagonal_plot_diff_component_PCA(D1, L1)
+#test_gmm(D1,L1)
+GMM_plot_diff_component(D1, L1)
+GMM_plot_diff_component_PCA(D1,L1,11)
+GMM_plot_diff_component_PCA(D1,L1,10)
+GMM_Tied_plot_diff_component(D1, L1)
+GMM_Tied_plot_diff_component_PCA(D1, L1,11)
+GMM_Tied_plot_diff_component_PCA(D1, L1,10)
+GMM_Diagonal_plot_diff_component(D1, L1)
+GMM_Diagonal_plot_diff_component_PCA(D1, L1,11)
+GMM_TiedDiagonal_plot_diff_component(D1, L1)
