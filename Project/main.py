@@ -70,11 +70,21 @@ if __name__ == '__main__':
 # Poly_SVM_RAW_znorm_01(D1, L1, 0.5)
 # Poly_SVM_RAW_znorm_09(D1, L1, 0.5)
 
-#DA FARE
-#RadKernBased_RAW(D1,L1,0.5)
-RadKernBased_znorm(D1,L1,0.5)
 
+#RadKernBased_RAW(D1,L1,0.5)
+#DA FARE
+#RadKernBased_znorm(D1,L1,0.5)
+#Kern_SVM_diff_priors(D1, L1)
 
 #Poly_SVM_diff_priors(D1, L1)
-#test_gmm(D1,L1)
 
+
+
+#TRAIN GMM
+test_gmm(D1,L1)
+#GMM_plot_diff_component(D1, L1)
+#GMM_plot_diff_component_PCA(D1, L1)
+#GMM_Tied_plot_diff_component(D1, L1)
+#GMM_Tied_plot_diff_component_PCA(D1, L1)
+#GMM_Diagonal_plot_diff_component(D1, L1)
+#GMM_Diagonal_plot_diff_component_PCA(D1, L1)
