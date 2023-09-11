@@ -36,7 +36,7 @@ def SVM_RAW_znorm_01(D, L, prior):
         print(i)
     
     plt.figure()
-    plt.xlabel('\u03BB')
+    plt.xlabel('C')
     plt.xscale('log')
     plt.ylabel("minDCF")
     
@@ -82,7 +82,7 @@ def SVM_RAW_znorm_09(D, L, prior):
         print(i)
     
     plt.figure()
-    plt.xlabel('\u03BB')
+    plt.xlabel('C')
     plt.xscale('log')
     plt.ylabel("minDCF")
     
@@ -153,7 +153,7 @@ def Poly_SVM_RAW_znorm_05(D, L, prior):
         print(i)
     
     plt.figure()
-    plt.xlabel('\u03BB')
+    plt.xlabel('C')
     plt.xscale('log')
     plt.ylabel("minDCF")
     
@@ -198,7 +198,7 @@ def Poly_SVM_RAW_znorm_01(D, L, prior):
         print(i)
     
     plt.figure()
-    plt.xlabel('\u03BB')
+    plt.xlabel('C')
     plt.xscale('log')
     plt.ylabel("minDCF")
     
@@ -242,7 +242,7 @@ def Poly_SVM_RAW_znorm_09(D, L, prior):
         print(i)
     
     plt.figure()
-    plt.xlabel('\u03BB')
+    plt.xlabel('C')
     plt.xscale('log')
     plt.ylabel("minDCF")
     
@@ -307,7 +307,7 @@ def RadKernBased_RAW(D, L, prior):
         print(i)
     
     plt.figure()
-    plt.xlabel('\u03BB')
+    plt.xlabel('C')
     plt.xscale('log')
     plt.ylabel("minDCF")
     
@@ -362,7 +362,7 @@ def RadKernBased_znorm(D, L, prior):
         print(i)
     
     plt.figure()
-    plt.xlabel('\u03BB')
+    plt.xlabel('C')
     plt.xscale('log')
     plt.ylabel("minDCF")
     
