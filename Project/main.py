@@ -4,6 +4,7 @@ from Training.Gaussian.train_gaussian import *
 import numpy
 from Training.Logistic_Regression.train_logistic_regression import *
 from Training.SVM.train_SVM import *
+from Training.GMM.train_GMM import *
 
 
 if __name__ == '__main__':
@@ -71,8 +72,9 @@ if __name__ == '__main__':
 
 #DA FARE
 #RadKernBased_RAW(D1,L1,0.5)
-#RadKernBased_znorm(D1,L1,0.5)
+RadKernBased_znorm(D1,L1,0.5)
 
 
-Poly_SVM_diff_priors(D1, L1)
+#Poly_SVM_diff_priors(D1, L1)
+#test_gmm(D1,L1)
 
