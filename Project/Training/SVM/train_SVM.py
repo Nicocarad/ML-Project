@@ -135,8 +135,9 @@ def Poly_SVM_RAW_znorm_05(D, L, prior):
     
 
     for i, c in enumerate(C_values):
+        print(c)
         svm = PolynomialSvm(1,c,2,1)
-
+        
         SPost_1, Label_1 = kfold(svm, 5, D, L, prior)
         res_1 = min_DCF(0.5, 1, 1, Label_1, SPost_1)
         min_dcf_results_05.append(res_1)
@@ -174,16 +175,16 @@ def Poly_SVM_RAW_znorm_01(D, L, prior):
 
     
     
-    
     min_dcf_results_05 = []
     min_dcf_results_05_znorm = []
     
 
     for i, c in enumerate(C_values):
+        print(c)
         svm = PolynomialSvm(1,c,2,1)
-
         SPost_1, Label_1 = kfold(svm, 5, D, L, prior)
         res_1 = min_DCF(0.1, 1, 1, Label_1, SPost_1)
+        print("min_dcf", res_1)
         min_dcf_results_05.append(res_1)
         print(i)
       
@@ -335,6 +336,7 @@ def RadKernBased_znorm(D, L, prior):
     
 
     for i, c in enumerate(C_values):
+        print(c)
         svm = RadialKernelBasedSvm(1,c,0.1)
 
         SPost_1, Label_1 = kfold(svm, 5, D, L, prior)
