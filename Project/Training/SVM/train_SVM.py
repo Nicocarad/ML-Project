@@ -386,3 +386,16 @@ def test(D,L):
     SPost_3, Label_3 = kfold(svm, 5, D, L, 0.5)
     res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
     print("min_dcf",res_3)
+    
+    
+    
+def Poly_SVM_diff_priors(D, L):
+    C = 10
+    # C = 0.001
+    priors = [(0.5, 0.5), (0.5, 0.1), (0.5, 0.9), (0.1, 0.5), (0.1, 0.1), (0.1, 0.9), (0.9, 0.5), (0.9, 0.1), (0.9, 0.9)]
+    D = znorm(D)
+    for pi_T, pi in priors:
+        svm = PolynomialSvm(1,C,2,1)
+        SPost, Label = kfold(svm, 5, D, L, pi_T)
+        res = min_DCF(pi, 1, 1, Label, SPost)
+        print(f"min_DCF (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
