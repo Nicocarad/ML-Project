@@ -299,14 +299,7 @@ def Poly_SVM_RAW_znorm_09(D, L, prior):
     
     
     
-def test(D,L):
-    
-    
-    svm = RadialKernelBasedSvm(1,0.00001,0.1)
 
-    SPost_1, Label_1 = kfold(svm, 5, D, L, 0.5)
-    res_1 = min_DCF(0.5, 1, 1, Label_1, SPost_1)
-    print("min_dcf", res_1)
     
     
     
@@ -422,12 +415,7 @@ def RadKernBased_znorm(D, L, prior):
 
 
 
-def test(D,L):
-    
-    svm = RadialKernelBasedSvm(1,0.00001,0.001)
-    SPost_3, Label_3 = kfold(svm, 5, D, L, 0.5)
-    res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
-    print("min_dcf",res_3)
+
     
     
     
