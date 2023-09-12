@@ -48,7 +48,7 @@ class GMM_Tied:
         self.psi = psi
         self.scores = 0
 
-    def train(self, DTR, LTR, DTE, eff_prior, covariance_func):
+    def train(self, DTR, LTR, DTE, eff_prior):
         self.DTR = DTR
         self.DTE = DTE
         self.LTR = LTR
@@ -84,7 +84,7 @@ class GMM_Diagonal:
         self.psi = psi
         self.scores = 0
 
-    def train(self, DTR, LTR, DTE, eff_prior, covariance_func):
+    def train(self, DTR, LTR, DTE, eff_prior):
         self.DTR = DTR
         self.DTE = DTE
         self.LTR = LTR
@@ -120,7 +120,7 @@ class GMM_TiedDiagonal:
         self.psi = psi
         self.scores = 0
 
-    def train(self, DTR, LTR, DTE, eff_prior, covariance_func):
+    def train(self, DTR, LTR, DTE, eff_prior):
         self.DTR = DTR
         self.DTE = DTE
         self.LTR = LTR

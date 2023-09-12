@@ -71,7 +71,7 @@ def GMM_plot_diff_component_PCA(D, L, m):
         res = min_DCF(0.5, 1, 1, Label, SPost)
         min_dcf_values.append(res)
         
-    D = PCA(D,10)
+    D = PCA(D,m)
     for i in range(5):
         gmm = GMM(i)
         SPost, Label = kfold(gmm, 5, D, L, None)
@@ -88,7 +88,7 @@ def GMM_plot_diff_component_PCA(D, L, m):
     plt.bar(x_axis + 0.00, min_dcf_values, width=0.25, linewidth=1.0, edgecolor='black', color="Red",
             label="RAW")
     plt.bar(x_axis + 0.25, min_dcf_values_pca, width=0.25, linewidth=1.0, edgecolor='black', color="Orange",
-            label="PCA m= " +str(m))
+            label="PCA m=" +str(m))
 
     plt.xticks([r + 0.125 for r in range(len(bounds))], [2**i for i in bounds])
     plt.legend()
