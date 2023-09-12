@@ -299,3 +299,48 @@ def GMM_TiedDiagonal_plot_diff_component(D, L):
 
     
     plt.savefig("Training/GMM/Plot/Tied_Diagonal_GMM_RAW+znorm.pdf")
+    
+    
+    
+    
+def GMM_diff_priors(D,L):
+    
+    for i in range(1,3):
+        for pi in [0.5, 0.1, 0.9]:
+            gmm = GMM(i)
+            SPost, Label = kfold(gmm, 5, D, L, None)
+            res = min_DCF(pi, 1, 1, Label, SPost)
+            print("GMM min_DCF pi = ", pi, str(2**i) + " components: ", round(res,3))
+    
+    for pi in [0.5, 0.1, 0.9]:
+        gmm = GMM_Tied(3)
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(pi, 1, 1, Label, SPost)
+        print("Tied_GMM min_DCF pi = ", pi, str(2**3) + " components : ", round(res,3))
+        
+    
+    D = PCA(D,11)
+    
+    for pi in [0.5, 0.1, 0.9]:
+        gmm = GMM(2)
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(pi, 1, 1, Label, SPost)
+        print("min_DCF pi = ", pi, str(2**i) + " components + PCA(11): ", round(res,3))
+    
+    
+    
+def GMM_diff_priors_zscore(D,L):
+
+    D = znorm(D)
+    for i in range(1,3):
+        for pi in [0.5, 0.1, 0.9]:
+            gmm = GMM(i)
+            SPost, Label = kfold(gmm, 5, D, L, None)
+            res = min_DCF(pi, 1, 1, Label, SPost)
+            print("GMM min_DCF pi = ", pi, str(2**i) + " components: + znorm", round(res,3))
+    
+    for pi in [0.5, 0.1, 0.9]:
+        gmm = GMM_Tied(3)
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        res = min_DCF(pi, 1, 1, Label, SPost)
+        print("Tied_GMM min_DCF pi = ", pi, str(2**3) + " components : + znorm", round(res,3))

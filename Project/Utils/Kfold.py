@@ -26,13 +26,13 @@ def kfold(model, k, D, L, eff_prior=None, seed=4):
         # Choose the i-th fold as the validation fold
         validation_indices = folds[i]
         train_indices = np.concatenate([folds[j] for j in range(k) if j != i])
-        print("sto chiamando train")
+        #print("sto chiamando train")
         model.train(D[:, train_indices], L[train_indices], D[:, validation_indices], eff_prior)
         model.compute_scores()
         scores = model.scores
 
         SPost_partial.append(scores)
-        print("end fold:",i)
+        #print("end fold:",i)
 
     S = np.hstack(SPost_partial)
     
