@@ -45,7 +45,7 @@ def GMM_plot_diff_component(D, L):
     bounds = np.array(iterations)
     plt.bar(x_axis + 0.00, min_dcf_values, width=0.25, linewidth=1.0, edgecolor='black', color="Red",
             label="RAW")
-    plt.bar(x_axis + 0.25, min_dcf_values_znorm, width=0.25, linewidth=1.0, edgecolor='black', color="Orange",
+    plt.bar(x_axis + 0.25, min_dcf_values_znorm, width=0.25, linewidth=1.0, edgecolor='black', color="Blue",
             label="Znorm")
     
 
@@ -87,7 +87,7 @@ def GMM_plot_diff_component_PCA(D, L, m):
     bounds = np.array(iterations)
     plt.bar(x_axis + 0.00, min_dcf_values, width=0.25, linewidth=1.0, edgecolor='black', color="Red",
             label="RAW")
-    plt.bar(x_axis + 0.25, min_dcf_values_pca, width=0.25, linewidth=1.0, edgecolor='black', color="Orange",
+    plt.bar(x_axis + 0.25, min_dcf_values_pca, width=0.25, linewidth=1.0, edgecolor='black', color="Blue",
             label="PCA m=" +str(m))
 
     plt.xticks([r + 0.125 for r in range(len(bounds))], [2**i for i in bounds])
@@ -128,7 +128,7 @@ def GMM_Tied_plot_diff_component(D, L):
     bounds = np.array(iterations)
     plt.bar(x_axis + 0.00, min_dcf_values, width=0.25, linewidth=1.0, edgecolor='black', color="Red",
             label="RAW")
-    plt.bar(x_axis + 0.25, min_dcf_values_znorm, width=0.25, linewidth=1.0, edgecolor='black', color="Orange",
+    plt.bar(x_axis + 0.25, min_dcf_values_znorm, width=0.25, linewidth=1.0, edgecolor='black', color="Blue",
             label="Znorm")
     
 
@@ -169,7 +169,7 @@ def GMM_Tied_plot_diff_component_PCA(D, L, m):
     bounds = np.array(iterations)
     plt.bar(x_axis + 0.00, min_dcf_values, width=0.25, linewidth=1.0, edgecolor='black', color="Red",
             label="RAW")
-    plt.bar(x_axis + 0.25, min_dcf_values_pca, width=0.25, linewidth=1.0, edgecolor='black', color="Orange",
+    plt.bar(x_axis + 0.25, min_dcf_values_pca, width=0.25, linewidth=1.0, edgecolor='black', color="Blue",
             label="PCA m = " + str(m))
 
     plt.xticks([r + 0.125 for r in range(len(bounds))], [2**i for i in bounds])
@@ -209,7 +209,7 @@ def GMM_Diagonal_plot_diff_component(D, L):
     bounds = np.array(iterations)
     plt.bar(x_axis + 0.00, min_dcf_values, width=0.25, linewidth=1.0, edgecolor='black', color="Red",
             label="RAW")
-    plt.bar(x_axis + 0.25, min_dcf_values_znorm, width=0.25, linewidth=1.0, edgecolor='black', color="Orange",
+    plt.bar(x_axis + 0.25, min_dcf_values_znorm, width=0.25, linewidth=1.0, edgecolor='black', color="Blue",
             label="Znorm")
     
 
@@ -250,7 +250,7 @@ def GMM_Diagonal_plot_diff_component_PCA(D, L):
     bounds = np.array(iterations)
     plt.bar(x_axis + 0.00, min_dcf_values, width=0.25, linewidth=1.0, edgecolor='black', color="Red",
             label="RAW")
-    plt.bar(x_axis + 0.25, min_dcf_values_pca, width=0.25, linewidth=1.0, edgecolor='black', color="Orange",
+    plt.bar(x_axis + 0.25, min_dcf_values_pca, width=0.25, linewidth=1.0, edgecolor='black', color="Blue",
             label="PCA m=11")
 
     plt.xticks([r + 0.125 for r in range(len(bounds))], [2**i for i in bounds])
@@ -290,7 +290,7 @@ def GMM_TiedDiagonal_plot_diff_component(D, L):
     bounds = np.array(iterations)
     plt.bar(x_axis + 0.00, min_dcf_values, width=0.25, linewidth=1.0, edgecolor='black', color="Red",
             label="RAW")
-    plt.bar(x_axis + 0.25, min_dcf_values_znorm, width=0.25, linewidth=1.0, edgecolor='black', color="Orange",
+    plt.bar(x_axis + 0.25, min_dcf_values_znorm, width=0.25, linewidth=1.0, edgecolor='black', color="Blue",
             label="Znorm")
     
 
