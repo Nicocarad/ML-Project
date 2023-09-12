@@ -454,3 +454,16 @@ def Kern_SVM_diff_priors_znorm(D, L):
         SPost, Label = kfold(svm, 5, D, L, pi_T)
         res = min_DCF(pi, 1, 1, Label, SPost)
         print(f"min_DCF (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
+        
+        
+        
+        
+def SVM_train_best(D,L):
+    D = znorm(D)
+    lbd = 0.1
+    C = 0.5
+    pi_T = 0.5
+    
+    svm = RadialKernelBasedSvm(1,C,lbd)
+    SPost, Label = kfold(svm, 5, D, L, pi_T)
+    return SPost, Label

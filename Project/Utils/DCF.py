@@ -1,7 +1,11 @@
 import numpy
 
 
-
+def optimalBinaryBayesDecision(llr,pi,Cf_n,Cf_p):
+    
+    t = -numpy.log(pi*Cf_n/((1-pi)*Cf_p)) # threshold
+    Predicted = (llr > t).astype(int)
+    return Predicted
 
 def confusionMatrix(Real,Predicted):
     K = Real.max() + 1 # number of classes

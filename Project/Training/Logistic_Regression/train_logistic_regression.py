@@ -180,7 +180,7 @@ def LR_diff_priors(D, L):
 #         print(f"min_DCF znorm (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
     
 
-    
+
 
 
 
@@ -252,3 +252,14 @@ def Quad_LR_diff_priors_Zscore(D, L):
         SPost, Label = kfold(regression, 5, D, L, pi_T)
         res = min_DCF(pi, 1, 1, Label, SPost)
         print(f"min_DCF_znorm (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
+        
+        
+        
+            
+        
+def LR_train_best(D,L):
+    
+    l = 0
+    regression = Logistic_Regression(l)
+    SPost, Label = kfold(regression, 5, D, L, 0.9)
+    return SPost, Label

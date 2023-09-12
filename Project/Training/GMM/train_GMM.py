@@ -344,3 +344,14 @@ def GMM_diff_priors_zscore(D,L):
         SPost, Label = kfold(gmm, 5, D, L, None)
         res = min_DCF(pi, 1, 1, Label, SPost)
         print("Tied_GMM min_DCF pi = ", pi, str(2**3) + " components : + znorm", round(res,3))
+        
+        
+        
+        
+def GMM_train_best(D,L):
+        D = PCA(D,11)
+        iterations = 2  
+        gmm = GMM(iterations)
+        SPost, Label = kfold(gmm, 5, D, L, None)
+        return SPost,Label
+        

@@ -5,6 +5,8 @@ import numpy
 from Training.Logistic_Regression.train_logistic_regression import *
 from Training.SVM.train_SVM import *
 from Training.GMM.train_GMM import *
+from Calibration.bayes_error_plot import *
+from Calibration.calibration import *
 
 
 if __name__ == '__main__':
@@ -70,8 +72,8 @@ if __name__ == '__main__':
 #SVM_diff_priors_znorm(D1, L1)
 
 #DA FARE
-Poly_SVM_RAW_znorm_05(D1, L1, 0.5)
-Poly_SVM_RAW_znorm_01(D1, L1, 0.5)
+# Poly_SVM_RAW_znorm_05(D1, L1, 0.5)
+# Poly_SVM_RAW_znorm_01(D1, L1, 0.5)
 # Poly_SVM_RAW_znorm_09(D1, L1, 0.5)
 #-----------------
 
@@ -99,3 +101,29 @@ Poly_SVM_RAW_znorm_01(D1, L1, 0.5)
 
 #GMM_diff_priors(D1,L1)
 #GMM_diff_priors_zscore(D1,L1)
+
+
+
+
+
+# BAYES ERROR PLOR
+llr,Label = GMM_train_best(D1,L1)
+bayes_error_plot(llr,Label,"Best_GMM")
+
+llr,Label = LR_train_best(D1,L1)
+bayes_error_plot(llr,Label,"Best_LR")
+
+llr,Label = SVM_train_best(D1,L1)
+bayes_error_plot(llr,Label,"Best_SVM")
+
+llr_LR,Label_LR = LR_train_best(D1,L1)
+llr_cal_LR,Label_cal_LR = calibration(llr_LR,Label_LR,0.5)
+bayes_error_plot(llr_cal_LR,Label_cal_LR,"Best_LR_calibrated")
+
+llr_GMM,Label_GMM = GMM_train_best(D1,L1)
+llr_cal_GMM,Label_cal_GMM = calibration(llr_GMM,Label_GMM,0.5)
+bayes_error_plot(llr_cal_GMM,Label_cal_GMM,"Best_GMM_calibrated")
+
+llr_SVM,Label_SVM = SVM_train_best(D1,L1)
+llr_cal_SVM,Label_cal_SVM = calibration(llr_SVM,Label_SVM,0.5)
+bayes_error_plot(llr_cal_SVM,Label_cal_SVM,"Best_SVM_calibrated")
