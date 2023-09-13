@@ -101,7 +101,7 @@ class RadialKernelBasedSvm:
         self.K = K
         self.C = C
         self.gamma = gamma
-        self.alpha = 0
+        self.alpha = None
         self.scores = 0
 
     

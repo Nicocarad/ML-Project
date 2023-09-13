@@ -467,3 +467,8 @@ def SVM_train_best(D,L):
     svm = RadialKernelBasedSvm(1,C,lbd)
     SPost, Label = kfold(svm, 5, D, L, pi_T)
     return SPost, Label
+
+
+
+
+

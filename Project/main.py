@@ -74,7 +74,7 @@ if __name__ == '__main__':
 #DA FARE
 # Poly_SVM_RAW_znorm_05(D1, L1, 0.5)
 # Poly_SVM_RAW_znorm_01(D1, L1, 0.5)
-# Poly_SVM_RAW_znorm_09(D1, L1, 0.5)
+Poly_SVM_RAW_znorm_09(D1, L1, 0.5)
 #-----------------
 
 #RadKernBased_RAW(D1,L1,0.5)
@@ -107,23 +107,24 @@ if __name__ == '__main__':
 
 
 # BAYES ERROR PLOR
-llr,Label = GMM_train_best(D1,L1)
-bayes_error_plot(llr,Label,"Best_GMM")
+# llr,Label = GMM_train_best(D1,L1)
+# bayes_error_plot(llr,Label,"Best_GMM")
 
-llr,Label = LR_train_best(D1,L1)
-bayes_error_plot(llr,Label,"Best_LR")
+# llr,Label = LR_train_best(D1,L1)
+# bayes_error_plot(llr,Label,"Best_LR")
 
-llr,Label = SVM_train_best(D1,L1)
-bayes_error_plot(llr,Label,"Best_SVM")
+# llr,Label = SVM_train_best(D1,L1)
+# bayes_error_plot(llr,Label,"Best_SVM")
 
-llr_LR,Label_LR = LR_train_best(D1,L1)
-llr_cal_LR,Label_cal_LR = calibration(llr_LR,Label_LR,0.5)
-bayes_error_plot(llr_cal_LR,Label_cal_LR,"Best_LR_calibrated")
+# llr_LR,Label_LR = LR_train_best(D1,L1)
+# llr_cal_LR,Label_cal_LR = calibration(llr_LR,Label_LR,0.5)
+# bayes_error_plot(llr_cal_LR,Label_cal_LR,"Best_LR_calibrated")
 
-llr_GMM,Label_GMM = GMM_train_best(D1,L1)
-llr_cal_GMM,Label_cal_GMM = calibration(llr_GMM,Label_GMM,0.5)
-bayes_error_plot(llr_cal_GMM,Label_cal_GMM,"Best_GMM_calibrated")
+# llr_GMM,Label_GMM = GMM_train_best(D1,L1)
+# llr_cal_GMM,Label_cal_GMM = calibration(llr_GMM,Label_GMM,0.5)
+# bayes_error_plot(llr_cal_GMM,Label_cal_GMM,"Best_GMM_calibrated")
 
-llr_SVM,Label_SVM = SVM_train_best(D1,L1)
-llr_cal_SVM,Label_cal_SVM = calibration(llr_SVM,Label_SVM,0.5)
-bayes_error_plot(llr_cal_SVM,Label_cal_SVM,"Best_SVM_calibrated")
+# llr_SVM,Label_SVM = SVM_train_best(D1,L1)
+# llr_cal_SVM,Label_cal_SVM = calibration(llr_SVM,Label_SVM,0.5)
+# bayes_error_plot(llr_cal_SVM,Label_cal_SVM,"Best_SVM_calibrated")
+
