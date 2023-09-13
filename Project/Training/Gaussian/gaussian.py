@@ -8,16 +8,18 @@ class LogGaussianClassifier():
         self.DTR = 0
         self.LTR = 0
         self.DTE = 0
+        self.LTE = 0
         self.eff_prior = 0
         self.scores = 0
         self.logSPost = []
         self.name = "MVG"
         
         
-    def train(self,DTR,LTR,DTE,eff_prior):
+    def train(self,DTR,LTR,DTE, LTE, eff_prior):
         self.DTR = DTR
         self.LTR = LTR
         self.DTE = DTE
+        self.LTE = LTE
         self.eff_prior = eff_prior
         
         
@@ -50,16 +52,18 @@ class NaiveBayesGaussianClassifier():
         self.DTR = 0
         self.LTR = 0
         self.DTE = 0
+        self.LTE = 0
         self.eff_prior = 0
         self.scores = 0
         self.logSPost = []
         self.name = "NB"
         
         
-    def train(self,DTR,LTR,DTE,eff_prior):
+    def train(self,DTR,LTR,DTE, LTE, eff_prior):
         self.DTR = DTR
         self.LTR = LTR
         self.DTE = DTE
+        self.LTE = LTE
         self.eff_prior = eff_prior
         
         
@@ -96,16 +100,18 @@ class TiedGaussianClassifier():
         self.DTR = 0
         self.LTR = 0
         self.DTE = 0
+        self.LTE = 0
         self.eff_prior = 0
         self.scores = 0
         self.logSPost = 0
         self.name = "TMVG"
         
         
-    def train(self,DTR,LTR,DTE,eff_prior):
+    def train(self,DTR,LTR,DTE,LTE,eff_prior):
         self.DTR = DTR
         self.LTR = LTR
         self.DTE = DTE
+        self.LTE = LTE
         self.eff_prior = eff_prior
         
         
@@ -149,16 +155,18 @@ class TiedNaiveBayesGaussianClassifier():
         self.DTR = 0
         self.LTR = 0
         self.DTE = 0
+        self.LTE = 0
         self.eff_prior = 0
         self.scores = 0
         self.logSPost = 0
         self.name = "TNB"
         
         
-    def train(self,DTR,LTR,DTE,eff_prior):
+    def train(self,DTR,LTR,DTE,LTE,eff_prior):
         self.DTR = DTR
         self.LTR = LTR
         self.DTE = DTE
+        self.LTE = LTE
         self.eff_prior = eff_prior
         
         

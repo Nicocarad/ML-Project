@@ -15,12 +15,13 @@ class Logistic_Regression:
         self.b = None
         self.scores = 0
 
-    def train(self, DTR, LTR, DTE, eff_prior):
+    def train(self, DTR, LTR, DTE, LTE, eff_prior):
         
         self.DTR = DTR
         self.LTR = LTR
         self.DTE = DTE
         self.eff_prior = eff_prior
+        self.LTE = LTE
         
         x, _, _ = fmin_l_bfgs_b(
             self.log_reg_obj, numpy.zeros(self.DTR.shape[0] + 1), approx_grad=True, factr=1
@@ -69,12 +70,13 @@ class   Quad_Logistic_Regression:
         self.b = None
         self.scores = 0
 
-    def train(self, DTR, LTR, DTE, eff_prior):
+    def train(self, DTR, LTR, DTE, LTE,  eff_prior):
         
         new_DTR,new_DTE = polynomial_transformation(DTR,DTE)
         self.DTR = new_DTR
         self.LTR = LTR
         self.DTE = new_DTE
+        self.LTE = LTE
         self.eff_prior = eff_prior
         
         x, _, _ = fmin_l_bfgs_b(

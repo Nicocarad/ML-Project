@@ -7,6 +7,7 @@ from Training.SVM.train_SVM import *
 from Training.GMM.train_GMM import *
 from Calibration.bayes_error_plot import *
 from Calibration.calibration import *
+from Testing.test import *
 
 
 if __name__ == '__main__':
@@ -74,7 +75,7 @@ if __name__ == '__main__':
 #DA FARE
 # Poly_SVM_RAW_znorm_05(D1, L1, 0.5)
 # Poly_SVM_RAW_znorm_01(D1, L1, 0.5)
-Poly_SVM_RAW_znorm_09(D1, L1, 0.5)
+#Poly_SVM_RAW_znorm_09(D1, L1, 0.5)
 #-----------------
 
 #RadKernBased_RAW(D1,L1,0.5)
@@ -106,7 +107,8 @@ Poly_SVM_RAW_znorm_09(D1, L1, 0.5)
 
 
 
-# BAYES ERROR PLOR
+# CALIBRATION
+
 # llr,Label = GMM_train_best(D1,L1)
 # bayes_error_plot(llr,Label,"Best_GMM")
 
@@ -127,4 +129,44 @@ Poly_SVM_RAW_znorm_09(D1, L1, 0.5)
 # llr_SVM,Label_SVM = SVM_train_best(D1,L1)
 # llr_cal_SVM,Label_cal_SVM = calibration(llr_SVM,Label_SVM,0.5)
 # bayes_error_plot(llr_cal_SVM,Label_cal_SVM,"Best_SVM_calibrated")
+
+#EVALUATION
+
+# print("GMM - min_dcf / act_dcf\n")
+# llr,Label = GMM_train_best(D1,L1)
+# llr_cal,Label_cal = calibration(llr,Label,0.5)
+# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
+# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
+# min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
+# act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
+# print("min_dcf: ", min_dcf)
+# print("act_dcf: ", act_dcf)
+# print("-----------------------\n")
+
+
+# print("LR - min_dcf / act_dcf\n")
+# llr,Label = LR_train_best(D1,L1)
+# llr_cal,Label_cal = calibration(llr,Label,0.5)
+# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
+# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
+# min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
+# act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
+# print("min_dcf: ", min_dcf)
+# print("act_dcf: ", act_dcf)
+
+# print("-----------------------\n")
+# print("SVM - min_dcf / act_dcf\n")
+# llr,Label = SVM_train_best(D1,L1)
+# llr_cal,Label_cal = calibration(llr,Label,0.5)
+# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
+# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
+# min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
+# act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
+# print("min_dcf: ", min_dcf)
+# print("act_dcf: ", act_dcf)
+
+
+
+GMM_test_best(D1,D2,L1,L2)
+
 

@@ -7,16 +7,18 @@ class GMM:
         self.DTR = 0
         self.DTE = 0
         self.LTR = 0
+        self.LTE = 0
         self.gmm = None
         self.iterations = iterations
         self.alpha = alpha
         self.psi = psi
         self.scores = 0
 
-    def train(self, DTR, LTR, DTE, eff_prior):
+    def train(self, DTR, LTR, DTE, LTE, eff_prior):
         self.DTR = DTR
         self.DTE = DTE
         self.LTR = LTR
+        self.LTE = LTE
 
         num_classes = numpy.unique(self.LTR).size
 
@@ -34,7 +36,7 @@ class GMM:
         self.gmm = gmm
 
     def compute_scores(self):
-        self.scores = gmm_scores(self.DTE, self.LTR, self.gmm)
+        self.scores = gmm_scores(self.DTE, self.LTE, self.gmm)
 
 
 class GMM_Tied:
@@ -42,16 +44,18 @@ class GMM_Tied:
         self.DTR = 0
         self.DTE = 0
         self.LTR = 0
+        self.LTE = 0
         self.gmm = None
         self.iterations = iterations
         self.alpha = alpha
         self.psi = psi
         self.scores = 0
 
-    def train(self, DTR, LTR, DTE, eff_prior):
+    def train(self, DTR, LTR, DTE, LTE, eff_prior):
         self.DTR = DTR
         self.DTE = DTE
         self.LTR = LTR
+        self.LTE = LTE
 
         num_classes = numpy.unique(self.LTR).size
 
@@ -70,7 +74,7 @@ class GMM_Tied:
         self.gmm = gmm
 
     def compute_scores(self):
-        self.scores = gmm_scores(self.DTE, self.LTR, self.gmm)
+        self.scores = gmm_scores(self.DTE, self.LTE, self.gmm)
 
 
 class GMM_Diagonal:
@@ -78,16 +82,18 @@ class GMM_Diagonal:
         self.DTR = 0
         self.DTE = 0
         self.LTR = 0
+        self.LTE = 0
         self.gmm = None
         self.iterations = iterations
         self.alpha = alpha
         self.psi = psi
         self.scores = 0
 
-    def train(self, DTR, LTR, DTE, eff_prior):
+    def train(self, DTR, LTR, DTE, LTE, eff_prior):
         self.DTR = DTR
         self.DTE = DTE
         self.LTR = LTR
+        self.LTE = LTE
 
         num_classes = numpy.unique(self.LTR).size
 
@@ -106,7 +112,7 @@ class GMM_Diagonal:
         self.gmm = gmm
 
     def compute_scores(self):
-        self.scores = gmm_scores(self.DTE, self.LTR, self.gmm)
+        self.scores = gmm_scores(self.DTE, self.LTE, self.gmm)
 
 
 class GMM_TiedDiagonal:
@@ -114,16 +120,18 @@ class GMM_TiedDiagonal:
         self.DTR = 0
         self.DTE = 0
         self.LTR = 0
+        self.LTE = 0
         self.gmm = None
         self.iterations = iterations
         self.alpha = alpha
         self.psi = psi
         self.scores = 0
 
-    def train(self, DTR, LTR, DTE, eff_prior):
+    def train(self, DTR, LTR, DTE, LTE, eff_prior):
         self.DTR = DTR
         self.DTE = DTE
         self.LTR = LTR
+        self.LTE = LTE
 
         num_classes = numpy.unique(self.LTR).size
 
@@ -142,4 +150,4 @@ class GMM_TiedDiagonal:
         self.gmm = gmm
 
     def compute_scores(self):
-        self.scores = gmm_scores(self.DTE, self.LTR, self.gmm)
+        self.scores = gmm_scores(self.DTE, self.LTE, self.gmm)

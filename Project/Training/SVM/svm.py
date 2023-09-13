@@ -13,16 +13,18 @@ class Linear_SVM:
         self.DTR = 0
         self.LTR = 0
         self.DTE = 0
+        self.LTE = 0
         self.K = K
         self.C = C
         self.priors = 0
         self.w = None
         self.scores = 0
         
-    def train(self, DTR, LTR, DTE, eff_prior):
+    def train(self, DTR, LTR, DTE, LTE, eff_prior):
         self.DTR = DTR
         self.LTR = LTR
         self.DTE = DTE
+        self.LTE = LTE
         self.priors = [eff_prior, 1 - eff_prior]
         
         D_hat = numpy.vstack([self.DTR, numpy.ones(self.DTR.shape[1]) * self.K])
@@ -66,10 +68,11 @@ class PolynomialSvm:
 
    
 
-    def train(self, DTR, LTR, DTE, eff_prior):
+    def train(self, DTR, LTR, DTE, LTE, eff_prior):
         self.DTR = DTR
         self.LTR = LTR
         self.DTE = DTE
+        self.LTE = LTE
         self.priors = [eff_prior, 1 - eff_prior]
 
         z = self.LTR * 2 - 1
@@ -106,10 +109,11 @@ class RadialKernelBasedSvm:
 
     
 
-    def train(self, DTR, LTR, DTE, eff_prior):
+    def train(self, DTR, LTR, DTE, LTE,  eff_prior):
         self.DTR = DTR
         self.LTR = LTR
         self.DTE = DTE
+        self.LTE = LTE
         self.priors = [eff_prior, 1 - eff_prior]
         
         z = 2 * self.LTR - 1
