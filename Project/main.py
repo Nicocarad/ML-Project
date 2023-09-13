@@ -109,7 +109,7 @@ if __name__ == '__main__':
 
 # CALIBRATION
 
-# llr,Label = GMM_train_best(D1,L1)
+#llr,Label = GMM_train_best(D1,L1)
 # bayes_error_plot(llr,Label,"Best_GMM")
 
 # llr,Label = LR_train_best(D1,L1)

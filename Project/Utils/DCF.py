@@ -25,6 +25,8 @@ def DCF(pi, C_fn, C_fp, confMatrix, type):
     FPR = FP / (FP + TN)
     
     DCFu = pi * C_fn * FNR + (1 - pi) * C_fp * FPR
+    # print(FNR)
+    # print(FPR)
     
     if type == "un-normalized":
         return DCFu
@@ -32,6 +34,7 @@ def DCF(pi, C_fn, C_fp, confMatrix, type):
     if type == "normalized":
         Bdummy = min(pi * C_fn, (1 - pi) * C_fp)
         DCFn = DCFu / Bdummy
+        #print(DCFn)
         return DCFn
     
     raise ValueError('type must be either "un-normalized" or "normalized"')
@@ -41,7 +44,7 @@ def DCF(pi, C_fn, C_fp, confMatrix, type):
 def min_DCF(pi, C_fn, C_fp, LTE, scores):
     t = numpy.concatenate([scores, [-numpy.inf, numpy.inf]])
     t.sort()
-
+    print(t)
     result = [DCF(pi, C_fn, C_fp, confusionMatrix(LTE, (scores > threshold).astype(int)), "normalized") for threshold in t]
         
     return min(result)

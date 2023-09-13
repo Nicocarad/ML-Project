@@ -1,6 +1,6 @@
 import numpy as np
 
-def kfold(model, k, D, L, eff_prior=None, seed=27):
+def kfold(model, k, D, L, eff_prior=None, seed=4):
     SPost_partial = []
     folds = []
 
