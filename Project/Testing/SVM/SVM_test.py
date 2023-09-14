@@ -92,14 +92,15 @@ def RadKernBased_RAW_eval(DTR, LTR, DTE, LTE ,prior):
     plt.xlabel('C')
     plt.xscale('log')
     plt.ylabel("minDCF")
+    plt.title("RKB-SVM")
     
     
-    plt.plot(C_values, min_dcf_results_log1, label="logγ = -1 (VAL)")
-    plt.plot(C_values, min_dcf_results_log2, label="logγ = -2 (VAL)")
-    plt.plot(C_values, min_dcf_results_log3, label="logγ = -3 (VAL)")
-    plt.plot(C_values, min_dcf_results_log1_eval, label="logγ = -1 (EVAL)")
-    plt.plot(C_values, min_dcf_results_log2_eval, label="logγ = -2 (EVAL)")
-    plt.plot(C_values, min_dcf_results_log3_eval, label="logγ = -3 (EVAL)")
+    plt.plot(C_values, min_dcf_results_log1, label="logγ = -1 (VAL)" , color = "red")
+    plt.plot(C_values, min_dcf_results_log2, label="logγ = -2 (VAL)", color = "blue")
+    plt.plot(C_values, min_dcf_results_log3, label="logγ = -3 (VAL)", color = "green")
+    plt.plot(C_values, min_dcf_results_log1_eval, label="logγ = -1 (EVAL)", color = "red", linestyle="dashed")
+    plt.plot(C_values, min_dcf_results_log2_eval, label="logγ = -2 (EVAL)", color = "blue", linestyle="dashed")
+    plt.plot(C_values, min_dcf_results_log3_eval, label="logγ = -3 (EVAL)", color = "green", linestyle="dashed")
     
     plt.xlim(C_values[0], C_values[-1])
     plt.legend()
