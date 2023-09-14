@@ -1,7 +1,7 @@
 from Utils.Kfold import *
 from Utils.DCF import min_DCF
 from Training.Gaussian.gaussian import *
-from Utils.PCA import PCA
+from Utils.Preprocessing.PCA import PCA
 
 def train_MVG(D,L):
     MVG_list = [

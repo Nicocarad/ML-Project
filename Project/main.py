@@ -8,6 +8,7 @@ from Calibration.bayes_error_plot import *
 from Calibration.calibration import *
 from Testing.test import *
 from Testing.Logistic_Regression.LR_test import *
+from Testing.GMM.GMM_test import *
 
 
 if __name__ == '__main__':
@@ -208,31 +209,40 @@ if __name__ == '__main__':
 
 
 
+
+
+
+# CALIBRATION (EVAL)
+
+# llr,Label = GMM_test_best(D1,D2,L1,L2)
+# bayes_error_plot(llr,Label,"Best_eval_GMM")
+
+# llr,Label = LR_test_best(D1,D2,L1,L2)
+# bayes_error_plot(llr,Label,"Best_eval_LR")
+
+# llr,Label = SVM_test_best(D1,D2,L1,L2)
+# bayes_error_plot(llr,Label,"Best_eval_SVM")
+
+# llr_LR,Label_LR = LR_test_best(D1,D2,L1,L2)
+# llr_cal_LR,Label_cal_LR = calibration(llr_LR,Label_LR,0.5)
+# bayes_error_plot(llr_cal_LR,Label_cal_LR,"Best_eval_LR_calibrated")
+
+# llr_GMM,Label_GMM = GMM_test_best(D1,D2,L1,L2)
+# llr_cal_GMM,Label_cal_GMM = calibration(llr_GMM,Label_GMM,0.5)
+# bayes_error_plot(llr_cal_GMM,Label_cal_GMM,"Best_eval_GMM_calibrated")
+
+# llr_SVM,Label_SVM = SVM_test_best(D1,D2,L1,L2)
+# llr_cal_SVM,Label_cal_SVM = calibration(llr_SVM,Label_SVM,0.5)
+# bayes_error_plot(llr_cal_SVM,Label_cal_SVM,"Best_eval_SVM_calibrated")
+
+
+
 # Testing LR
 
 # LR_RAW_val_eval(D1, L1, D2, L2, 0.5)
 # LR_znorm_val_eval(D1, L1, D2, L2, 0.5)
 
+# Testing GMM
 
-# CALIBRATION (EVAL)
-
-llr,Label = GMM_test_best(D1,D2,L1,L2)
-bayes_error_plot(llr,Label,"Best_eval_GMM")
-
-llr,Label = LR_test_best(D1,D2,L1,L2)
-bayes_error_plot(llr,Label,"Best_eval_LR")
-
-llr,Label = SVM_test_best(D1,D2,L1,L2)
-bayes_error_plot(llr,Label,"Best_eval_SVM")
-
-llr_LR,Label_LR = LR_test_best(D1,D2,L1,L2)
-llr_cal_LR,Label_cal_LR = calibration(llr_LR,Label_LR,0.5)
-bayes_error_plot(llr_cal_LR,Label_cal_LR,"Best_eval_LR_calibrated")
-
-llr_GMM,Label_GMM = GMM_test_best(D1,D2,L1,L2)
-llr_cal_GMM,Label_cal_GMM = calibration(llr_GMM,Label_GMM,0.5)
-bayes_error_plot(llr_cal_GMM,Label_cal_GMM,"Best_eval_GMM_calibrated")
-
-llr_SVM,Label_SVM = SVM_test_best(D1,D2,L1,L2)
-llr_cal_SVM,Label_cal_SVM = calibration(llr_SVM,Label_SVM,0.5)
-bayes_error_plot(llr_cal_SVM,Label_cal_SVM,"Best_eval_SVM_calibrated")
+#GMM_plot_diff_component_eval(D1,L1,D2,L2)
+GMM_plot_diff_component_eval_PCA(D1, L1, D2, L2)

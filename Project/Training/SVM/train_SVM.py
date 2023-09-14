@@ -2,7 +2,7 @@ from Utils.DCF import min_DCF
 from Training.SVM.svm import *
 from Utils.Kfold import kfold
 import matplotlib.pyplot as plt
-from Utils.Znorm import *
+from Utils.Preprocessing.Znorm import *
 
  
     

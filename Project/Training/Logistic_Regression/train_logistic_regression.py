@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 from Utils.Kfold import kfold
 from Utils.DCF import min_DCF
 from Training.Logistic_Regression.logistic_regression import *
-from Utils.PCA import PCA
-from Utils.Znorm import *
+from Utils.Preprocessing.PCA import PCA
+from Utils.Preprocessing.Znorm import *
 
 
 
