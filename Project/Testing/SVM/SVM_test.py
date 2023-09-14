@@ -10,7 +10,7 @@ from Preprocessing.Znorm import *
 def RadKernBased_RAW_eval(DTR, LTR, DTE, LTE ,prior):
     
     
-    C_values = numpy.logspace(-5, 5, num=2)
+    C_values = numpy.logspace(-5, 5, num=11)
 
     
     min_dcf_results_log1= []
