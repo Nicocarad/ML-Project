@@ -254,5 +254,5 @@ if __name__ == '__main__':
 
 
 
-
-RadKernBased_RAW_eval(D1,L1,D2,L2,0.5)
+#RadKernBased_RAW_eval(D1,L1,D2,L2,0.5)
+RadKernBased_znorm_eval(D1,L1,D2,L2,0.5)
