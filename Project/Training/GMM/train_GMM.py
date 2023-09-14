@@ -1,8 +1,8 @@
 from Utils.Kfold import *
-from Utils.Preprocessing.PCA import *
+from Preprocessing.PCA import *
 from Utils.DCF import min_DCF
 from Training.GMM.gmm import *
-from Utils.Preprocessing.Znorm import *
+from Preprocessing.Znorm import *
 import matplotlib.pyplot as plt
 
 

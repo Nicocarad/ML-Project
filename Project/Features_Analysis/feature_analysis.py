@@ -2,7 +2,7 @@ import numpy
 import matplotlib.pyplot as plt
 from scipy.stats import pearsonr
 
-from Utils.Preprocessing.LDA import *
+from Preprocessing.LDA import *
 
 # Plot Distributions for each feature
 

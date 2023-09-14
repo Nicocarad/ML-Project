@@ -9,6 +9,7 @@ from Calibration.calibration import *
 from Testing.test import *
 from Testing.Logistic_Regression.LR_test import *
 from Testing.GMM.GMM_test import *
+from Testing.SVM.SVM_test import *
 
 
 if __name__ == '__main__':
@@ -57,6 +58,7 @@ if __name__ == '__main__':
 #   LR_PCA(D1,L1,0.1)
 #   LR_PCA(D1,L1,0.9)
 #   LR_diff_priors(D1,L1)
+#   LR_diff_priors_zscore(D1, L1)
 #   Quad_LR_RAW(D1, L1, 0.5)
 #   Quad_LR_diff_priors(D1, L1)
 #   Quad_LR_diff_priors_Zscore(D1, L1)
@@ -245,4 +247,12 @@ if __name__ == '__main__':
 # Testing GMM
 
 #GMM_plot_diff_component_eval(D1,L1,D2,L2)
-GMM_plot_diff_component_eval_PCA(D1, L1, D2, L2)
+#GMM_plot_diff_component_eval_PCA(D1, L1, D2, L2)
+# GMM_Tied_plot_diff_component_eval_PCA(D1, L1, D2, L2)
+# GMM_Diagonal_plot_diff_component_eval_znorm(D1, L1, D2, L2)
+#GMM_test_compare(D1, L1, D2, L2)
+
+
+
+
+RadKernBased_RAW_eval(D1,L1,D2,L2,0.5)

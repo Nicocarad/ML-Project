@@ -5,7 +5,7 @@ import numpy as np
 from Training.Logistic_Regression.logistic_regression import *
 from Utils.DCF import *
 from Utils.Kfold import *
-from Utils.Znorm import *
+from Preprocessing.Znorm import *
 
 def plot_RAW_results(min_dcf_05, min_dcf_01, min_dcf_09, min_dcf_05_eval, min_dcf_01_eval, min_dcf_09_eval, name, title):
     lambda_values = np.logspace(-5, 2, num=41)

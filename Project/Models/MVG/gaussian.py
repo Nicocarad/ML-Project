@@ -1,4 +1,4 @@
-from Training.Gaussian.gaussian_utils import *
+from Models.MVG.gaussian_utils import *
 import scipy
 
 
