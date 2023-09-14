@@ -1,7 +1,6 @@
 from Utils.load import load
 from Features_Analysis.feature_analysis import *
 from Training.Gaussian.train_gaussian import *
-import numpy
 from Training.Logistic_Regression.train_logistic_regression import *
 from Training.SVM.train_SVM import *
 from Training.GMM.train_GMM import *
@@ -108,7 +107,7 @@ if __name__ == '__main__':
 
 
 
-# CALIBRATION
+# CALIBRATION (VAL)
 
 #llr,Label = GMM_train_best(D1,L1)
 # bayes_error_plot(llr,Label,"Best_GMM")
@@ -150,15 +149,15 @@ if __name__ == '__main__':
 # print("-----------------------\n")
 
 
-print("LR - min_dcf / act_dcf\n")
-llr,Label = LR_train_best(D1,L1)
-llr_cal,Label_cal = calibration(llr,Label,0.5)
-predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
-conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
-act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
-print("min_dcf: ", min_dcf)
-print("act_dcf: ", act_dcf)
+# print("LR - min_dcf / act_dcf\n")
+# llr,Label = LR_train_best(D1,L1)
+# llr_cal,Label_cal = calibration(llr,Label,0.5)
+# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
+# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
+# min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
+# act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
+# print("min_dcf: ", min_dcf)
+# print("act_dcf: ", act_dcf)
 
 # print("-----------------------\n")
 # print("SVM - min_dcf / act_dcf\n")
@@ -170,10 +169,6 @@ print("act_dcf: ", act_dcf)
 # act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
 # print("min_dcf: ", min_dcf)
 # print("act_dcf: ", act_dcf)
-
-
-
-
 
 
 
@@ -219,3 +214,25 @@ print("act_dcf: ", act_dcf)
 # LR_znorm_val_eval(D1, L1, D2, L2, 0.5)
 
 
+# CALIBRATION (EVAL)
+
+llr,Label = GMM_test_best(D1,D2,L1,L2)
+bayes_error_plot(llr,Label,"Best_eval_GMM")
+
+llr,Label = LR_test_best(D1,D2,L1,L2)
+bayes_error_plot(llr,Label,"Best_eval_LR")
+
+llr,Label = SVM_test_best(D1,D2,L1,L2)
+bayes_error_plot(llr,Label,"Best_eval_SVM")
+
+llr_LR,Label_LR = LR_test_best(D1,D2,L1,L2)
+llr_cal_LR,Label_cal_LR = calibration(llr_LR,Label_LR,0.5)
+bayes_error_plot(llr_cal_LR,Label_cal_LR,"Best_eval_LR_calibrated")
+
+llr_GMM,Label_GMM = GMM_test_best(D1,D2,L1,L2)
+llr_cal_GMM,Label_cal_GMM = calibration(llr_GMM,Label_GMM,0.5)
+bayes_error_plot(llr_cal_GMM,Label_cal_GMM,"Best_eval_GMM_calibrated")
+
+llr_SVM,Label_SVM = SVM_test_best(D1,D2,L1,L2)
+llr_cal_SVM,Label_cal_SVM = calibration(llr_SVM,Label_SVM,0.5)
+bayes_error_plot(llr_cal_SVM,Label_cal_SVM,"Best_eval_SVM_calibrated")

@@ -18,15 +18,7 @@ def GMM_test_best(DTR, DTE, LTR, LTE):
     return scores, LTE
 
 
-def LR_test_best(DTR, DTE, LTR, LTE):
-    l = 0.01
-    pi_T = 0.1
-    regression = Logistic_Regression(l)
-    regression.train(DTR, LTR, DTE, LTE, pi_T)
-    regression.compute_scores()
-    scores = regression.scores
 
-    return scores, LTE
 
 
 def SVM_test_best(DTR, DTE, LTR, LTE):

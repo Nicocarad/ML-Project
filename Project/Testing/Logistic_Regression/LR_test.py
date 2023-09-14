@@ -111,3 +111,16 @@ def LR_znorm_val_eval(DTR, LTR, DTE, LTE, prior):
     plot_RAW_results(min_dcf_results_05, min_dcf_results_01, min_dcf_results_09,
                      min_dcf_results_05_eval, min_dcf_results_01_eval, min_dcf_results_09_eval,
                      name, "Z-NORM")
+    
+    
+    
+    
+def LR_test_best(DTR, DTE, LTR, LTE):
+    l = 0.01
+    pi_T = 0.1
+    regression = Logistic_Regression(l)
+    regression.train(DTR, LTR, DTE, LTE, pi_T)
+    regression.compute_scores()
+    scores = regression.scores
+
+    return scores, LTE
