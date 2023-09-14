@@ -461,7 +461,7 @@ def Kern_SVM_diff_priors_znorm(D, L):
 def SVM_train_best(D,L):
     D = znorm(D)
     lbd = 0.1
-    C = 0.5
+    C = 5
     pi_T = 0.5
     
     svm = RadialKernelBasedSvm(1,C,lbd)

@@ -10,7 +10,7 @@ from Utils.Znorm import *
 
 def plot_RAW_results(min_dcf_05,min_dcf_01,min_dcf_09, name,title):
     
-    lambda_values = np.logspace(-5, 2, num=8)
+    lambda_values = np.logspace(-5, 2, num=41)
     plt.figure()
     plt.xlabel('\u03BB')
     plt.xscale('log')
@@ -24,7 +24,7 @@ def plot_RAW_results(min_dcf_05,min_dcf_01,min_dcf_09, name,title):
     plt.legend()
 
    
-    plt.savefig("Training/Logistic_Regression/Plot/PROVA" + name + ".pdf")
+    plt.savefig("Training/Logistic_Regression/Plot/" + name + ".pdf")
     plt.close()
 
 
@@ -157,20 +157,19 @@ def LR_PCA(D, L, prior):
 
    
 def LR_diff_priors(D, L):
-    l = 0
+    l = 0.01
     priors = [(0.5, 0.5), (0.5, 0.1), (0.5, 0.9), (0.1, 0.5), (0.1, 0.1), (0.1, 0.9), (0.9, 0.5), (0.9, 0.1), (0.9, 0.9)]
 
     for pi_T, pi in priors:
         regression = Logistic_Regression(l)
         SPost, Label = kfold(regression, 5, D, L, pi_T)
-        print("Before DCF", SPost.shape)
         res = min_DCF(pi, 1, 1, Label, SPost)
         print(f"min_DCF (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
 
 
 
 # def LR_diff_priors_zscore(D, L):
-#     l = 0
+#     l = 0.01
 #     priors = [(0.5, 0.5), (0.5, 0.1), (0.5, 0.9), (0.1, 0.5), (0.1, 0.1), (0.1, 0.9), (0.9, 0.5), (0.9, 0.1), (0.9, 0.9)]
 #     D = znorm(D)
 #     for pi_T, pi in priors:
