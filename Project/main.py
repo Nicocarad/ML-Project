@@ -225,17 +225,20 @@ if __name__ == '__main__':
 # llr,Label = SVM_test_best(D1,D2,L1,L2)
 # bayes_error_plot(llr,Label,"Best_eval_SVM")
 
-# llr_LR,Label_LR = LR_test_best(D1,D2,L1,L2)
-# llr_cal_LR,Label_cal_LR = calibration(llr_LR,Label_LR,0.5)
-# bayes_error_plot(llr_cal_LR,Label_cal_LR,"Best_eval_LR_calibrated")
+llr_LR,Label_LR = LR_test_best(D1,D2,L1,L2)
+llr_cal_LR,Label_cal_LR = calibration(llr_LR,Label_LR,0.5)
 
-# llr_GMM,Label_GMM = GMM_test_best(D1,D2,L1,L2)
-# llr_cal_GMM,Label_cal_GMM = calibration(llr_GMM,Label_GMM,0.5)
-# bayes_error_plot(llr_cal_GMM,Label_cal_GMM,"Best_eval_GMM_calibrated")
 
-# llr_SVM,Label_SVM = SVM_test_best(D1,D2,L1,L2)
-# llr_cal_SVM,Label_cal_SVM = calibration(llr_SVM,Label_SVM,0.5)
-# bayes_error_plot(llr_cal_SVM,Label_cal_SVM,"Best_eval_SVM_calibrated")
+llr_GMM,Label_GMM = GMM_test_best(D1,D2,L1,L2)
+llr_cal_GMM,Label_cal_GMM = calibration(llr_GMM,Label_GMM,0.5)
+
+
+llr_SVM,Label_SVM = SVM_test_best(D1,D2,L1,L2)
+llr_cal_SVM,Label_cal_SVM = calibration(llr_SVM,Label_SVM,0.5)
+
+
+
+bayes_error_plot_multi(llr_cal_LR, Label_cal_LR, llr_cal_SVM, Label_cal_SVM, llr_cal_GMM, Label_cal_GMM, "Multi_model")
 
 
 
@@ -243,6 +246,11 @@ if __name__ == '__main__':
 
 # LR_RAW_val_eval(D1, L1, D2, L2, 0.5)
 # LR_znorm_val_eval(D1, L1, D2, L2, 0.5)
+
+
+# Testing SVM
+#RadKernBased_RAW_eval(D1,L1,D2,L2,0.5)
+#RadKernBased_znorm_eval(D1,L1,D2,L2,0.5)
 
 # Testing GMM
 
@@ -253,6 +261,3 @@ if __name__ == '__main__':
 #GMM_test_compare(D1, L1, D2, L2)
 
 
-
-#RadKernBased_RAW_eval(D1,L1,D2,L2,0.5)
-RadKernBased_znorm_eval(D1,L1,D2,L2,0.5)

@@ -22,9 +22,9 @@ def GMM_test_best(DTR, DTE, LTR, LTE):
 
 def prova(DTR,DTE,LTR,LTE):
     
-    C_values = [0.00001, 0.0001, 0.001, 1, 10, 11]
-    for i, c in enumerate(C_values):
-        svm = RadialKernelBasedSvm(1,c,0.1)
+    
+  
+        svm = RadialKernelBasedSvm(1,10,0.001)
 
         svm.train(DTR,LTR,DTE,LTE,0.5)
         svm.compute_scores()
