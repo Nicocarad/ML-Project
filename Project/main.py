@@ -23,14 +23,14 @@ if __name__ == '__main__':
       
 # Dataset Info
     
-#     num_label_0 = numpy.count_nonzero(LTR == 0)
-#     num_label_1 = numpy.count_nonzero(LTR == 1)
-#     num_label_0 = numpy.count_nonzero(LTE == 0)
-#     num_label_1 = numpy.count_nonzero(LTE == 1)
-#     print("(Train) Number of Male", num_label_0)
-#     print("(Train) Number of Female", num_label_1)
-#     print("(Test) Number of Male", num_label_0)
-#     print("(Test) Number of Female", num_label_1)
+# num_label_0 = numpy.count_nonzero(LTR == 0)
+# num_label_1 = numpy.count_nonzero(LTR == 1)
+# num_label_0 = numpy.count_nonzero(LTE == 0)
+# num_label_1 = numpy.count_nonzero(LTE == 1)
+# print("(Train) Number of Male", num_label_0)
+# print("(Train) Number of Female", num_label_1)
+# print("(Test) Number of Male", num_label_0)
+# print("(Test) Number of Female", num_label_1)
     
     
 # #Feature Analysis
