@@ -71,7 +71,7 @@ def GMM_plot_diff_component_PCA(D, L, m):
         res = min_DCF(0.5, 1, 1, Label, SPost)
         min_dcf_values.append(res)
         
-    D = PCA(D,m)
+    D,_ = PCA(D,m)
     for i in range(5):
         gmm = GMM(i)
         SPost, Label = kfold(gmm, 5, D, L, None)
@@ -153,7 +153,7 @@ def GMM_Tied_plot_diff_component_PCA(D, L, m):
         res = min_DCF(0.5, 1, 1, Label, SPost)
         min_dcf_values.append(res)
         
-    D = PCA(D,m)
+    D,_ = PCA(D,m)
     for i in range(5):
         gmm = GMM_Tied(i)
         SPost, Label = kfold(gmm, 5, D, L, None)
@@ -233,7 +233,7 @@ def GMM_Diagonal_plot_diff_component_PCA(D, L):
 
         min_dcf_values.append(res)
         
-    D = PCA(D,11)
+    D,_ = PCA(D,11)
     for i in range(5):
         gmm = GMM_Diagonal(i)
         SPost, Label = kfold(gmm, 5, D, L, None)
@@ -319,7 +319,7 @@ def GMM_diff_priors(D,L):
         print("Tied_GMM min_DCF pi = ", pi, str(2**3) + " components : ", round(res,3))
         
     
-    D = PCA(D,11)
+    D,_ = PCA(D,11)
     
     for pi in [0.5, 0.1, 0.9]:
         gmm = GMM(2)
@@ -349,7 +349,7 @@ def GMM_diff_priors_zscore(D,L):
         
         
 def GMM_train_best(D,L):
-        D = PCA(D,11)
+        D,_ = PCA(D,11)
         iterations = 2  
         gmm = GMM(iterations)
         SPost, Label = kfold(gmm, 5, D, L, None)
