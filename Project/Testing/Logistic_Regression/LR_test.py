@@ -2,8 +2,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from Training.Logistic_Regression.logistic_regression import *
-from Utils.DCF import *
+from Models.LR.logistic_regression import *
+from Metrics.DCF import *
 from Utils.Kfold import *
 from Preprocessing.Znorm import *
 

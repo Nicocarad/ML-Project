@@ -1,4 +1,4 @@
-from Utils.DCF import min_DCF
+from Metrics.DCF import min_DCF
 from Training.SVM.svm import *
 from Utils.Kfold import kfold
 import matplotlib.pyplot as plt

@@ -1,5 +1,5 @@
 from Utils.Kfold import *
-from Utils.DCF import min_DCF
+from Metrics.DCF import min_DCF
 from Models.MVG.gaussian import *
 from Preprocessing.PCA import PCA
 
@@ -20,7 +20,7 @@ def train_MVG(D,L):
     
     print("MVG + PCA(7-8-9-10-11)\n")
     for m in m_list:
-        D_pca = PCA(D, m)
+        D_pca,_ = PCA(D, m)
         print(f"Value of m: {m}")   
         for classifier, value in MVG_list:
             SPost, Label = kfold(classifier, 5, D_pca, L, value)
@@ -46,7 +46,7 @@ def train_NB(D,L):
     
     print("NB + PCA(7-8-9-10-11)\n")
     for m in m_list:
-        D_pca = PCA(D, m)
+        D_pca,_ = PCA(D, m)
         print(f"Value of m: {m}")   
         for classifier, value in NB_list:
             SPost, Label = kfold(classifier, 5, D_pca, L, value)
@@ -72,7 +72,7 @@ def train_TMVG(D,L):
     
     print("TMVG + PCA(7-8-9-10-11)\n")
     for m in m_list:
-        D_pca = PCA(D, m)
+        D_pca,_ = PCA(D, m)
         print(f"Value of m: {m}")   
         for classifier, value in TMVG_list:
             SPost, Label = kfold(classifier, 5, D_pca, L, value)
@@ -98,7 +98,7 @@ def train_TNB(D,L):
     
     print("TNB + PCA(7-8-9-10-11)\n")
     for m in m_list:
-        D_pca = PCA(D, m)
+        D_pca,_ = PCA(D, m)
         print(f"Value of m: {m}")   
         for classifier, value in TNB_list:
             SPost, Label = kfold(classifier, 5, D_pca, L, value)

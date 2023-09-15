@@ -1,9 +1,9 @@
 from Training.GMM.gmm import *
-from Training.Logistic_Regression.logistic_regression import *
+from Models.LR.logistic_regression import *
 from Training.SVM.svm import *
 from Preprocessing.Znorm import *
 from Preprocessing.PCA import *
-from Utils.DCF import *
+from Metrics.DCF import *
 
 
 

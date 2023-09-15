@@ -1,6 +1,6 @@
 from Utils.Kfold import *
 from Preprocessing.PCA import *
-from Utils.DCF import min_DCF
+from Metrics.DCF import min_DCF
 from Training.GMM.gmm import *
 from Preprocessing.Znorm import *
 import matplotlib.pyplot as plt

@@ -6,6 +6,7 @@ def kfold(model, k, D, L, eff_prior=None, seed=4):
 
     np.random.seed(seed)
     idx = np.random.permutation(D.shape[1])
+    # idx = np.random.permutation(D.shape[1])
     
     Label = L[idx]
 

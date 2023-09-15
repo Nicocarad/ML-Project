@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from Utils.Kfold import kfold
-from Utils.DCF import min_DCF
-from Training.Logistic_Regression.logistic_regression import *
+from Metrics.DCF import min_DCF
+from Models.LR.logistic_regression import *
 from Preprocessing.PCA import PCA
 from Preprocessing.Znorm import *
 
@@ -114,21 +114,21 @@ def LR_PCA(D, L, prior):
         res_1 = min_DCF(value[0], 1, 1, Label_1, SPost_1)
         min_dcf_results_raw.append(res_1)
     print("END1")
-    D_11 = PCA(D,11)
+    D_11,_ = PCA(D,11)
     for l in l_values:
         regression = Logistic_Regression(l)
         SPost_2, Label_2 = kfold(regression, 5, D_11, L, prior)
         res_2 = min_DCF(value[0], 1, 1, Label_2, SPost_2)
         min_dcf_results_11.append(res_2)
     print("END2")  
-    D_10 = PCA(D,10)
+    D_10,_ = PCA(D,10)
     for l in l_values:
         regression = Logistic_Regression(l)
         SPost_3, Label_3 = kfold(regression, 5, D_10, L, prior)
         res_3 = min_DCF(value[0], 1, 1, Label_3, SPost_3)
         min_dcf_results_10.append(res_3)
     print("END3") 
-    D_9 = PCA(D,9)
+    D_9,_ = PCA(D,9)
     for l in l_values:
         regression = Logistic_Regression(l)
         SPost_4, Label_4 = kfold(regression, 5, D_9, L, prior)

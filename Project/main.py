@@ -4,12 +4,14 @@ from Training.Gaussian.train_gaussian import *
 from Training.Logistic_Regression.train_logistic_regression import *
 from Training.SVM.train_SVM import *
 from Training.GMM.train_GMM import *
-from Calibration.bayes_error_plot import *
+from Metrics.bayes_error_plot import *
 from Calibration.calibration import *
 from Testing.test import *
 from Testing.Logistic_Regression.LR_test import *
 from Testing.GMM.GMM_test import *
 from Testing.SVM.SVM_test import *
+
+from Metrics.ROC import *
 
 
 if __name__ == '__main__':
@@ -44,19 +46,19 @@ if __name__ == '__main__':
     
 # # Train Gaussian Classifiers
 
-#    train_MVG(D1,L1)
-#    train_NB(D1,L1)
-#    train_TMVG(D1,L1)
-#    train_TNB(D1,L1)
+# train_MVG(D1,L1)
+# train_NB(D1,L1)
+# train_TMVG(D1,L1)
+# train_TNB(D1,L1)
 
 
 # # Train LR
 
 #   LR_RAW(D1,L1,0.5)
 #   LR_RAW_Znorm(D1,L1,0.5)
-#   LR_PCA(D1,L1,0.5)
-#   LR_PCA(D1,L1,0.1)
-#   LR_PCA(D1,L1,0.9)
+LR_PCA(D1,L1,0.5)
+LR_PCA(D1,L1,0.1)
+LR_PCA(D1,L1,0.9)
 #   LR_diff_priors(D1,L1)
 #   LR_diff_priors_zscore(D1, L1)
 #   Quad_LR_RAW(D1, L1, 0.5)
@@ -225,20 +227,23 @@ if __name__ == '__main__':
 # llr,Label = SVM_test_best(D1,D2,L1,L2)
 # bayes_error_plot(llr,Label,"Best_eval_SVM")
 
-llr_LR,Label_LR = LR_test_best(D1,D2,L1,L2)
-llr_cal_LR,Label_cal_LR = calibration(llr_LR,Label_LR,0.5)
+# llr_LR,Label_LR = LR_test_best(D1,D2,L1,L2)
+# llr_cal_LR,Label_cal_LR = calibration(llr_LR,Label_LR,0.5)
 
 
-llr_GMM,Label_GMM = GMM_test_best(D1,D2,L1,L2)
-llr_cal_GMM,Label_cal_GMM = calibration(llr_GMM,Label_GMM,0.5)
+# llr_GMM,Label_GMM = GMM_test_best(D1,D2,L1,L2)
+# llr_cal_GMM,Label_cal_GMM = calibration(llr_GMM,Label_GMM,0.5)
 
 
-llr_SVM,Label_SVM = SVM_test_best(D1,D2,L1,L2)
-llr_cal_SVM,Label_cal_SVM = calibration(llr_SVM,Label_SVM,0.5)
+# llr_SVM,Label_SVM = SVM_test_best(D1,D2,L1,L2)
+# llr_cal_SVM,Label_cal_SVM = calibration(llr_SVM,Label_SVM,0.5)
 
 
-
-bayes_error_plot_multi(llr_cal_LR, Label_cal_LR, llr_cal_SVM, Label_cal_SVM, llr_cal_GMM, Label_cal_GMM, "Multi_model")
+#plot_ROC(llr_cal_LR,Label_cal_LR,llr_cal_SVM,Label_cal_SVM,llr_cal_GMM,Label_cal_GMM)
+#plot_DET(llr_cal_LR,Label_cal_LR,llr_cal_SVM,Label_cal_SVM,llr_cal_GMM,Label_cal_GMM,)
+#plot_det(llr_cal_LR,Label_cal_LR)
+#
+#bayes_error_plot_multi(llr_cal_LR, Label_cal_LR, llr_cal_SVM, Label_cal_SVM, llr_cal_GMM, Label_cal_GMM, "Multi_model")
 
 
 
@@ -261,3 +266,4 @@ bayes_error_plot_multi(llr_cal_LR, Label_cal_LR, llr_cal_SVM, Label_cal_SVM, llr
 #GMM_test_compare(D1, L1, D2, L2)
 
 
+# plot_ROC(llr_cal_LR, Label_cal_LR, llr_cal_SVM, Label_cal_SVM, llr_cal_GMM, Label_cal_GMM)

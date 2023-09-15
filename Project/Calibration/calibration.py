@@ -1,7 +1,7 @@
 
 import numpy
 from Utils.Kfold import *
-from Training.Logistic_Regression.logistic_regression import *
+from Models.LR.logistic_regression import *
 
 
 
