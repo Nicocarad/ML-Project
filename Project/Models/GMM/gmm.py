@@ -1,5 +1,5 @@
 import numpy
-from Training.GMM.gmm_utils import *
+from Models.GMM.gmm_utils import *
 
 
 class GMM:

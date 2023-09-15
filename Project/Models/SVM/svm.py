@@ -1,6 +1,6 @@
 import numpy
 from scipy.optimize import fmin_l_bfgs_b
-from Training.SVM.svm_utils import *
+from Models.SVM.svm_utils import *
 
 
 

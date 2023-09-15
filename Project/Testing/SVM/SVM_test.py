@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 
-from Training.SVM.svm import *
+from Models.SVM.svm import *
 from Metrics.DCF import *
 from Utils.Kfold import *
 from Preprocessing.Znorm import *

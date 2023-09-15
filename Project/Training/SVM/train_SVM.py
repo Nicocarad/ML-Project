@@ -1,5 +1,5 @@
 from Metrics.DCF import min_DCF
-from Training.SVM.svm import *
+from Models.SVM.svm import *
 from Utils.Kfold import kfold
 import matplotlib.pyplot as plt
 from Preprocessing.Znorm import *
