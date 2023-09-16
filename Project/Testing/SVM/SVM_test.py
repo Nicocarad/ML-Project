@@ -211,3 +211,21 @@ def RadKernBased_znorm_eval(DTR, LTR, DTE, LTE ,prior):
     plt.legend()
     plt.savefig("Testing/SVM/Plot/RadKernBased_znorm_eval.pdf")
     plt.close()
+    
+    
+    
+    
+def SVM_test_best(DTR, DTE, LTR, LTE):
+    DTR = znorm(DTR)
+    DTE = znorm(DTE)
+    lbd = 0.1
+    C = 5
+    pi_T = 0.5
+
+    svm = RadialKernelBasedSvm(1, C, lbd)
+
+    svm.train(DTR, LTR, DTE, LTE, pi_T)
+    svm.compute_scores()
+    scores = svm.scores
+
+    return scores, LTE

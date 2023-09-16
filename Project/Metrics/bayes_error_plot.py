@@ -49,7 +49,8 @@ def bayes_error_plot_multi(llr_LR, Label_LR, llr_SVM, Label_SVM, llr_GMM, Label_
         predicted_labels = optimalBinaryBayesDecision(llr_LR, pi, 1, 1)
         conf_matrix = confusionMatrix(Label_LR, predicted_labels)
         dcf_LR.append(DCF(pi, 1, 1, conf_matrix, "normalized"))
-        mindcf_LR.append(min_DCF(pi, 1, 1, Label_LR, llr_LR))
+        min_dcf = min_DCF(pi, 1, 1, Label_LR, llr_LR)
+        mindcf_LR.append(min_dcf)
     
     print("fine 1")
     

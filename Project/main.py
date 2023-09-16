@@ -6,11 +6,9 @@ from Training.SVM.train_SVM import *
 from Training.GMM.train_GMM import *
 from Metrics.bayes_error_plot import *
 from Calibration.calibration import *
-from Testing.test import *
 from Testing.Logistic_Regression.LR_test import *
 from Testing.GMM.GMM_test import *
 from Testing.SVM.SVM_test import *
-
 from Metrics.ROC import *
 
 
@@ -84,6 +82,7 @@ if __name__ == '__main__':
 
 #RadKernBased_RAW(DTR,LTR,0.5)
 #RadKernBased_znorm(DTR,LTR,0.5)
+RadKernBased_RAW_znorm(DTR, LTR, 0.5)
 
 
 
@@ -150,7 +149,7 @@ if __name__ == '__main__':
 # act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
 # print("min_dcf: ", min_dcf)
 # print("act_dcf: ", act_dcf)
-# print("-----------------------\n")
+
 
 
 # print("LR - min_dcf / act_dcf\n")
@@ -163,7 +162,7 @@ if __name__ == '__main__':
 # print("min_dcf: ", min_dcf)
 # print("act_dcf: ", act_dcf)
 
-# print("-----------------------\n")
+
 # print("SVM - min_dcf / act_dcf\n")
 # llr,Label = SVM_train_best(DTR,LTR)
 # llr_cal,Label_cal = calibration(llr,Label,0.5)
@@ -185,7 +184,7 @@ if __name__ == '__main__':
 # act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
 # print("min_dcf: ", min_dcf)
 # print("act_dcf: ", act_dcf)
-# print("-----------------------\n")
+
 
 
 # print("LR - min_dcf / act_dcf\n")
@@ -199,7 +198,6 @@ if __name__ == '__main__':
 # print("act_dcf: ", act_dcf)
 
 
-# print("-----------------------\n")
 # print("SVM - min_dcf / act_dcf\n")
 # llr,Label = SVM_test_best(DTR,DTE,LTR,LTE)
 # llr_cal,Label_cal = calibration(llr,Label,0.5)
@@ -239,10 +237,9 @@ if __name__ == '__main__':
 
 
 #plot_ROC(llr_cal_LR,Label_cal_LR,llr_cal_SVM,Label_cal_SVM,llr_cal_GMM,Label_cal_GMM)
-#plot_DET(llr_cal_LR,Label_cal_LR,llr_cal_SVM,Label_cal_SVM,llr_cal_GMM,Label_cal_GMM,)
-#plot_det(llr_cal_LR,Label_cal_LR)
+
 #
-#bayes_error_plot_multi(llr_cal_LR, Label_cal_LR, llr_cal_SVM, Label_cal_SVM, llr_cal_GMM, Label_cal_GMM, "Multi_model")
+# bayes_error_plot_multi(llr_cal_LR, Label_cal_LR, llr_cal_SVM, Label_cal_SVM, llr_cal_GMM, Label_cal_GMM, "Multi_model")
 
 
 
@@ -266,3 +263,78 @@ if __name__ == '__main__':
 
 
 # plot_ROC(llr_cal_LR, Label_cal_LR, llr_cal_SVM, Label_cal_SVM, llr_cal_GMM, Label_cal_GMM)
+
+
+
+
+
+
+
+
+# print("GMM - min_dcf / act_dcf\n")
+# llr,Label = GMM_train_best(DTR,LTR)
+# llr_cal,Label_cal = calibration(llr,Label,0.5)
+# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.1, 1, 1)
+# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
+# min_dcf = min_DCF(0.1,1,1,Label_cal,llr_cal)
+# act_dcf = DCF(0.1, 1, 1, conf_matrix, "normalized")
+# print("GMM min_dcf 0.1: ", min_dcf)
+# print("GMM act_dcf: 0.1", act_dcf)
+
+
+
+# print("LR - min_dcf / act_dcf\n")
+# llr,Label = LR_train_best(DTR,LTR)
+# llr_cal,Label_cal = calibration(llr,Label,0.5)
+# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.1, 1, 1)
+# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
+# min_dcf = min_DCF(0.1,1,1,Label_cal,llr_cal)
+# act_dcf = DCF(0.1, 1, 1, conf_matrix, "normalized")
+# print("LR min_dcf: 0.1", min_dcf)
+# print("LR act_dcf: 0.1", act_dcf)
+
+
+# print("SVM - min_dcf / act_dcf\n")
+# llr,Label = SVM_train_best(DTR,LTR)
+# llr_cal,Label_cal = calibration(llr,Label,0.5)
+# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.1, 1, 1)
+# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
+# min_dcf = min_DCF(0.1,1,1,Label_cal,llr_cal)
+# act_dcf = DCF(0.1, 1, 1, conf_matrix, "normalized")
+# print("SVM min_dcf 0.1: ", min_dcf)
+# print("SVM act_dcf 0.1: ", act_dcf)
+
+
+
+# print("GMM - min_dcf / act_dcf\n")
+# llr,Label = GMM_test_best(DTR,DTE,LTR,LTE)
+# llr_cal,Label_cal = calibration(llr,Label,0.5)
+# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.1, 1, 1)
+# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
+# min_dcf = min_DCF(0.1,1,1,Label_cal,llr_cal)
+# act_dcf = DCF(0.1, 1, 1, conf_matrix, "normalized")
+# print("min_dcf: 0.1", min_dcf)
+# print("act_dcf: 0.1", act_dcf)
+
+
+
+# print("LR - min_dcf / act_dcf\n")
+# llr,Label = LR_test_best(DTR,DTE,LTR,LTE)
+# llr_cal,Label_cal = calibration(llr,Label,0.5)
+# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.1, 1, 1)
+# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
+# min_dcf = min_DCF(0.1,1,1,Label_cal,llr_cal)
+# act_dcf = DCF(0.1, 1, 1, conf_matrix, "normalized")
+# print("min_dcf: 0.1", min_dcf)
+# print("act_dcf: 0.1", act_dcf)
+
+
+# print("SVM - min_dcf / act_dcf\n")
+# llr,Label = SVM_test_best(DTR,DTE,LTR,LTE)
+# llr_cal,Label_cal = calibration(llr,Label,0.5)
+# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.1, 1, 1)
+# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
+# min_dcf = min_DCF(0.1,1,1,Label_cal,llr_cal)
+# act_dcf = DCF(0.1, 1, 1, conf_matrix, "normalized")
+# print("SVM min_dcf 0.1: ", min_dcf)
+# print("SVM act_dcf: 0.1: ", act_dcf)

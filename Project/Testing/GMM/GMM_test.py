@@ -294,3 +294,15 @@ def GMM_test_compare(DTR,LTR,DTE,LTE):
     print("GMM_Tied 4 components + PCA11 min_DCF", res)
     
     
+    
+    
+    
+def GMM_test_best(DTR, DTE, LTR, LTE):
+    DTR, DTE = PCA(DTR, 11, DTE)
+    iterations = 2
+    gmm = GMM(iterations)
+    gmm.train(DTR, LTR, DTE, LTE, None)
+    gmm.compute_scores()
+    scores = gmm.scores
+
+    return scores, LTE

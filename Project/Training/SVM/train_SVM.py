@@ -455,7 +455,51 @@ def Kern_SVM_diff_priors_znorm(D, L):
         res = min_DCF(pi, 1, 1, Label, SPost)
         print(f"min_DCF (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
         
+ 
+def RadKernBased_RAW_znorm(D, L, prior):
+    C_values = numpy.logspace(-1, 1, num=5)
+
+    
+    min_dcf_results_log1_znorm= []
+
+    min_dcf_results_log3_raw = []
+    
+    
+
+    for i, c in enumerate(C_values):
+        print(c)
+        svm = RadialKernelBasedSvm(1,c,0.001)
+
+        SPost_1, Label_1 = kfold(svm, 5, D, L, prior)
+        res_1 = min_DCF(0.5, 1, 1, Label_1, SPost_1)
+        min_dcf_results_log3_raw.append(res_1)
+        print(i)
+      
+    D = znorm(D) 
+    for i, c in enumerate(C_values):
+        svm = RadialKernelBasedSvm(1,c,0.1)
+
+        SPost_2, Label_2 = kfold(svm, 5, D, L, prior)
+        res_2 = min_DCF(0.5, 1, 1, Label_2, SPost_2)
+        min_dcf_results_log1_znorm.append(res_2)
+        print(i)
         
+    
+    
+    plt.figure()
+    plt.xlabel('C')
+    plt.xscale('log')
+    plt.ylabel("minDCF")
+    
+    
+    plt.plot(C_values, min_dcf_results_log1_znorm, label="logγ = -1 Znorm")
+    plt.plot(C_values, min_dcf_results_log3_raw, label="logγ = -3 RAW")
+    
+    
+    plt.xlim(C_values[0], C_values[-1])
+    plt.legend()
+    plt.savefig("Training/SVM/Plot/RadKernBased_raw_znorm.pdf")
+    plt.close()   
         
         
 def SVM_train_best(D,L):
