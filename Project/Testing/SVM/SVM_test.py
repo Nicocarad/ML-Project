@@ -1,10 +1,9 @@
 import matplotlib.pyplot as plt
-
-
 from Models.SVM.svm import *
 from Metrics.DCF import *
 from Utils.Kfold import *
 from Preprocessing.Znorm import *
+from Calibration.calibration import *
 
 
 def RadKernBased_RAW_eval(DTR, LTR, DTE, LTE ,prior):
@@ -229,3 +228,17 @@ def SVM_test_best(DTR, DTE, LTR, LTE):
     scores = svm.scores
 
     return scores, LTE
+
+
+
+
+def SVM_test_min_act_dcf_cal(DTR,LTR,DTE,LTE):
+    print("SVM - min_dcf / act_dcf\n")
+    llr,Label = SVM_test_best(DTR,DTE,LTR,LTE)
+    llr_cal,Label_cal = calibration(llr,Label,0.5)
+    predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
+    conf_matrix = confusionMatrix(Label_cal, predicted_labels)
+    min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
+    act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
+    print("min_dcf: ", min_dcf)
+    print("act_dcf: ", act_dcf)

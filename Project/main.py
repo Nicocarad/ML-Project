@@ -79,165 +79,104 @@ if __name__ == '__main__':
 #----------------------------------------------------------------------------------------# 
 
 
-# TRAIN SUPPORT VECTOR MACHINE
+# # TRAIN SUPPORT VECTOR MACHINE
 
 
-#SVM_RAW_znorm(DTR,LTR,0.5,[0.5,0.1,0.9])
-#SVM_diff_priors(DTR, LTR)
-#SVM_diff_priors_znorm(DTR, LTR)
+#       SVM_RAW_znorm(DTR, LTR, 0.5, 0.5)
+#       SVM_RAW_znorm(DTR, LTR, 0.5, 0.1)
+#       SVM_RAW_znorm(DTR, LTR, 0.5, 0.9)
+#       SVM_diff_priors(DTR, LTR)
+#       SVM_diff_priors_znorm(DTR, LTR)
 
-Poly_SVM_RAW_znorm(DTR,LTR,0.5,[0.5,0.1,0.9])
+#       Poly_SVM_RAW_znorm(DTR, LTR, 0.5, 0.5)
+#       Poly_SVM_RAW_znorm(DTR, LTR, 0.5, 0.1)
+#       Poly_SVM_RAW_znorm(DTR, LTR, 0.5, 0.9)
+#       Poly_SVM_diff_priors(DTR, LTR)
+#       Poly_SVM_diff_priors_znorm(DTR, LTR)
 
-
-# Poly_SVM_RAW_znorm_05(DTR, LTR, 0.5)
-# Poly_SVM_RAW_znorm_01(DTR, LTR, 0.5)
-# Poly_SVM_RAW_znorm_09(DTR, LTR, 0.5)
-# Poly_SVM_diff_priors(DTR, LTR)
-
-
-#RadKernBased_RAW(DTR,LTR,0.5)
-#RadKernBased_znorm(DTR,LTR,0.5)
-#RadKernBased_RAW_znorm(DTR, LTR, 0.5)
-
-
-
-
-# Kern_SVM_diff_priors(DTR, LTR)
-# Kern_SVM_diff_priors_znorm(DTR, LTR)
+#       RadKernBased_RAW(DTR,LTR,0.5)
+#       RadKernBased_znorm(DTR,LTR,0.5)
+#       RadKernBased_RAW_znorm(DTR, LTR, 0.5)
+#       RadKernBased_diff_priors(DTR, LTR)
+#       RadKernBased_diff_priors_znorm(DTR, LTR)
 
 
-#TRAIN GMM
-
-# GMM_plot_diff_component(DTR, LTR)
-# GMM_plot_diff_component_PCA(DTR,LTR,11)
-# GMM_plot_diff_component_PCA(DTR,LTR,10)
-# GMM_Tied_plot_diff_component(DTR, LTR)
-# GMM_Tied_plot_diff_component_PCA(DTR, LTR,11)
-# GMM_Tied_plot_diff_component_PCA(DTR, LTR,10)
-# GMM_Diagonal_plot_diff_component(DTR, LTR)
-# GMM_Diagonal_plot_diff_component_PCA(DTR, LTR)
-# GMM_TiedDiagonal_plot_diff_component(DTR, LTR)
-
-# GMM_diff_priors(DTR,LTR)
-# GMM_diff_priors_zscore(DTR,LTR)
+#----------------------------------------------------------------------------------------# 
 
 
+# # TRAIN GAUSSIAN MIXTURE MODEL
+
+#       GMM_plot_diff_component(DTR, LTR)
+#       GMM_plot_diff_component_PCA(DTR,LTR,11)
+#       GMM_plot_diff_component_PCA(DTR,LTR,10)
+
+#       GMM_Tied_plot_diff_component(DTR, LTR)
+#       GMM_Tied_plot_diff_component_PCA(DTR, LTR,11)
+#       GMM_Tied_plot_diff_component_PCA(DTR, LTR,10)
+
+#       GMM_Diagonal_plot_diff_component(DTR, LTR)
+#       GMM_Diagonal_plot_diff_component_PCA(DTR, LTR)
+#       GMM_TiedDiagonal_plot_diff_component(DTR, LTR)
+
+#       GMM_diff_priors(DTR,LTR)
+#       GMM_diff_priors_zscore(DTR,LTR)
 
 
-
-# CALIBRATION (VAL)
-
-#llr,Label = GMM_train_best(DTR,LTR)
-# bayes_error_plot(llr,Label,"Best_GMM")
-
-# llr,Label = LR_train_best(DTR,LTR)
-# bayes_error_plot(llr,Label,"Best_LR")
-
-# llr,Label = SVM_train_best(DTR,LTR)
-# bayes_error_plot(llr,Label,"Best_SVM")
-
-# llr_LR,Label_LR = LR_train_best(DTR,LTR)
-# llr_cal_LR,Label_cal_LR = calibration(llr_LR,Label_LR,0.5)
-# bayes_error_plot(llr_cal_LR,Label_cal_LR,"Best_LR_calibrated")
-
-# llr_GMM,Label_GMM = GMM_train_best(DTR,LTR)
-# llr_cal_GMM,Label_cal_GMM = calibration(llr_GMM,Label_GMM,0.5)
-# bayes_error_plot(llr_cal_GMM,Label_cal_GMM,"Best_GMM_calibrated")
-
-# llr_SVM,Label_SVM = SVM_train_best(DTR,LTR)
-# llr_cal_SVM,Label_cal_SVM = calibration(llr_SVM,Label_SVM,0.5)
-# bayes_error_plot(llr_cal_SVM,Label_cal_SVM,"Best_SVM_calibrated")
+#----------------------------------------------------------------------------------------# 
 
 
+# # CALIBRATION (VAL)
+
+#       llr,Label = GMM_train_best(DTR,LTR)
+#       bayes_error_plot(llr,Label,"Best_GMM")
+
+#       llr,Label = LR_train_best(DTR,LTR)
+#       bayes_error_plot(llr,Label,"Best_LR")
+
+#       llr,Label = SVM_train_best(DTR,LTR)
+#       bayes_error_plot(llr,Label,"Best_SVM")
+
+#       llr_LR,Label_LR = LR_train_best(DTR,LTR)
+#       llr_cal_LR,Label_cal_LR = calibration(llr_LR,Label_LR,0.5)
+#       bayes_error_plot(llr_cal_LR,Label_cal_LR,"Best_LR_calibrated")
+
+#       llr_GMM,Label_GMM = GMM_train_best(DTR,LTR)
+#       llr_cal_GMM,Label_cal_GMM = calibration(llr_GMM,Label_GMM,0.5)
+#       bayes_error_plot(llr_cal_GMM,Label_cal_GMM,"Best_GMM_calibrated")
+
+#       llr_SVM,Label_SVM = SVM_train_best(DTR,LTR)
+#       llr_cal_SVM,Label_cal_SVM = calibration(llr_SVM,Label_SVM,0.5)
+#       bayes_error_plot(llr_cal_SVM,Label_cal_SVM,"Best_SVM_calibrated")
 
 
+#----------------------------------------------------------------------------------------# 
 
 
-#EVALUATION
+# # EVALUATION
 
-# print("GMM - min_dcf / act_dcf\n")
-# llr,Label = GMM_train_best(DTR,LTR)
-# llr_cal,Label_cal = calibration(llr,Label,0.5)
-# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
-# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-# min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
-# act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
-# print("min_dcf: ", min_dcf)
-# print("act_dcf: ", act_dcf)
+#       LR_min_act_dcf_cal(DTR,LTR)
+#       SVM_min_act_dcf_cal(DTR,LTR)
+#       GMM_min_act_dcf_cal(DTR,LTR)
+
+#       LR_test_min_act_dcf_cal(DTR,LTR,DTE,LTE)
+#       SVM_test_min_act_dcf_cal(DTR,LTR,DTE,LTE)
+#       GMM_test_min_act_dcf_cal(DTR,LTR,DTE,LTE)
 
 
-
-# print("LR - min_dcf / act_dcf\n")
-# llr,Label = LR_train_best(DTR,LTR)
-# llr_cal,Label_cal = calibration(llr,Label,0.5)
-# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
-# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-# min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
-# act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
-# print("min_dcf: ", min_dcf)
-# print("act_dcf: ", act_dcf)
-
-
-# print("SVM - min_dcf / act_dcf\n")
-# llr,Label = SVM_train_best(DTR,LTR)
-# llr_cal,Label_cal = calibration(llr,Label,0.5)
-# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
-# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-# min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
-# act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
-# print("min_dcf: ", min_dcf)
-# print("act_dcf: ", act_dcf)
+#----------------------------------------------------------------------------------------# 
 
 
 
-# print("GMM - min_dcf / act_dcf\n")
-# llr,Label = GMM_test_best(DTR,DTE,LTR,LTE)
-# llr_cal,Label_cal = calibration(llr,Label,0.5)
-# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
-# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-# min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
-# act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
-# print("min_dcf: ", min_dcf)
-# print("act_dcf: ", act_dcf)
+# # CALIBRATION (EVAL)
 
+#      llr,Label = GMM_test_best(DTR,DTE,LTR,LTE)
+#      bayes_error_plot(llr,Label,"Best_eval_GMM")
 
+#      llr,Label = LR_test_best(DTR,DTE,LTR,LTE)
+#      bayes_error_plot(llr,Label,"Best_eval_LR")
 
-# print("LR - min_dcf / act_dcf\n")
-# llr,Label = LR_test_best(DTR,DTE,LTR,LTE)
-# llr_cal,Label_cal = calibration(llr,Label,0.5)
-# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
-# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-# min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
-# act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
-# print("min_dcf: ", min_dcf)
-# print("act_dcf: ", act_dcf)
-
-
-# print("SVM - min_dcf / act_dcf\n")
-# llr,Label = SVM_test_best(DTR,DTE,LTR,LTE)
-# llr_cal,Label_cal = calibration(llr,Label,0.5)
-# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
-# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-# min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
-# act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
-# print("min_dcf: ", min_dcf)
-# print("act_dcf: ", act_dcf)
-
-
-
-
-
-
-# CALIBRATION (EVAL)
-
-# llr,Label = GMM_test_best(DTR,DTE,LTR,LTE)
-# bayes_error_plot(llr,Label,"Best_eval_GMM")
-
-# llr,Label = LR_test_best(DTR,DTE,LTR,LTE)
-# bayes_error_plot(llr,Label,"Best_eval_LR")
-
-# llr,Label = SVM_test_best(DTR,DTE,LTR,LTE)
-# bayes_error_plot(llr,Label,"Best_eval_SVM")
+#      llr,Label = SVM_test_best(DTR,DTE,LTR,LTE)
+#      bayes_error_plot(llr,Label,"Best_eval_SVM")
 
 # llr_LR,Label_LR = LR_test_best(DTR,DTE,LTR,LTE)
 # llr_cal_LR,Label_cal_LR = calibration(llr_LR,Label_LR,0.5)

@@ -5,6 +5,8 @@ from Metrics.DCF import min_DCF
 from Models.LR.logistic_regression import *
 from Preprocessing.PCA import PCA
 from Preprocessing.Znorm import *
+from Calibration.calibration import *
+from Metrics.DCF import *
 
 
 def plot_results(min_dcf_05, min_dcf_01, min_dcf_09, name, title):
@@ -335,3 +337,19 @@ def LR_train_best(D, L):
     regression = Logistic_Regression(l)
     SPost, Label = kfold(regression, 5, D, L, 0.9)
     return SPost, Label
+
+
+
+
+
+
+def LR_min_act_dcf_cal(DTR,LTR):
+    print("LR - min_dcf / act_dcf\n")
+    llr,Label = LR_train_best(DTR,LTR)
+    llr_cal,Label_cal = calibration(llr,Label,0.5)
+    predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
+    conf_matrix = confusionMatrix(Label_cal, predicted_labels)
+    min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
+    act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
+    print("min_dcf: ", min_dcf)
+    print("act_dcf: ", act_dcf)

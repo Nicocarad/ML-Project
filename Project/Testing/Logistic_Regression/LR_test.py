@@ -6,6 +6,7 @@ from Models.LR.logistic_regression import *
 from Metrics.DCF import *
 from Utils.Kfold import *
 from Preprocessing.Znorm import *
+from Calibration.calibration import *
 
 def plot_RAW_results(min_dcf_05, min_dcf_01, min_dcf_09, min_dcf_05_eval, min_dcf_01_eval, min_dcf_09_eval, name, title):
     lambda_values = np.logspace(-5, 2, num=41)
@@ -128,3 +129,13 @@ def LR_test_best(DTR, DTE, LTR, LTE):
 
 
 
+def LR_test_min_act_dcf_cal(DTR,LTR,DTE,LTE):
+    print("LR - min_dcf / act_dcf\n")
+    llr,Label = LR_test_best(DTR,DTE,LTR,LTE)
+    llr_cal,Label_cal = calibration(llr,Label,0.5)
+    predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
+    conf_matrix = confusionMatrix(Label_cal, predicted_labels)
+    min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
+    act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
+    print("min_dcf: ", min_dcf)
+    print("act_dcf: ", act_dcf)

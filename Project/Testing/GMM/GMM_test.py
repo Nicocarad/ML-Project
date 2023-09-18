@@ -5,6 +5,7 @@ from Models.GMM.gmm import *
 from Preprocessing.Znorm import *
 import matplotlib.pyplot as plt
 from Calibration.calibration import *
+from Metrics.DCF import *
 
 
 
@@ -294,7 +295,8 @@ def GMM_test_compare(DTR,LTR,DTE,LTE):
     print("GMM_Tied 4 components + PCA11 min_DCF", res)
     
     
-    
+  
+
     
     
 def GMM_test_best(DTR, DTE, LTR, LTE):
@@ -306,3 +308,18 @@ def GMM_test_best(DTR, DTE, LTR, LTE):
     scores = gmm.scores
 
     return scores, LTE
+
+
+
+
+
+def GMM_test_min_act_dcf_cal(DTR,LTR,DTE,LTE):
+    print("GMM - min_dcf / act_dcf\n")
+    llr,Label = GMM_test_best(DTR,DTE,LTR,LTE)
+    llr_cal,Label_cal = calibration(llr,Label,0.5)
+    predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
+    conf_matrix = confusionMatrix(Label_cal, predicted_labels)
+    min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
+    act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
+    print("min_dcf: ", min_dcf)
+    print("act_dcf: ", act_dcf)

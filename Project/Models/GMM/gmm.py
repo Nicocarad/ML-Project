@@ -4,15 +4,9 @@ from Models.GMM.gmm_utils import *
 
 class GMM:
     def __init__(self, iterations, alpha=0.1, psi=0.01):
-        self.DTR = 0
-        self.DTE = 0
-        self.LTR = 0
-        self.LTE = 0
-        self.gmm = None
         self.iterations = iterations
         self.alpha = alpha
         self.psi = psi
-        self.scores = 0
 
     def train(self, DTR, LTR, DTE, LTE, eff_prior):
         self.DTR = DTR
@@ -23,7 +17,7 @@ class GMM:
         num_classes = numpy.unique(self.LTR).size
 
         gmm = [
-            lbg_algorithm(
+            LBG(
                 self.iterations,
                 self.DTR[:, self.LTR == classes],
                 [[1, *mean_and_covariance(self.DTR[:, self.LTR == classes])]],
@@ -41,15 +35,9 @@ class GMM:
 
 class GMM_Tied:
     def __init__(self, iterations, alpha=0.1, psi=0.01):
-        self.DTR = 0
-        self.DTE = 0
-        self.LTR = 0
-        self.LTE = 0
-        self.gmm = None
         self.iterations = iterations
         self.alpha = alpha
         self.psi = psi
-        self.scores = 0
 
     def train(self, DTR, LTR, DTE, LTE, eff_prior):
         self.DTR = DTR
@@ -60,7 +48,7 @@ class GMM_Tied:
         num_classes = numpy.unique(self.LTR).size
 
         gmm = [
-            lbg_algorithm(
+            LBG(
                 self.iterations,
                 self.DTR[:, self.LTR == classes],
                 [[1, *mean_and_covariance(self.DTR[:, self.LTR == classes])]],
@@ -79,15 +67,9 @@ class GMM_Tied:
 
 class GMM_Diagonal:
     def __init__(self, iterations, alpha=0.1, psi=0.01):
-        self.DTR = 0
-        self.DTE = 0
-        self.LTR = 0
-        self.LTE = 0
-        self.gmm = None
         self.iterations = iterations
         self.alpha = alpha
         self.psi = psi
-        self.scores = 0
 
     def train(self, DTR, LTR, DTE, LTE, eff_prior):
         self.DTR = DTR
@@ -98,7 +80,7 @@ class GMM_Diagonal:
         num_classes = numpy.unique(self.LTR).size
 
         gmm = [
-            lbg_algorithm(
+            LBG(
                 self.iterations,
                 self.DTR[:, self.LTR == classes],
                 [[1, *mean_and_covariance(self.DTR[:, self.LTR == classes])]],
@@ -117,15 +99,9 @@ class GMM_Diagonal:
 
 class GMM_TiedDiagonal:
     def __init__(self, iterations, alpha=0.1, psi=0.01):
-        self.DTR = 0
-        self.DTE = 0
-        self.LTR = 0
-        self.LTE = 0
-        self.gmm = None
         self.iterations = iterations
         self.alpha = alpha
         self.psi = psi
-        self.scores = 0
 
     def train(self, DTR, LTR, DTE, LTE, eff_prior):
         self.DTR = DTR
@@ -136,7 +112,7 @@ class GMM_TiedDiagonal:
         num_classes = numpy.unique(self.LTR).size
 
         gmm = [
-            lbg_algorithm(
+            LBG(
                 self.iterations,
                 self.DTR[:, self.LTR == classes],
                 [[1, *mean_and_covariance(self.DTR[:, self.LTR == classes])]],

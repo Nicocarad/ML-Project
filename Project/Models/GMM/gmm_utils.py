@@ -29,7 +29,7 @@ def logpdf_gmm(X, gmm):
             s[idx, i] = logpdf_GAU_ND_fast(X[:, i:i+1], component[1], component[2]) + numpy.log(component[0])
     return scipy.special.logsumexp(s, axis=0)
 
-def lbg_algorithm(iterations, X, start_gmm, alpha, psi, covariance_func=None):
+def LBG(iterations, X, start_gmm, alpha, psi, covariance_func=None):
 
     if covariance_func is not None:
         start_gmm = covariance_func(start_gmm, [X.shape[1]], X.shape[1])
@@ -40,7 +40,7 @@ def lbg_algorithm(iterations, X, start_gmm, alpha, psi, covariance_func=None):
         s[s < psi] = psi
         start_gmm[i] = (start_gmm[i][0], start_gmm[i]
                         [1], numpy.dot(U, mcol(s)*U.T))
-    start_gmm = em_algorithm(X, start_gmm, psi, covariance_func)
+    start_gmm = EM(X, start_gmm, psi, covariance_func)
 
     for i in range(iterations):
         gmm_new = []
@@ -53,10 +53,10 @@ def lbg_algorithm(iterations, X, start_gmm, alpha, psi, covariance_func=None):
             
             gmm_new.append((new_w, g[1] + d, sigma_g))
             gmm_new.append((new_w, g[1] - d, sigma_g))
-        start_gmm = em_algorithm(X, gmm_new, psi, covariance_func)
+        start_gmm = EM(X, gmm_new, psi, covariance_func)
     return start_gmm
 
-def em_algorithm(X, gmm, psi, covariance_func=None):
+def EM(X, gmm, psi, covariance_func=None):
     ll_new = None
     ll_old = None
     while ll_old is None or ll_new - ll_old > 1e-6:
