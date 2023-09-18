@@ -5,9 +5,6 @@ import matplotlib.pyplot as plt
 from Preprocessing.Znorm import *
 from Calibration.calibration import *
 from Metrics.DCF import *
-
-
-import numpy as np
 import matplotlib.pyplot as plt
 
 

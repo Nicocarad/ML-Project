@@ -82,9 +82,9 @@ if __name__ == '__main__':
 # # TRAIN SUPPORT VECTOR MACHINE
 
 
-#       SVM_RAW_znorm(DTR, LTR, 0.5, 0.5)
-#       SVM_RAW_znorm(DTR, LTR, 0.5, 0.1)
-#       SVM_RAW_znorm(DTR, LTR, 0.5, 0.9)
+      SVM_RAW_znorm(DTR, LTR, 0.5, 0.5)
+      SVM_RAW_znorm(DTR, LTR, 0.5, 0.1)
+      SVM_RAW_znorm(DTR, LTR, 0.5, 0.9)
 #       SVM_diff_priors(DTR, LTR)
 #       SVM_diff_priors_znorm(DTR, LTR)
 
