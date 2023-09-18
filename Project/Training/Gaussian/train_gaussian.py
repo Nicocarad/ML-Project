@@ -11,12 +11,14 @@ def train_MVG(D,L):
     ]
     
     m_list = [11, 10, 9, 8, 7]
+    print("#####################################\n")
     
     print("MVG NO PCA\n")
     for classifier, value in MVG_list:
         SPost, Label = kfold(classifier, 5, D, L, value)
         res = min_DCF(value, 1, 1, Label, SPost)
         print(f"Min DCF ({classifier.name}, {value}): {round(res, 3)}")
+    
     
     print("MVG + PCA(7-8-9-10-11)\n")
     for m in m_list:
@@ -27,6 +29,9 @@ def train_MVG(D,L):
             res = min_DCF(value, 1, 1, Label, SPost)
             print(f"Min DCF , {value}): {round(res, 3)}")
             
+    print("\n") 
+    print("#####################################\n")
+         
 
 def train_NB(D,L):
     NB_list = [
@@ -37,14 +42,14 @@ def train_NB(D,L):
     ]
     
     m_list = [11, 10, 9, 8, 7]
-    
-    print("NB NO PCA\n")
+    print("#####################################\n")
+    print("Naive Bayes NO PCA\n")
     for classifier, value in NB_list:
         SPost, Label = kfold(classifier, 5, D, L, value)
         res = min_DCF(value, 1, 1, Label, SPost)
         print(f"Min DCF ({classifier.name}, {value}): {round(res, 3)}")
     
-    print("NB + PCA(7-8-9-10-11)\n")
+    print("Naive Bayes + PCA(7-8-9-10-11)\n")
     for m in m_list:
         D_pca,_ = PCA(D, m)
         print(f"Value of m: {m}")   
@@ -52,6 +57,9 @@ def train_NB(D,L):
             SPost, Label = kfold(classifier, 5, D_pca, L, value)
             res = min_DCF(value, 1, 1, Label, SPost)
             print(f"Min DCF ({classifier.name}, {value}): {round(res, 3)}")
+            
+    print("\n") 
+    print("#####################################\n")
     
 
 def train_TMVG(D,L):
@@ -63,12 +71,15 @@ def train_TMVG(D,L):
     ]
     
     m_list = [11, 10, 9, 8, 7]
+    print("#####################################\n")
     
     print("TMVG NO PCA\n")
     for classifier, value in TMVG_list:
         SPost, Label = kfold(classifier, 5, D, L, value)
         res = min_DCF(value, 1, 1, Label, SPost)
         print(f"Min DCF ({classifier.name}, {value}): {round(res, 3)}")
+        
+    print("\n")
     
     print("TMVG + PCA(7-8-9-10-11)\n")
     for m in m_list:
@@ -78,6 +89,9 @@ def train_TMVG(D,L):
             SPost, Label = kfold(classifier, 5, D_pca, L, value)
             res = min_DCF(value, 1, 1, Label, SPost)
             print(f"Min DCF ({classifier.name}, {value}): {round(res, 3)}") 
+            
+    print("\n")
+    print("#####################################\n")
             
 
 def train_TNB(D,L):
@@ -89,12 +103,15 @@ def train_TNB(D,L):
     ]
     
     m_list = [11, 10, 9, 8, 7]
+    print("#####################################\n")
     
     print("TNB NO PCA\n")
     for classifier, value in TNB_list:
         SPost, Label = kfold(classifier, 5, D, L, value)
         res = min_DCF(value, 1, 1, Label, SPost)
         print(f"Min DCF ({classifier.name}, {value}): {round(res, 3)}")
+        
+    print("\n")
     
     print("TNB + PCA(7-8-9-10-11)\n")
     for m in m_list:
@@ -103,9 +120,11 @@ def train_TNB(D,L):
         for classifier, value in TNB_list:
             SPost, Label = kfold(classifier, 5, D_pca, L, value)
             res = min_DCF(value, 1, 1, Label, SPost)
-            print(f"Min DCF ({classifier.name}, {value}): {round(res, 3)}")       
-            
-            
+            print(f"Min DCF ({classifier.name}, {value}): {round(res, 3)}") 
+              
+    print("\n")     
+    print("#####################################\n")       
+          
 
     
     
