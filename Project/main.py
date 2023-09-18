@@ -31,7 +31,7 @@ if __name__ == '__main__':
 #       print("(Test) Number of Female", num_label_1)
     
     
-#  # FEATURES ANALYSIS
+# # FEATURES ANALYSIS
 
 #       plot_centered_hist(DTR, LTR, "true")
 #       plot_scatter(DTR,LTR)
@@ -42,17 +42,31 @@ if __name__ == '__main__':
 #       PCA_plot(DTR)
     
     
-# Train Gaussian Classifiers
+# # Train Gaussian Classifiers
 
-      train_MVG(DTR,LTR)
-      train_NB(DTR,LTR)
-      train_TMVG(DTR,LTR)
-      train_TNB(DTR,LTR)
+#       train_MVG(DTR,LTR)
+#       train_NB(DTR,LTR)
+#       train_TMVG(DTR,LTR)
+#       train_TNB(DTR,LTR)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # # Train LR
 
-#LR_RAW(DTR,LTR,0.5)
+#   LR_RAW(DTR,LTR,0.5)
 #   LR_RAW_Znorm(DTR,LTR,0.5)
 #   LR_PCA(DTR,LTR,0.5)
 #   LR_PCA(DTR,LTR,0.1)
