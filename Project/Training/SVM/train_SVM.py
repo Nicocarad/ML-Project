@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 
 def SVM_RAW_znorm(D, L, prior, pi):
-    C_values = numpy.logspace(-5, 5, num=11)
+    C_values = numpy.logspace(-5, 5, num=21)
 
     min_dcf_results = []
     min_dcf_results_znorm = []
@@ -19,9 +19,9 @@ def SVM_RAW_znorm(D, L, prior, pi):
 
         SPost_1, Label_1 = kfold(svm, 5, D, L, prior)
         res_1 = min_DCF(pi, 1, 1, Label_1, SPost_1)
-        print(res_1)
+        
         min_dcf_results.append(res_1)
-        print(i)
+        
 
     D = znorm(D)
     for i, c in enumerate(C_values):
@@ -30,9 +30,9 @@ def SVM_RAW_znorm(D, L, prior, pi):
 
         SPost_2, Label_2 = kfold(svm, 5, D, L, prior)
         res_2 = min_DCF(pi, 1, 1, Label_2, SPost_2)
-        print(res_2)
+        
         min_dcf_results_znorm.append(res_2)
-        print(i)
+        
 
     plt.figure()
     plt.xlabel("C")

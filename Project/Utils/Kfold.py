@@ -33,7 +33,7 @@ def kfold(model, k, D, L, eff_prior=None, seed=4):
         scores = model.scores
 
         SPost_partial.append(scores)
-        print("end fold:",i)
+        # print("end fold:",i)
 
     S = np.hstack(SPost_partial)
     
