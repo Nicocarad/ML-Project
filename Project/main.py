@@ -1,7 +1,7 @@
 from Utils.load import load
 from Features_Analysis.feature_analysis import *
 from Training.Gaussian.train_gaussian import *
-from Training.Logistic_Regression.train_logistic_regression import *
+from Training.LR.train_logistic_regression import *
 from Training.SVM.train_SVM import *
 from Training.GMM.train_GMM import *
 from Metrics.bayes_error_plot import *
@@ -29,6 +29,9 @@ if __name__ == '__main__':
 #       print("(Train) Number of Female", num_label_1)
 #       print("(Test) Number of Male", num_label_0)
 #       print("(Test) Number of Female", num_label_1)
+  
+  
+#----------------------------------------------------------------------------------------#  
     
     
 # # FEATURES ANALYSIS
@@ -40,9 +43,12 @@ if __name__ == '__main__':
 #       plot_heatmaps_male(DTR,LTR)
 #       plot_heatmaps_female(DTR,LTR)
 #       PCA_plot(DTR)
+   
     
-    
-# # Train Gaussian Classifiers
+#----------------------------------------------------------------------------------------#    
+
+
+# # TRAIN GAUSSIAN CLASSIFIER
 
 #       train_MVG(DTR,LTR)
 #       train_NB(DTR,LTR)
@@ -50,49 +56,43 @@ if __name__ == '__main__':
 #       train_TNB(DTR,LTR)
 
 
+#----------------------------------------------------------------------------------------# 
 
 
+# # TRAIN LOGISTIC REGRESSION
+
+#       LR_RAW(DTR,LTR,0.5)
+#       LR_Znorm(DTR,LTR,0.5)
+#       LR_RAW_priors(DTR, LTR, 0.5)
+#       LR_Znorm_priors(DTR, LTR, 0.5)
+#       LR_PCA(DTR,LTR,0.5)
+#       LR_PCA(DTR,LTR,0.1)
+#       LR_PCA(DTR,LTR,0.9)
+#       LR_diff_priors(DTR,LTR)
+#       LR_diff_priors_zscore(DTR, LTR)
+
+#       Quad_LR_RAW(DTR, LTR, 0.5)
+#       Quad_LR_diff_priors(DTR, LTR)
+#       Quad_LR_diff_priors_zscore(DTR, LTR)
 
 
+#----------------------------------------------------------------------------------------# 
 
 
+# TRAIN SUPPORT VECTOR MACHINE
 
 
-
-
-
-
-
-
-# # Train LR
-
-#   LR_RAW(DTR,LTR,0.5)
-#   LR_RAW_Znorm(DTR,LTR,0.5)
-#   LR_PCA(DTR,LTR,0.5)
-#   LR_PCA(DTR,LTR,0.1)
-#   LR_PCA(DTR,LTR,0.9)
-#   LR_diff_priors(DTR,LTR)
-#   LR_diff_priors_zscore(DTR, LTR)
-#   Quad_LR_RAW(DTR, LTR, 0.5)
-#   Quad_LR_diff_priors(DTR, LTR)
-#   Quad_LR_diff_priors_Zscore(DTR, LTR)
-#LR_RAW_priors(DTR, LTR, 0.5)
-#LR_Znorm_priors(DTR, LTR, 0.5)
-
-# Train SVM
-
-#Lin_SVM(DTR,LTR)
-#DA FARE - (in corso)
-# SVM_RAW_znorm_01(DTR, LTR, 0.5)
-# SVM_RAW_znorm_09(DTR, LTR, 0.5)
-# SVM_RAW_znorm_05(DTR, LTR, 0.5)
+#SVM_RAW_znorm(DTR,LTR,0.5,[0.5,0.1,0.9])
 #SVM_diff_priors(DTR, LTR)
 #SVM_diff_priors_znorm(DTR, LTR)
+
+Poly_SVM_RAW_znorm(DTR,LTR,0.5,[0.5,0.1,0.9])
 
 
 # Poly_SVM_RAW_znorm_05(DTR, LTR, 0.5)
 # Poly_SVM_RAW_znorm_01(DTR, LTR, 0.5)
 # Poly_SVM_RAW_znorm_09(DTR, LTR, 0.5)
+# Poly_SVM_diff_priors(DTR, LTR)
 
 
 #RadKernBased_RAW(DTR,LTR,0.5)
@@ -101,7 +101,7 @@ if __name__ == '__main__':
 
 
 
-# Poly_SVM_diff_priors(DTR, LTR)
+
 # Kern_SVM_diff_priors(DTR, LTR)
 # Kern_SVM_diff_priors_znorm(DTR, LTR)
 

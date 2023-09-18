@@ -1,11 +1,7 @@
 import numpy
 import scipy
+from Utils.utils import *
 
-def mcol(v):
-    return v.reshape((v.size, 1))
-
-def mrow(array):
-    return array.reshape((1,array.size))
 
 def mean_and_covariance(data_matrix):
     N = data_matrix.shape[1]

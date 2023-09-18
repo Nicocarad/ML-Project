@@ -1,12 +1,12 @@
 
-# import numpy
+import numpy
 
-# def mcol(v):
-#     return v.reshape((v.size, 1))
+def mcol(v):
+    return v.reshape((v.size, 1))
 
 
-# def mrow(array):
-#     return array.reshape((1,array.size))
+def mrow(array):
+    return array.reshape((1,array.size))
 
 
 # def mean_and_covariance(data_matrix):

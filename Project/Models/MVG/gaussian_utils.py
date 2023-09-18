@@ -1,12 +1,5 @@
 import numpy
-
-
-def mcol(array):
-    return array.reshape((array.size, 1))
-
-
-def mrow(array):
-    return array.reshape((1,array.size))
+from Utils.utils import *
 
 def mean_and_covariance(data_matrix):
     N = data_matrix.shape[1]
