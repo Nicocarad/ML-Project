@@ -11,43 +11,43 @@ from Testing.GMM.GMM_test import *
 from Testing.SVM.SVM_test import *
 from Metrics.ROC import *
 
-
 if __name__ == '__main__':
 
 
-# Dataset Load
+# DATASET LOAD
+
       DTR, LTR = load('Dataset/Train.txt')
       DTE, LTE = load('Dataset/Test.txt')
       
-# Dataset Info
+# # DATASET INFO
     
-# num_label_0 = numpy.count_nonzero(LTR == 0)
-# num_label_1 = numpy.count_nonzero(LTR == 1)
-# num_label_0 = numpy.count_nonzero(LTE == 0)
-# num_label_1 = numpy.count_nonzero(LTE == 1)
-# print("(Train) Number of Male", num_label_0)
-# print("(Train) Number of Female", num_label_1)
-# print("(Test) Number of Male", num_label_0)
-# print("(Test) Number of Female", num_label_1)
+#       num_label_0 = numpy.count_nonzero(LTR == 0)
+#       num_label_1 = numpy.count_nonzero(LTR == 1)
+#       num_label_0 = numpy.count_nonzero(LTE == 0)
+#       num_label_1 = numpy.count_nonzero(LTE == 1)
+#       print("(Train) Number of Male", num_label_0)
+#       print("(Train) Number of Female", num_label_1)
+#       print("(Test) Number of Male", num_label_0)
+#       print("(Test) Number of Female", num_label_1)
     
     
-# #Feature Analysis
+#  # FEATURES ANALYSIS
 
-#     plot_centered_hist(DTR, LTR, "true")
-#     plot_scatter(DTR,LTR)
-#     plot_LDA_hist(DTR,LTR,1)
-#     plot_heatmaps_dataset(DTR)
-#     plot_heatmaps_male(DTR,LTR)
-#     plot_heatmaps_female(DTR,LTR)
-#     PCA_plot(DTR)
+#       plot_centered_hist(DTR, LTR, "true")
+#       plot_scatter(DTR,LTR)
+#       plot_LDA_hist(DTR,LTR,1)
+#       plot_heatmaps_dataset(DTR)
+#       plot_heatmaps_male(DTR,LTR)
+#       plot_heatmaps_female(DTR,LTR)
+#       PCA_plot(DTR)
     
     
-# # Train Gaussian Classifiers
+# Train Gaussian Classifiers
 
-# train_MVG(DTR,LTR)
-# train_NB(DTR,LTR)
-# train_TMVG(DTR,LTR)
-# train_TNB(DTR,LTR)
+      train_MVG(DTR,LTR)
+      train_NB(DTR,LTR)
+      train_TMVG(DTR,LTR)
+      train_TNB(DTR,LTR)
 
 
 # # Train LR
@@ -63,7 +63,7 @@ if __name__ == '__main__':
 #   Quad_LR_diff_priors(DTR, LTR)
 #   Quad_LR_diff_priors_Zscore(DTR, LTR)
 #LR_RAW_priors(DTR, LTR, 0.5)
-LR_Znorm_priors(DTR, LTR, 0.5)
+#LR_Znorm_priors(DTR, LTR, 0.5)
 
 # Train SVM
 

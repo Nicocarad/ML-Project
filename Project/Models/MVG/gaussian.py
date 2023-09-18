@@ -2,7 +2,7 @@ from Models.MVG.gaussian_utils import *
 import scipy
 
 
-class LogGaussianClassifier():
+class LogGaussianClassifier:
     def __init__(self):
         
         self.DTR = 0
@@ -46,7 +46,7 @@ class LogGaussianClassifier():
         llr = self.logSPost[1,:] - self.logSPost[0,:] - numpy.log(self.eff_prior/sec_prior)
         self.scores = llr
        
-class NaiveBayesGaussianClassifier():
+class NaiveBayesGaussianClassifier:
     def __init__(self):
         
         self.DTR = 0
@@ -94,7 +94,7 @@ class NaiveBayesGaussianClassifier():
         llr = self.logSPost[1,:] - self.logSPost[0,:] - numpy.log(self.eff_prior/sec_prior)
         self.scores = llr
 
-class TiedGaussianClassifier():
+class TiedGaussianClassifier:
     def __init__(self):
         
         self.DTR = 0
@@ -149,7 +149,7 @@ class TiedGaussianClassifier():
         llr = self.logSPost[1,:] - self.logSPost[0,:] - numpy.log(self.eff_prior/sec_prior)
         self.scores = llr
     
-class TiedNaiveBayesGaussianClassifier():
+class TiedNaiveBayesGaussianClassifier:
     def __init__(self):
         
         self.DTR = 0

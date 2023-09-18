@@ -3,19 +3,6 @@ import matplotlib.pyplot as plt
 from Metrics.DCF import *
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 def calculate_roc_curve(scores, labels):
     # Concatenate scores with -inf and +inf
     thresholds = np.concatenate([scores, [-np.inf, np.inf]])

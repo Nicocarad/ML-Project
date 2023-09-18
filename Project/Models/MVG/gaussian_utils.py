@@ -1,8 +1,8 @@
 import numpy
 
 
-def mcol(v):
-    return v.reshape((v.size, 1))
+def mcol(array):
+    return array.reshape((array.size, 1))
 
 
 def mrow(array):

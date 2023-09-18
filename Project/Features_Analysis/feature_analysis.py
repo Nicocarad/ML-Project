@@ -1,10 +1,7 @@
 import numpy
 import matplotlib.pyplot as plt
 from scipy.stats import pearsonr
-
 from Preprocessing.LDA import *
-
-# Plot Distributions for each feature
 
 
 def plot_centered_hist(D, L, centered):
@@ -65,9 +62,6 @@ def plot_centered_hist(D, L, centered):
     plt.savefig("Features_Analysis/Histograms/hist_%d.pdf" % dIdx)
 
 
-# Plot scatterplots for each combination of features
-
-
 def plot_scatter(D, L):
     D0 = D[:, L == 0]
     D1 = D[:, L == 1]
@@ -103,12 +97,9 @@ def plot_scatter(D, L):
                     f"Features_Analysis/Scatter_plots/scatter_{dIdx1}_{dIdx2}.pdf"
                 )
 
-            plt.clf()  # Clear the plot for the next iteration
+            plt.clf()
 
     plt.close()
-
-
-# Plot LDA preprocessing of the dataset
 
 
 def plot_LDA_hist(D, L, m):
@@ -134,7 +125,6 @@ def plot_LDA_hist(D, L, m):
     plt.savefig("Features_Analysis/LDA/lda_hist.pdf")
 
 
-# Pearson Correlation and Heatmaps
 def plot_heatmap(D, L, cmap_name, filename):
     D = D[:, L]
     heatmap = numpy.zeros((D.shape[0], D.shape[0]))
@@ -148,17 +138,14 @@ def plot_heatmap(D, L, cmap_name, filename):
     fig, ax = plt.subplots()
     im = ax.imshow(heatmap, cmap=cmap_name)
 
-    # Set x and y ticks
     ax.set_xticks(numpy.arange(D.shape[0]))
     ax.set_yticks(numpy.arange(D.shape[0]))
     ax.set_xticklabels(numpy.arange(1, D.shape[0] + 1))
     ax.set_yticklabels(numpy.arange(1, D.shape[0] + 1))
 
-    # Set title and colorbar
     ax.set_title("Heatmap of Pearson Correlation")
     fig.colorbar(im)
 
-    # Save and close the figure
     plt.savefig(filename)
     plt.close(fig)
 
@@ -181,17 +168,13 @@ def plot_heatmaps_female(D, L):
     plot_heatmap(D, L == 1, cmap_name, filename)
 
 
-# PCA and Explained Variance
-
 def PCA_plot(D):
-    # PCA
     N = D.shape[1]
     mu = numpy.mean(D, axis=1, keepdims=True)
     DC = D - mu
     C = numpy.dot(DC, DC.T) / N
     s = numpy.linalg.eigh(C)[0]
 
-    # Explained Variance
     s = s[::-1]
 
     explained_variance = s / numpy.sum(s)
