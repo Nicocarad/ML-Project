@@ -52,7 +52,7 @@ if __name__ == '__main__':
 
 # # Train LR
 
-#   LR_RAW(DTR,LTR,0.5)
+#LR_RAW(DTR,LTR,0.5)
 #   LR_RAW_Znorm(DTR,LTR,0.5)
 #   LR_PCA(DTR,LTR,0.5)
 #   LR_PCA(DTR,LTR,0.1)
@@ -62,7 +62,8 @@ if __name__ == '__main__':
 #   Quad_LR_RAW(DTR, LTR, 0.5)
 #   Quad_LR_diff_priors(DTR, LTR)
 #   Quad_LR_diff_priors_Zscore(DTR, LTR)
-
+#LR_RAW_priors(DTR, LTR, 0.5)
+LR_Znorm_priors(DTR, LTR, 0.5)
 
 # Train SVM
 
@@ -82,7 +83,7 @@ if __name__ == '__main__':
 
 #RadKernBased_RAW(DTR,LTR,0.5)
 #RadKernBased_znorm(DTR,LTR,0.5)
-RadKernBased_RAW_znorm(DTR, LTR, 0.5)
+#RadKernBased_RAW_znorm(DTR, LTR, 0.5)
 
 
 
