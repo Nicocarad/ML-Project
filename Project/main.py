@@ -210,8 +210,8 @@ if __name__ == '__main__':
 
       # LR_RAW_val_eval(DTR, LTR, DTE, LTE, 0.1)
       # LR_znorm_val_eval(DTR, LTR, DTE, LTE, 0.1)
-      #LR_RAW_priors(DTR, LTR, DTE, LTE, 0.5)
-      LR_znorm_priors(DTR, LTR, DTE, LTE, 0.5)
+      # LR_RAW_priors(DTR, LTR, DTE, LTE, 0.5)
+      # LR_znorm_priors(DTR, LTR, DTE, LTE, 0.5)
 #----------------------------------------------------------------------------------------# 
 
 
