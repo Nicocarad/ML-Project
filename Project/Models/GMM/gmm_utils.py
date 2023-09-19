@@ -33,17 +33,18 @@ def logpdf_gmm(X, gmm):
     return scipy.special.logsumexp(s, axis=0)
 
 
-def LBG(iterations, X, gmm_start, alpha, psi, covariance_func=None):
-    if covariance_func is not None:
-        gmm_start = covariance_func(gmm_start, [X.shape[1]], X.shape[1])
+def LBG(iterations, X, gmm, alpha, psi, type):
+    if type == "GMM":
+        gmm_start = gmm
+    elif type == "Tied":
+        gmm_start = tied_cov(gmm, [X.shape[1]], X.shape[1])
+    elif type == "Diagonal":
+        gmm_start = diagonal_cov(gmm, [X.shape[1]], X.shape[1])
+    elif type == "Tied-Diagonal":
+        gmm_start = TiedDiagonal_cov(gmm, [X.shape[1]], X.shape[1])
 
-    for i in range(len(gmm_start)):
-        covNew = gmm_start[i][2]
-        U, s, _ = numpy.linalg.svd(covNew)
-        s[s < psi] = psi
-        gmm_start[i] = (gmm_start[i][0], gmm_start[i][1], numpy.dot(U, mcol(s) * U.T))
-    gmm_start = EM(X, gmm_start, psi, covariance_func)
-
+    gmm_constr = constr_eigenv(psi, gmm_start)
+    gmm_start = EM(X, gmm_constr, psi, type)
     for i in range(iterations):
         gmm_new = []
         for g in gmm_start:
@@ -60,11 +61,11 @@ def LBG(iterations, X, gmm_start, alpha, psi, covariance_func=None):
 
             gmm_new.append((new_w, new_mu + d, new_sigma))
             gmm_new.append((new_w, new_mu - d, new_sigma))
-        gmm_start = EM(X, gmm_new, psi, covariance_func)
+        gmm_start = EM(X, gmm_new, psi, type)
     return gmm_start
 
 
-def EM(X, gmm, psi, covariance_func=None):
+def EM(X, gmm, psi, type):
     llr_1 = None
     while True:
         num_components = len(gmm)
@@ -106,17 +107,17 @@ def EM(X, gmm, psi, covariance_func=None):
             gmm_new.append((w, mu, sigma))
         # END M-STEP
 
-        # if Tied / Diagonal / Tied-Diagonal
-        if covariance_func is not None:
-            gmm_new = covariance_func(gmm_new, Z_vec, X.shape[1])
+        if type == "GMM":
+            gmm_new = gmm_new
+        elif type == "Tied":
+            gmm_new = tied_cov(gmm_new, Z_vec, X.shape[1])
+        elif type == "Diagonal":
+            gmm_new = diagonal_cov(gmm_new, Z_vec, X.shape[1])
+        elif type == "Tied-Diagonal":
+            gmm_new = TiedDiagonal_cov(gmm_new, Z_vec, X.shape[1])
 
-        # Constraining the eigenvalues
-        for i in range(num_components):
-            covNew = gmm_new[i][2]
-            U, s, _ = numpy.linalg.svd(covNew)
-            s[s < psi] = psi
-            gmm_new[i] = (gmm_new[i][0], gmm_new[i][1], numpy.dot(U, mcol(s) * U.T))
-        gmm = gmm_new
+        gmm_constr = constr_eigenv(psi, gmm_new)
+        gmm = gmm_constr
 
         # stop criterion
         llr_0 = llr_1
@@ -142,12 +143,22 @@ def gmm_scores(D, L, gmm):
     return llr
 
 
-def tied_cov(gmm, z_vec, n):
+def constr_eigenv(psi, gmm):
+    for i in range(len(gmm)):
+        covNew = gmm[i][2]
+        U, s, _ = numpy.linalg.svd(covNew)
+        s[s < psi] = psi
+        gmm[i] = (gmm[i][0], gmm[i][1], numpy.dot(U, mcol(s) * U.T))
+
+    return gmm
+
+
+def tied_cov(gmm, vec, n):
     num_components = len(gmm)
     new_sigma = numpy.zeros_like(gmm[0][2])
 
-    for g in range(num_components):
-        new_sigma += gmm[g][2] * z_vec[g]
+    for idx in range(num_components):
+        new_sigma += gmm[idx][2] * vec[idx]
 
     new_sigma /= n
 
@@ -156,12 +167,10 @@ def tied_cov(gmm, z_vec, n):
     return updated_gmm
 
 
-
-def diagonal_cov(gmm, _z_vec, _n):
+def diagonal_cov(gmm, vec, n):
     return [(g[0], g[1], numpy.diag(numpy.diag(g[2]))) for g in gmm]
 
 
-
-def TiedDiagonal_cov(gmm, z_vec, n):
-    tied_diagonal_gmm = diagonal_cov(tied_cov(gmm, z_vec, n), z_vec, n)
+def TiedDiagonal_cov(gmm, vec, n):
+    tied_diagonal_gmm = diagonal_cov(tied_cov(gmm, vec, n), vec, n)
     return tied_diagonal_gmm

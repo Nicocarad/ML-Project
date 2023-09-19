@@ -7,6 +7,7 @@ class GMM:
         self.iterations = iterations
         self.alpha = alpha
         self.psi = psi
+        self.name = "GMM"
 
     def train(self, DTR, LTR, DTE, LTE, eff_prior):
         self.DTR = DTR
@@ -23,6 +24,7 @@ class GMM:
                 [[1, *mean_and_covariance(self.DTR[:, self.LTR == classes])]],
                 self.alpha,
                 self.psi,
+                self.name
             )
             for classes in range(num_classes)
         ]
@@ -38,6 +40,7 @@ class GMM_Tied:
         self.iterations = iterations
         self.alpha = alpha
         self.psi = psi
+        self.name = "Tied"
 
     def train(self, DTR, LTR, DTE, LTE, eff_prior):
         self.DTR = DTR
@@ -54,7 +57,7 @@ class GMM_Tied:
                 [[1, *mean_and_covariance(self.DTR[:, self.LTR == classes])]],
                 self.alpha,
                 self.psi,
-                tied_cov,
+                self.name,
             )
             for classes in range(num_classes)
         ]
@@ -70,6 +73,7 @@ class GMM_Diagonal:
         self.iterations = iterations
         self.alpha = alpha
         self.psi = psi
+        self.name = "Diagonal"
 
     def train(self, DTR, LTR, DTE, LTE, eff_prior):
         self.DTR = DTR
@@ -86,7 +90,7 @@ class GMM_Diagonal:
                 [[1, *mean_and_covariance(self.DTR[:, self.LTR == classes])]],
                 self.alpha,
                 self.psi,
-                diagonal_cov,
+                self.name,
             )
             for classes in range(num_classes)
         ]
@@ -102,6 +106,7 @@ class GMM_TiedDiagonal:
         self.iterations = iterations
         self.alpha = alpha
         self.psi = psi
+        self.name = "Tied-Diagonal"
 
     def train(self, DTR, LTR, DTE, LTE, eff_prior):
         self.DTR = DTR
@@ -118,7 +123,7 @@ class GMM_TiedDiagonal:
                 [[1, *mean_and_covariance(self.DTR[:, self.LTR == classes])]],
                 self.alpha,
                 self.psi,
-                TiedDiagonal_cov,
+                self.name,
             )
             for classes in range(num_classes)
         ]
