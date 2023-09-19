@@ -8,45 +8,42 @@ from Calibration.calibration import *
 from Metrics.DCF import *
 
 
-
-
-
 def GMM_plot_diff_component_eval(DTR, LTR, DTE, LTE):
     min_dcf_values = []
     min_dcf_values_znorm = []
     min_dcf_values_eval = []
     min_dcf_values_eval_znorm = []
-    
+
     for i in range(5):
         gmm = GMM(i)
         SPost, Label = kfold(gmm, 5, DTR, LTR, None)
         res = min_DCF(0.5, 1, 1, Label, SPost)
         min_dcf_values.append(res)
-        
+
     for i in range(5):
         gmm = GMM(i)
-        gmm.train(DTR,LTR,DTE,LTE,None)
+        gmm.train(DTR, LTR, DTE, LTE, None)
         gmm.compute_scores()
         scores = gmm.scores
         res = min_DCF(0.5, 1, 1, LTE, scores)
         min_dcf_values_eval.append(res)
-        
+
     DTR = znorm(DTR)
     for i in range(5):
         gmm = GMM(i)
         SPost, Label = kfold(gmm, 5, DTR, LTR, None)
         res = min_DCF(0.5, 1, 1, Label, SPost)
-        min_dcf_values_znorm.append(res)    
-        
+        min_dcf_values_znorm.append(res)
+
     DTE = znorm(DTE)
     for i in range(5):
         gmm = GMM(i)
-        gmm.train(DTR,LTR,DTE,LTE,None)
+        gmm.train(DTR, LTR, DTE, LTE, None)
         gmm.compute_scores()
         scores = gmm.scores
         res = min_DCF(0.5, 1, 1, LTE, scores)
         min_dcf_values_eval_znorm.append(res)
-    
+
     plt.figure()
     plt.xlabel("GMM components")
     plt.ylabel("minDCF")
@@ -54,62 +51,86 @@ def GMM_plot_diff_component_eval(DTR, LTR, DTE, LTE):
     iterations = range(5)
     x_axis = np.arange(len(iterations)) * 1.25
     bounds = np.array(iterations)
-    plt.bar(x_axis - 0.00, min_dcf_values, width=0.25, linewidth=1.0, edgecolor='black', color="Red",
-            label="RAW (VAL)")
-    plt.bar(x_axis + 0.25, min_dcf_values_eval, width=0.25, linewidth=1.0, edgecolor='black', color="Red", hatch=".",
-            label="RAW (EVAL)")
-    plt.bar(x_axis + 0.50, min_dcf_values_znorm, width=0.25, linewidth=1.0, edgecolor='black', color="Blue",
-            label="Znorm (VAL)")
-    plt.bar(x_axis + 0.75, min_dcf_values_eval_znorm, width=0.25, linewidth=1.0, edgecolor='black', color="Blue", hatch=".",
-            label="Znorm (EVAL)")
-    
+    plt.bar(
+        x_axis - 0.00,
+        min_dcf_values,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Red",
+        label="RAW (VAL)",
+    )
+    plt.bar(
+        x_axis + 0.25,
+        min_dcf_values_eval,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Red",
+        hatch=".",
+        label="RAW (EVAL)",
+    )
+    plt.bar(
+        x_axis + 0.50,
+        min_dcf_values_znorm,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Blue",
+        label="Znorm (VAL)",
+    )
+    plt.bar(
+        x_axis + 0.75,
+        min_dcf_values_eval_znorm,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Blue",
+        hatch=".",
+        label="Znorm (EVAL)",
+    )
 
-    plt.xticks([r*1.25 + 0.375 for r in range(len(bounds))], [2**i for i in bounds])
+    plt.xticks([r * 1.25 + 0.375 for r in range(len(bounds))], [2**i for i in bounds])
     plt.legend()
 
-    
     plt.savefig("Testing\GMM\Plot\Std_GMM_val_eval+znorm.pdf")
-    
-    
-    
-    
+
+
 def GMM_plot_diff_component_eval_PCA(DTR, LTR, DTE, LTE):
     min_dcf_values = []
     min_dcf_values_pca = []
     min_dcf_values_eval = []
     min_dcf_values_eval_pca = []
-    
-    DTR, DTE = PCA(DTR,11,DTE)
+
+    DTR, DTE = PCA(DTR, 11, DTE)
     for i in range(5):
         gmm = GMM(i)
         SPost, Label = kfold(gmm, 5, DTR, LTR, None)
         res = min_DCF(0.5, 1, 1, Label, SPost)
         min_dcf_values.append(res)
-        
+
     for i in range(5):
         gmm = GMM(i)
-        gmm.train(DTR,LTR,DTE,LTE,None)
+        gmm.train(DTR, LTR, DTE, LTE, None)
         gmm.compute_scores()
         scores = gmm.scores
         res = min_DCF(0.5, 1, 1, LTE, scores)
         min_dcf_values_eval.append(res)
-        
-    
+
     for i in range(5):
         gmm = GMM(i)
         SPost, Label = kfold(gmm, 5, DTR, LTR, None)
         res = min_DCF(0.5, 1, 1, Label, SPost)
-        min_dcf_values_pca.append(res)    
-        
-   
+        min_dcf_values_pca.append(res)
+
     for i in range(5):
         gmm = GMM(i)
-        gmm.train(DTR,LTR,DTE,LTE,None)
+        gmm.train(DTR, LTR, DTE, LTE, None)
         gmm.compute_scores()
         scores = gmm.scores
         res = min_DCF(0.5, 1, 1, LTE, scores)
         min_dcf_values_eval_pca.append(res)
-    
+
     plt.figure()
     plt.xlabel("GMM components")
     plt.ylabel("minDCF")
@@ -117,64 +138,86 @@ def GMM_plot_diff_component_eval_PCA(DTR, LTR, DTE, LTE):
     iterations = range(5)
     x_axis = np.arange(len(iterations)) * 1.25
     bounds = np.array(iterations)
-    plt.bar(x_axis - 0.00, min_dcf_values, width=0.25, linewidth=1.0, edgecolor='black', color="Red",
-            label="RAW (VAL)")
-    plt.bar(x_axis + 0.25, min_dcf_values_eval, width=0.25, linewidth=1.0, edgecolor='black', color="Red", hatch=".",
-            label="RAW (EVAL)")
-    plt.bar(x_axis + 0.50, min_dcf_values_pca, width=0.25, linewidth=1.0, edgecolor='black', color="Blue",
-            label="RAW + PCA11 (VAL)")
-    plt.bar(x_axis + 0.75, min_dcf_values_eval_pca, width=0.25, linewidth=1.0, edgecolor='black', color="Blue", hatch=".",
-            label="RAW + PCA11 (EVAL)")
-    
+    plt.bar(
+        x_axis - 0.00,
+        min_dcf_values,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Red",
+        label="RAW (VAL)",
+    )
+    plt.bar(
+        x_axis + 0.25,
+        min_dcf_values_eval,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Red",
+        hatch=".",
+        label="RAW (EVAL)",
+    )
+    plt.bar(
+        x_axis + 0.50,
+        min_dcf_values_pca,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Blue",
+        label="RAW + PCA11 (VAL)",
+    )
+    plt.bar(
+        x_axis + 0.75,
+        min_dcf_values_eval_pca,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Blue",
+        hatch=".",
+        label="RAW + PCA11 (EVAL)",
+    )
 
-    plt.xticks([r*1.25 + 0.375 for r in range(len(bounds))], [2**i for i in bounds])
+    plt.xticks([r * 1.25 + 0.375 for r in range(len(bounds))], [2**i for i in bounds])
     plt.legend()
 
-    
     plt.savefig("Testing\GMM\Plot\Std_GMM_val_eval+PCA11.pdf")
-    
-    
-    
-    
-    
-    
+
+
 def GMM_Tied_plot_diff_component_eval_PCA(DTR, LTR, DTE, LTE):
     min_dcf_values = []
     min_dcf_values_pca = []
     min_dcf_values_eval = []
     min_dcf_values_eval_pca = []
-    
-    DTR, DTE = PCA(DTR,11,DTE)
+
+    DTR, DTE = PCA(DTR, 11, DTE)
     for i in range(5):
         gmm = GMM_Tied(i)
         SPost, Label = kfold(gmm, 5, DTR, LTR, None)
         res = min_DCF(0.5, 1, 1, Label, SPost)
         min_dcf_values.append(res)
-        
+
     for i in range(5):
         gmm = GMM_Tied(i)
-        gmm.train(DTR,LTR,DTE,LTE,None)
+        gmm.train(DTR, LTR, DTE, LTE, None)
         gmm.compute_scores()
         scores = gmm.scores
         res = min_DCF(0.5, 1, 1, LTE, scores)
         min_dcf_values_eval.append(res)
-        
-    
+
     for i in range(5):
         gmm = GMM_Tied(i)
         SPost, Label = kfold(gmm, 5, DTR, LTR, None)
         res = min_DCF(0.5, 1, 1, Label, SPost)
-        min_dcf_values_pca.append(res)    
-        
-   
+        min_dcf_values_pca.append(res)
+
     for i in range(5):
         gmm = GMM_Tied(i)
-        gmm.train(DTR,LTR,DTE,LTE,None)
+        gmm.train(DTR, LTR, DTE, LTE, None)
         gmm.compute_scores()
         scores = gmm.scores
         res = min_DCF(0.5, 1, 1, LTE, scores)
         min_dcf_values_eval_pca.append(res)
-    
+
     plt.figure()
     plt.xlabel("GMM components")
     plt.ylabel("minDCF")
@@ -182,63 +225,87 @@ def GMM_Tied_plot_diff_component_eval_PCA(DTR, LTR, DTE, LTE):
     iterations = range(5)
     x_axis = np.arange(len(iterations)) * 1.25
     bounds = np.array(iterations)
-    plt.bar(x_axis - 0.00, min_dcf_values, width=0.25, linewidth=1.0, edgecolor='black', color="Red",
-            label="RAW (VAL)")
-    plt.bar(x_axis + 0.25, min_dcf_values_eval, width=0.25, linewidth=1.0, edgecolor='black', color="Red", hatch=".",
-            label="RAW (EVAL)")
-    plt.bar(x_axis + 0.50, min_dcf_values_pca, width=0.25, linewidth=1.0, edgecolor='black', color="Blue",
-            label="RAW + PCA11 (VAL)")
-    plt.bar(x_axis + 0.75, min_dcf_values_eval_pca, width=0.25, linewidth=1.0, edgecolor='black', color="Blue", hatch=".",
-            label="RAW + PCA11 (EVAL)")
-    
+    plt.bar(
+        x_axis - 0.00,
+        min_dcf_values,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Red",
+        label="RAW (VAL)",
+    )
+    plt.bar(
+        x_axis + 0.25,
+        min_dcf_values_eval,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Red",
+        hatch=".",
+        label="RAW (EVAL)",
+    )
+    plt.bar(
+        x_axis + 0.50,
+        min_dcf_values_pca,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Blue",
+        label="RAW + PCA11 (VAL)",
+    )
+    plt.bar(
+        x_axis + 0.75,
+        min_dcf_values_eval_pca,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Blue",
+        hatch=".",
+        label="RAW + PCA11 (EVAL)",
+    )
 
-    plt.xticks([r*1.25 + 0.375 for r in range(len(bounds))], [2**i for i in bounds])
+    plt.xticks([r * 1.25 + 0.375 for r in range(len(bounds))], [2**i for i in bounds])
     plt.legend()
 
-    
     plt.savefig("Testing\GMM\Plot\Tied_GMM_val_eval+PCA11.pdf")
-    
-    
-    
-    
+
+
 def GMM_Diagonal_plot_diff_component_eval_znorm(DTR, LTR, DTE, LTE):
     min_dcf_values = []
     min_dcf_values_znorm = []
     min_dcf_values_eval = []
     min_dcf_values_eval_znorm = []
-    
-    
+
     for i in range(5):
         gmm = GMM_Diagonal(i)
         SPost, Label = kfold(gmm, 5, DTR, LTR, None)
         res = min_DCF(0.5, 1, 1, Label, SPost)
         min_dcf_values.append(res)
-        
+
     for i in range(5):
         gmm = GMM_Diagonal(i)
-        gmm.train(DTR,LTR,DTE,LTE,None)
+        gmm.train(DTR, LTR, DTE, LTE, None)
         gmm.compute_scores()
         scores = gmm.scores
         res = min_DCF(0.5, 1, 1, LTE, scores)
         min_dcf_values_eval.append(res)
-        
+
     DTR = znorm(DTR)
     DTE = znorm(DTE)
     for i in range(5):
         gmm = GMM_Diagonal(i)
         SPost, Label = kfold(gmm, 5, DTR, LTR, None)
         res = min_DCF(0.5, 1, 1, Label, SPost)
-        min_dcf_values_znorm.append(res)    
-        
-   
+        min_dcf_values_znorm.append(res)
+
     for i in range(5):
         gmm = GMM_Diagonal(i)
-        gmm.train(DTR,LTR,DTE,LTE,None)
+        gmm.train(DTR, LTR, DTE, LTE, None)
         gmm.compute_scores()
         scores = gmm.scores
         res = min_DCF(0.5, 1, 1, LTE, scores)
         min_dcf_values_eval_znorm.append(res)
-    
+
     plt.figure()
     plt.xlabel("GMM components")
     plt.ylabel("minDCF")
@@ -246,59 +313,79 @@ def GMM_Diagonal_plot_diff_component_eval_znorm(DTR, LTR, DTE, LTE):
     iterations = range(5)
     x_axis = np.arange(len(iterations)) * 1.25
     bounds = np.array(iterations)
-    plt.bar(x_axis - 0.00, min_dcf_values, width=0.25, linewidth=1.0, edgecolor='black', color="Red",
-            label="RAW (VAL)")
-    plt.bar(x_axis + 0.25, min_dcf_values_eval, width=0.25, linewidth=1.0, edgecolor='black', color="Red", hatch=".",
-            label="RAW (EVAL)")
-    plt.bar(x_axis + 0.50, min_dcf_values_znorm, width=0.25, linewidth=1.0, edgecolor='black', color="Blue",
-            label="Znorm (VAL)")
-    plt.bar(x_axis + 0.75, min_dcf_values_eval_znorm, width=0.25, linewidth=1.0, edgecolor='black', color="Blue", hatch=".",
-            label="Znorm (EVAL)")
-    
+    plt.bar(
+        x_axis - 0.00,
+        min_dcf_values,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Red",
+        label="RAW (VAL)",
+    )
+    plt.bar(
+        x_axis + 0.25,
+        min_dcf_values_eval,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Red",
+        hatch=".",
+        label="RAW (EVAL)",
+    )
+    plt.bar(
+        x_axis + 0.50,
+        min_dcf_values_znorm,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Blue",
+        label="Znorm (VAL)",
+    )
+    plt.bar(
+        x_axis + 0.75,
+        min_dcf_values_eval_znorm,
+        width=0.25,
+        linewidth=1.0,
+        edgecolor="black",
+        color="Blue",
+        hatch=".",
+        label="Znorm (EVAL)",
+    )
 
-    plt.xticks([r*1.25 + 0.375 for r in range(len(bounds))], [2**i for i in bounds])
+    plt.xticks([r * 1.25 + 0.375 for r in range(len(bounds))], [2**i for i in bounds])
     plt.legend()
 
-    
     plt.savefig("Testing\GMM\Plot\Diagonal_GMM_val_eval+znorm.pdf")
-    
-    
-    
-    
-    
-def GMM_test_compare(DTR,LTR,DTE,LTE):
-    
-    gmm = GMM(2)
-    gmm.train(DTR,LTR,DTE,LTE,None)
-    gmm.compute_scores()
-    scores = gmm.scores
-    llr_cal,Label_cal = calibration(scores,LTE,0.5)
-    res = min_DCF(0.5,1,1,Label_cal,llr_cal)
-    print("GMM 4 components min_DCF", res)
-    
-    DTR_pca,DTE_pca = PCA(DTR,11,DTE)
-    gmm = GMM(2)
-    gmm.train(DTR_pca,LTR,DTE_pca,LTE,None)
-    gmm.compute_scores()
-    scores = gmm.scores
-    llr_cal,Label_cal = calibration(scores,LTE,0.5)
-    res = min_DCF(0.5,1,1,Label_cal,llr_cal)
-    print("GMM 4 components + PCA11 min_DCF", res)
-    
-    DTR_pca,DTE_pca = PCA(DTR,11,DTE)
-    gmm = GMM_Tied(2)
-    gmm.train(DTR_pca,LTR,DTE_pca,LTE,None)
-    gmm.compute_scores()
-    scores = gmm.scores
-    llr_cal,Label_cal = calibration(scores,LTE,0.5)
-    res = min_DCF(0.5,1,1,LTE,scores)
-    print("GMM_Tied 4 components + PCA11 min_DCF", res)
-    
-    
-  
 
-    
-    
+
+def GMM_test_compare(DTR, LTR, DTE, LTE):
+    gmm = GMM(2)
+    gmm.train(DTR, LTR, DTE, LTE, None)
+    gmm.compute_scores()
+    scores = gmm.scores
+    llr_cal, Label_cal = calibration(scores, LTE, 0.5)
+    res = min_DCF(0.5, 1, 1, Label_cal, llr_cal)
+    print("GMM 4 components min_DCF", res)
+
+    DTR_pca, DTE_pca = PCA(DTR, 11, DTE)
+    gmm = GMM(2)
+    gmm.train(DTR_pca, LTR, DTE_pca, LTE, None)
+    gmm.compute_scores()
+    scores = gmm.scores
+    llr_cal, Label_cal = calibration(scores, LTE, 0.5)
+    res = min_DCF(0.5, 1, 1, Label_cal, llr_cal)
+    print("GMM 4 components + PCA11 min_DCF", res)
+
+    DTR_pca, DTE_pca = PCA(DTR, 11, DTE)
+    gmm = GMM_Tied(2)
+    gmm.train(DTR_pca, LTR, DTE_pca, LTE, None)
+    gmm.compute_scores()
+    scores = gmm.scores
+    llr_cal, Label_cal = calibration(scores, LTE, 0.5)
+    res = min_DCF(0.5, 1, 1, LTE, scores)
+    print("GMM_Tied 4 components + PCA11 min_DCF", res)
+
+
 def GMM_test_best(DTR, DTE, LTR, LTE):
     DTR, DTE = PCA(DTR, 11, DTE)
     iterations = 2
@@ -310,16 +397,13 @@ def GMM_test_best(DTR, DTE, LTR, LTE):
     return scores, LTE
 
 
-
-
-
-def GMM_test_min_act_dcf_cal(DTR,LTR,DTE,LTE):
-    print("GMM - min_dcf / act_dcf\n")
-    llr,Label = GMM_test_best(DTR,DTE,LTR,LTE)
-    llr_cal,Label_cal = calibration(llr,Label,0.5)
-    predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
+def GMM_test_min_act_dcf_cal(DTR, LTR, DTE, LTE,pi):
+    print("GMM - min_dcf / act_dcf " + str(pi) + "\n")
+    llr, Label = GMM_test_best(DTR, DTE, LTR, LTE)
+    llr_cal, Label_cal = calibration(llr, Label, 0.5)
+    predicted_labels = optimalBinaryBayesDecision(llr_cal, pi, 1, 1)
     conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-    min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
-    act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
-    print("min_dcf: ", min_dcf)
-    print("act_dcf: ", act_dcf)
+    min_dcf = min_DCF(pi, 1, 1, Label_cal, llr_cal)
+    act_dcf = DCF(pi, 1, 1, conf_matrix, "normalized")
+    print("GMM (test) min_dcf: ", round(min_dcf,3))
+    print("GMM (test) act_dcf: ", round(act_dcf,3))

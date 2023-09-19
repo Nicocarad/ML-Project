@@ -382,7 +382,7 @@ def GMM_diff_priors(D, L):
         )
 
 
-def GMM_diff_priors_zscore(D, L):
+def GMM_diff_priors_znorm(D, L):
     D = znorm(D)
     for i in range(1, 3):
         for pi in [0.5, 0.1, 0.9]:
@@ -390,9 +390,9 @@ def GMM_diff_priors_zscore(D, L):
             SPost, Label = kfold(gmm, 5, D, L, None)
             res = min_DCF(pi, 1, 1, Label, SPost)
             print(
-                "GMM min_DCF pi = ",
+                "GMM min_DCF pi =",
                 pi,
-                str(2**i) + " components: + znorm",
+                str(2**i) + " components: + znorm: ",
                 round(res, 3),
             )
 
@@ -416,15 +416,13 @@ def GMM_train_best(D, L):
     return SPost, Label
 
 
-
-
-def GMM_min_act_dcf_cal(DTR,LTR):
-    print("GMM - min_dcf / act_dcf\n")
-    llr,Label = GMM_train_best(DTR,LTR)
-    llr_cal,Label_cal = calibration(llr,Label,0.5)
-    predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
+def GMM_min_act_dcf_cal(DTR, LTR, pi):
+    print("GMM - min_dcf / act_dcf " + str(pi) + "\n")
+    llr, Label = GMM_train_best(DTR, LTR)
+    llr_cal, Label_cal = calibration(llr, Label, 0.5)
+    predicted_labels = optimalBinaryBayesDecision(llr_cal, pi, 1, 1)
     conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-    min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
-    act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
-    print("min_dcf: ", min_dcf)
-    print("act_dcf: ", act_dcf)
+    min_dcf = min_DCF(pi, 1, 1, Label_cal, llr_cal)
+    act_dcf = DCF(pi, 1, 1, conf_matrix, "normalized")
+    print("GMM (train) min_dcf: ", round(min_dcf, 3))
+    print("GMM (train) act_dcf: ", round(act_dcf, 3))

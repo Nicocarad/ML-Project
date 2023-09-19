@@ -372,13 +372,13 @@ def SVM_train_best(D, L):
 
 
 
-def SVM_min_act_dcf_cal(DTR,LTR):
-    print("SVM - min_dcf / act_dcf\n")
+def SVM_min_act_dcf_cal(DTR,LTR,pi):
+    print("SVM - min_dcf / act_dcf " + str(pi) + "\n")
     llr,Label = SVM_train_best(DTR,LTR)
     llr_cal,Label_cal = calibration(llr,Label,0.5)
-    predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.5, 1, 1)
+    predicted_labels = optimalBinaryBayesDecision(llr_cal, pi, 1, 1)
     conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-    min_dcf = min_DCF(0.5,1,1,Label_cal,llr_cal)
-    act_dcf = DCF(0.5, 1, 1, conf_matrix, "normalized")
-    print("min_dcf: ", min_dcf)
-    print("act_dcf: ", act_dcf)
+    min_dcf = min_DCF(pi,1,1,Label_cal,llr_cal)
+    act_dcf = DCF(pi, 1, 1, conf_matrix, "normalized")
+    print("SVM (train) min_dcf: ", round(min_dcf,3))
+    print("SVM (train) act_dcf: ", round(act_dcf,3))

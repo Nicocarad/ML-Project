@@ -82,9 +82,9 @@ if __name__ == '__main__':
 # # TRAIN SUPPORT VECTOR MACHINE
 
 
-      SVM_RAW_znorm(DTR, LTR, 0.5, 0.5)
-      SVM_RAW_znorm(DTR, LTR, 0.5, 0.1)
-      SVM_RAW_znorm(DTR, LTR, 0.5, 0.9)
+#       SVM_RAW_znorm(DTR, LTR, 0.5, 0.5)
+#       SVM_RAW_znorm(DTR, LTR, 0.5, 0.1)
+#       SVM_RAW_znorm(DTR, LTR, 0.5, 0.9)
 #       SVM_diff_priors(DTR, LTR)
 #       SVM_diff_priors_znorm(DTR, LTR)
 
@@ -119,7 +119,7 @@ if __name__ == '__main__':
 #       GMM_TiedDiagonal_plot_diff_component(DTR, LTR)
 
 #       GMM_diff_priors(DTR,LTR)
-#       GMM_diff_priors_zscore(DTR,LTR)
+#       GMM_diff_priors_znorm(DTR,LTR)
 
 
 #----------------------------------------------------------------------------------------# 
@@ -154,141 +154,85 @@ if __name__ == '__main__':
 
 # # EVALUATION
 
-#       LR_min_act_dcf_cal(DTR,LTR)
-#       SVM_min_act_dcf_cal(DTR,LTR)
-#       GMM_min_act_dcf_cal(DTR,LTR)
+      # LR_min_act_dcf_cal(DTR,LTR,0.5)
+      # SVM_min_act_dcf_cal(DTR,LTR,0.5)
+      # GMM_min_act_dcf_cal(DTR,LTR,0.5)
 
-#       LR_test_min_act_dcf_cal(DTR,LTR,DTE,LTE)
-#       SVM_test_min_act_dcf_cal(DTR,LTR,DTE,LTE)
-#       GMM_test_min_act_dcf_cal(DTR,LTR,DTE,LTE)
+      # LR_test_min_act_dcf_cal(DTR,LTR,DTE,LTE,0.5)
+      # SVM_test_min_act_dcf_cal(DTR,LTR,DTE,LTE,0.5)
+      # GMM_test_min_act_dcf_cal(DTR,LTR,DTE,LTE,0.5)
+      
+      
+      # LR_min_act_dcf_cal(DTR,LTR,0.1)
+      # SVM_min_act_dcf_cal(DTR,LTR,0.1)
+      # GMM_min_act_dcf_cal(DTR,LTR,0.1)
+
+      # LR_test_min_act_dcf_cal(DTR,LTR,DTE,LTE,0.1)
+      # SVM_test_min_act_dcf_cal(DTR,LTR,DTE,LTE,0.1)
+      # GMM_test_min_act_dcf_cal(DTR,LTR,DTE,LTE,0.1)
+      
+      
+      # LR_min_act_dcf_cal(DTR,LTR,0.9)
+      # SVM_min_act_dcf_cal(DTR,LTR,0.9)
+      # GMM_min_act_dcf_cal(DTR,LTR,0.9)
+
+      # LR_test_min_act_dcf_cal(DTR,LTR,DTE,LTE,0.9)
+      # SVM_test_min_act_dcf_cal(DTR,LTR,DTE,LTE,0.9)
+      # GMM_test_min_act_dcf_cal(DTR,LTR,DTE,LTE,0.9)
+
+
+#----------------------------------------------------------------------------------------# 
+
+
+# # CALIBRATION (EVAL)
+
+#       llr_LR,Label_LR = LR_test_best(DTR,DTE,LTR,LTE)
+#       llr_cal_LR,Label_cal_LR = calibration(llr_LR,Label_LR,0.5)
+
+
+#       llr_GMM,Label_GMM = GMM_test_best(DTR,DTE,LTR,LTE)
+#       llr_cal_GMM,Label_cal_GMM = calibration(llr_GMM,Label_GMM,0.5)
+
+
+#       llr_SVM,Label_SVM = SVM_test_best(DTR,DTE,LTR,LTE)
+#       llr_cal_SVM,Label_cal_SVM = calibration(llr_SVM,Label_SVM,0.5)
+
+
+#       plot_ROC(llr_cal_LR,Label_cal_LR,llr_cal_SVM,Label_cal_SVM,llr_cal_GMM,Label_cal_GMM)
+#       bayes_error_plot_multi(llr_cal_LR, Label_cal_LR, llr_cal_SVM, Label_cal_SVM, llr_cal_GMM, Label_cal_GMM, "Multi_model")
+
+
+#----------------------------------------------------------------------------------------# 
+
+
+# # TEST LOGISTIC REGRESSION
+
+#       LR_RAW_val_eval(DTR, LTR, DTE, LTE, 0.5)
+#       LR_znorm_val_eval(DTR, LTR, DTE, LTE, 0.5)
+
+
+#----------------------------------------------------------------------------------------# 
+
+
+# # TESTING SUPPORT VECTOR MACHINE
+
+#       RadKernBased_RAW_eval(DTR,LTR,DTE,LTE,0.5)
+#       RadKernBased_znorm_eval(DTR,LTR,DTE,LTE,0.5)
+      
+
+#----------------------------------------------------------------------------------------# 
+
+
+# # Testing GMM
+
+#       GMM_plot_diff_component_eval(DTR,LTR,DTE,LTE)
+#       GMM_plot_diff_component_eval_PCA(DTR, LTR, DTE, LTE)
+#       GMM_Tied_plot_diff_component_eval_PCA(DTR, LTR, DTE, LTE)
+#       GMM_Diagonal_plot_diff_component_eval_znorm(DTR, LTR, DTE, LTE)
+#       GMM_test_compare(DTR, LTR, DTE, LTE)
 
 
 #----------------------------------------------------------------------------------------# 
 
 
 
-# # CALIBRATION (EVAL)
-
-#      llr,Label = GMM_test_best(DTR,DTE,LTR,LTE)
-#      bayes_error_plot(llr,Label,"Best_eval_GMM")
-
-#      llr,Label = LR_test_best(DTR,DTE,LTR,LTE)
-#      bayes_error_plot(llr,Label,"Best_eval_LR")
-
-#      llr,Label = SVM_test_best(DTR,DTE,LTR,LTE)
-#      bayes_error_plot(llr,Label,"Best_eval_SVM")
-
-# llr_LR,Label_LR = LR_test_best(DTR,DTE,LTR,LTE)
-# llr_cal_LR,Label_cal_LR = calibration(llr_LR,Label_LR,0.5)
-
-
-# llr_GMM,Label_GMM = GMM_test_best(DTR,DTE,LTR,LTE)
-# llr_cal_GMM,Label_cal_GMM = calibration(llr_GMM,Label_GMM,0.5)
-
-
-# llr_SVM,Label_SVM = SVM_test_best(DTR,DTE,LTR,LTE)
-# llr_cal_SVM,Label_cal_SVM = calibration(llr_SVM,Label_SVM,0.5)
-
-
-#plot_ROC(llr_cal_LR,Label_cal_LR,llr_cal_SVM,Label_cal_SVM,llr_cal_GMM,Label_cal_GMM)
-
-#
-# bayes_error_plot_multi(llr_cal_LR, Label_cal_LR, llr_cal_SVM, Label_cal_SVM, llr_cal_GMM, Label_cal_GMM, "Multi_model")
-
-
-
-# Testing LR
-
-# LR_RAW_val_eval(DTR, LTR, DTE, LTE, 0.5)
-# LR_znorm_val_eval(DTR, LTR, DTE, LTE, 0.5)
-
-
-# Testing SVM
-#RadKernBased_RAW_eval(DTR,LTR,DTE,LTE,0.5)
-#RadKernBased_znorm_eval(DTR,LTR,DTE,LTE,0.5)
-
-# Testing GMM
-
-#GMM_plot_diff_component_eval(DTR,LTR,DTE,LTE)
-#GMM_plot_diff_component_eval_PCA(DTR, LTR, DTE, LTE)
-# GMM_Tied_plot_diff_component_eval_PCA(DTR, LTR, DTE, LTE)
-# GMM_Diagonal_plot_diff_component_eval_znorm(DTR, LTR, DTE, LTE)
-#GMM_test_compare(DTR, LTR, DTE, LTE)
-
-
-# plot_ROC(llr_cal_LR, Label_cal_LR, llr_cal_SVM, Label_cal_SVM, llr_cal_GMM, Label_cal_GMM)
-
-
-
-
-
-
-
-
-# print("GMM - min_dcf / act_dcf\n")
-# llr,Label = GMM_train_best(DTR,LTR)
-# llr_cal,Label_cal = calibration(llr,Label,0.5)
-# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.1, 1, 1)
-# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-# min_dcf = min_DCF(0.1,1,1,Label_cal,llr_cal)
-# act_dcf = DCF(0.1, 1, 1, conf_matrix, "normalized")
-# print("GMM min_dcf 0.1: ", min_dcf)
-# print("GMM act_dcf: 0.1", act_dcf)
-
-
-
-# print("LR - min_dcf / act_dcf\n")
-# llr,Label = LR_train_best(DTR,LTR)
-# llr_cal,Label_cal = calibration(llr,Label,0.5)
-# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.1, 1, 1)
-# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-# min_dcf = min_DCF(0.1,1,1,Label_cal,llr_cal)
-# act_dcf = DCF(0.1, 1, 1, conf_matrix, "normalized")
-# print("LR min_dcf: 0.1", min_dcf)
-# print("LR act_dcf: 0.1", act_dcf)
-
-
-# print("SVM - min_dcf / act_dcf\n")
-# llr,Label = SVM_train_best(DTR,LTR)
-# llr_cal,Label_cal = calibration(llr,Label,0.5)
-# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.1, 1, 1)
-# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-# min_dcf = min_DCF(0.1,1,1,Label_cal,llr_cal)
-# act_dcf = DCF(0.1, 1, 1, conf_matrix, "normalized")
-# print("SVM min_dcf 0.1: ", min_dcf)
-# print("SVM act_dcf 0.1: ", act_dcf)
-
-
-
-# print("GMM - min_dcf / act_dcf\n")
-# llr,Label = GMM_test_best(DTR,DTE,LTR,LTE)
-# llr_cal,Label_cal = calibration(llr,Label,0.5)
-# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.1, 1, 1)
-# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-# min_dcf = min_DCF(0.1,1,1,Label_cal,llr_cal)
-# act_dcf = DCF(0.1, 1, 1, conf_matrix, "normalized")
-# print("min_dcf: 0.1", min_dcf)
-# print("act_dcf: 0.1", act_dcf)
-
-
-
-# print("LR - min_dcf / act_dcf\n")
-# llr,Label = LR_test_best(DTR,DTE,LTR,LTE)
-# llr_cal,Label_cal = calibration(llr,Label,0.5)
-# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.1, 1, 1)
-# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-# min_dcf = min_DCF(0.1,1,1,Label_cal,llr_cal)
-# act_dcf = DCF(0.1, 1, 1, conf_matrix, "normalized")
-# print("min_dcf: 0.1", min_dcf)
-# print("act_dcf: 0.1", act_dcf)
-
-
-# print("SVM - min_dcf / act_dcf\n")
-# llr,Label = SVM_test_best(DTR,DTE,LTR,LTE)
-# llr_cal,Label_cal = calibration(llr,Label,0.5)
-# predicted_labels = optimalBinaryBayesDecision(llr_cal, 0.1, 1, 1)
-# conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-# min_dcf = min_DCF(0.1,1,1,Label_cal,llr_cal)
-# act_dcf = DCF(0.1, 1, 1, conf_matrix, "normalized")
-# print("SVM min_dcf 0.1: ", min_dcf)
-# print("SVM act_dcf: 0.1: ", act_dcf)
