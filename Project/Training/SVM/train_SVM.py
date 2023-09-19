@@ -19,20 +19,17 @@ def SVM_RAW_znorm(D, L, prior, pi):
 
         SPost_1, Label_1 = kfold(svm, 5, D, L, prior)
         res_1 = min_DCF(pi, 1, 1, Label_1, SPost_1)
-        
+
         min_dcf_results.append(res_1)
-        
 
     D = znorm(D)
     for i, c in enumerate(C_values):
         svm = Linear_SVM(1, c)
-        
 
         SPost_2, Label_2 = kfold(svm, 5, D, L, prior)
         res_2 = min_DCF(pi, 1, 1, Label_2, SPost_2)
-        
+
         min_dcf_results_znorm.append(res_2)
-        
 
     plt.figure()
     plt.xlabel("C")
@@ -92,8 +89,6 @@ def SVM_diff_priors_znorm(D, L):
         print(f"min_DCF_znorm (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
 
 
-
-
 def Poly_SVM_RAW_znorm(D, L, prior, pi):
     C_values = numpy.logspace(-5, 5, num=2)
 
@@ -107,18 +102,15 @@ def Poly_SVM_RAW_znorm(D, L, prior, pi):
         res_1 = min_DCF(pi, 1, 1, Label_1, SPost_1)
         print(res_1)
         min_dcf_results.append(res_1)
-        print(i)
 
     D = znorm(D)
     for i, c in enumerate(C_values):
         svm = PolynomialSvm(1, c, 2, 1)
-        
 
         SPost_2, Label_2 = kfold(svm, 5, D, L, prior)
         res_2 = min_DCF(pi, 1, 1, Label_2, SPost_2)
         print(res_2)
         min_dcf_results_znorm.append(res_2)
-        print(i)
 
     plt.figure()
     plt.xlabel("C")
@@ -177,11 +169,6 @@ def Poly_SVM_diff_priors(D, L):
         print(f"min_DCF (pi_T = {pi_T}, pi = {pi}) : {round(res, 3)}")
 
 
-
-
-
-
-
 def RadKernBased_RAW(D, L, prior):
     C_values = numpy.logspace(-5, 5, num=11)
 
@@ -195,7 +182,6 @@ def RadKernBased_RAW(D, L, prior):
         SPost_1, Label_1 = kfold(svm, 5, D, L, prior)
         res_1 = min_DCF(0.5, 1, 1, Label_1, SPost_1)
         min_dcf_results_log1.append(res_1)
-        print(i)
 
     for i, c in enumerate(C_values):
         svm = RadialKernelBasedSvm(1, c, 0.01)
@@ -203,7 +189,6 @@ def RadKernBased_RAW(D, L, prior):
         SPost_2, Label_2 = kfold(svm, 5, D, L, prior)
         res_2 = min_DCF(0.5, 1, 1, Label_2, SPost_2)
         min_dcf_results_log2.append(res_2)
-        print(i)
 
     for i, c in enumerate(C_values):
         svm = RadialKernelBasedSvm(1, c, 0.001)
@@ -211,7 +196,6 @@ def RadKernBased_RAW(D, L, prior):
         SPost_3, Label_3 = kfold(svm, 5, D, L, prior)
         res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
         min_dcf_results_log3.append(res_3)
-        print(i)
 
     plt.figure()
     plt.xlabel("C")
@@ -237,13 +221,11 @@ def RadKernBased_znorm(D, L, prior):
     min_dcf_results_log3 = []
 
     for i, c in enumerate(C_values):
-        print(c)
         svm = RadialKernelBasedSvm(1, c, 0.1)
 
         SPost_1, Label_1 = kfold(svm, 5, D, L, prior)
         res_1 = min_DCF(0.5, 1, 1, Label_1, SPost_1)
         min_dcf_results_log1.append(res_1)
-        print(i)
 
     for i, c in enumerate(C_values):
         svm = RadialKernelBasedSvm(1, c, 0.01)
@@ -251,7 +233,6 @@ def RadKernBased_znorm(D, L, prior):
         SPost_2, Label_2 = kfold(svm, 5, D, L, prior)
         res_2 = min_DCF(0.5, 1, 1, Label_2, SPost_2)
         min_dcf_results_log2.append(res_2)
-        print(i)
 
     for i, c in enumerate(C_values):
         svm = RadialKernelBasedSvm(1, c, 0.001)
@@ -259,7 +240,6 @@ def RadKernBased_znorm(D, L, prior):
         SPost_3, Label_3 = kfold(svm, 5, D, L, prior)
         res_3 = min_DCF(0.5, 1, 1, Label_3, SPost_3)
         min_dcf_results_log3.append(res_3)
-        print(i)
 
     plt.figure()
     plt.xlabel("C")
@@ -370,15 +350,13 @@ def SVM_train_best(D, L):
     return SPost, Label
 
 
-
-
-def SVM_min_act_dcf_cal(DTR,LTR,pi):
+def SVM_min_act_dcf_cal(DTR, LTR, pi):
     print("SVM - min_dcf / act_dcf " + str(pi) + "\n")
-    llr,Label = SVM_train_best(DTR,LTR)
-    llr_cal,Label_cal = calibration(llr,Label,0.5)
+    llr, Label = SVM_train_best(DTR, LTR)
+    llr_cal, Label_cal = calibration(llr, Label, 0.5)
     predicted_labels = optimalBinaryBayesDecision(llr_cal, pi, 1, 1)
     conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-    min_dcf = min_DCF(pi,1,1,Label_cal,llr_cal)
+    min_dcf = min_DCF(pi, 1, 1, Label_cal, llr_cal)
     act_dcf = DCF(pi, 1, 1, conf_matrix, "normalized")
-    print("SVM (train) min_dcf: ", round(min_dcf,3))
-    print("SVM (train) act_dcf: ", round(act_dcf,3))
+    print("SVM (train) min_dcf: ", round(min_dcf, 3))
+    print("SVM (train) act_dcf: ", round(act_dcf, 3))

@@ -103,7 +103,7 @@ def LR_Znorm(D, L, prior):
     min_dcf_results_09 = []
 
     regression = Logistic_Regression(0)
-    
+
     for i, l in enumerate(l_values):
         regression.l = l
 
@@ -175,21 +175,20 @@ def LR_PCA(D, L, pi_T):
     print("END1")
     pca_dimensions = [11, 10, 9]
     min_dcf_results = {}
-    
+
     for dim in pca_dimensions:
         D_pca, _ = PCA(D, dim)
         min_dcf_results[dim] = []
-        
+
         for l in l_values:
             regression = Logistic_Regression(l)
             SPost, Label = kfold(regression, 5, D_pca, L, pi_T)
             res = min_DCF(value, 1, 1, Label, SPost)
             min_dcf_results[dim].append(res)
-    
+
     min_dcf_results_11 = min_dcf_results[11]
     min_dcf_results_10 = min_dcf_results[10]
     min_dcf_results_09 = min_dcf_results[9]
-    
 
     plt.figure()
     plt.xlabel("\u03BB")
@@ -333,23 +332,19 @@ def Quad_LR_diff_priors_zscore(D, L):
 
 
 def LR_train_best(D, L):
-    l = 0
+    l = 0.01
     regression = Logistic_Regression(l)
-    SPost, Label = kfold(regression, 5, D, L, 0.9)
+    SPost, Label = kfold(regression, 5, D, L, 0.1)
     return SPost, Label
 
 
-
-
-
-
-def LR_min_act_dcf_cal(DTR,LTR,pi):
+def LR_min_act_dcf_cal(DTR, LTR, pi):
     print("LR - min_dcf / act_dcf " + str(pi) + "\n")
-    llr,Label = LR_train_best(DTR,LTR)
-    llr_cal,Label_cal = calibration(llr,Label,0.5)
+    llr, Label = LR_train_best(DTR, LTR)
+    llr_cal, Label_cal = calibration(llr, Label, 0.5)
     predicted_labels = optimalBinaryBayesDecision(llr_cal, pi, 1, 1)
     conf_matrix = confusionMatrix(Label_cal, predicted_labels)
-    min_dcf = min_DCF(pi,1,1,Label_cal,llr_cal)
+    min_dcf = min_DCF(pi, 1, 1, Label_cal, llr_cal)
     act_dcf = DCF(pi, 1, 1, conf_matrix, "normalized")
-    print("LR (train) min_dcf: ", round(min_dcf,3))
-    print("LR (train) act_dcf: ", round(act_dcf,3))
+    print("LR (train) min_dcf: ", round(min_dcf, 3))
+    print("LR (train) act_dcf: ", round(act_dcf, 3))

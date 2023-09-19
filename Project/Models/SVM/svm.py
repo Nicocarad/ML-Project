@@ -1,6 +1,7 @@
 import numpy
 from scipy.optimize import fmin_l_bfgs_b
 from Models.SVM.svm_utils import *
+from Utils.utils import *
 
 
 class Linear_SVM:
@@ -15,13 +16,13 @@ class Linear_SVM:
         self.LTE = LTE
         self.priors = [eff_prior, 1 - eff_prior]
 
+        z = 2 * self.LTR - 1
         D_hat = numpy.vstack([self.DTR, numpy.ones(self.DTR.shape[1]) * self.K])
         G_hat = numpy.dot(D_hat.T, D_hat)
-        z = 2 * self.LTR - 1
         H_hat = numpy.outer(z, z) * G_hat
-        obj = compute_lagrangian_wrapper(H_hat)
+        funct = compute_lagrangian_wrapper(H_hat)
         alpha, _, _ = fmin_l_bfgs_b(
-            obj,
+            funct,
             numpy.zeros(self.LTR.size),
             bounds=weighted_bounds(self.C, self.LTR, self.priors),
             factr=1.0,
@@ -49,11 +50,11 @@ class PolynomialSvm:
         self.priors = [eff_prior, 1 - eff_prior]
 
         z = self.LTR * 2 - 1
-        k_dtr = ((numpy.dot(self.DTR.T, self.DTR) + self.c) ** self.d) + (self.K**2)
-        H_hat = mcol(z) * mrow(z) * k_dtr
-        dual_obj = compute_lagrangian_wrapper(H_hat)
+        k_DTR = ((numpy.dot(self.DTR.T, self.DTR) + self.c) ** self.d) + (self.K**2)
+        H_hat = mcol(z) * mrow(z) * k_DTR
+        funct = compute_lagrangian_wrapper(H_hat)
         alpha, _, _ = fmin_l_bfgs_b(
-            dual_obj,
+            funct,
             numpy.zeros(self.DTR.shape[1]),
             bounds=weighted_bounds(self.C, self.LTR, self.priors),
             factr=1.0,
@@ -94,9 +95,9 @@ class RadialKernelBasedSvm:
                 )
 
         H_hat = mcol(z) * mrow(z) * RBF_kern_DTR
-        dual_obj = compute_lagrangian_wrapper(H_hat)
+        funct = compute_lagrangian_wrapper(H_hat)
         alpha, _, _ = fmin_l_bfgs_b(
-            dual_obj,
+            funct,
             numpy.zeros(self.DTR.shape[1]),
             bounds=weighted_bounds(self.C, self.LTR, self.priors),
             factr=1.0,

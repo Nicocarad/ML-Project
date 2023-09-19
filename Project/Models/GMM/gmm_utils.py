@@ -57,48 +57,48 @@ def LBG(iterations, X, start_gmm, alpha, psi, covariance_func=None):
     return start_gmm
 
 def EM(X, gmm, psi, covariance_func=None):
-    ll_new = None
-    ll_old = None
-    while ll_old is None or ll_new - ll_old > 1e-6:
+    llr_1 = None
+    llr_0 = None
+    while llr_0 is None or llr_1 - llr_0 > 1e-6:
         
         num_components = len(gmm)
-        ll_old = ll_new
+        llr_0 = llr_1
         logS = numpy.zeros((num_components, X.shape[1]))
         
         # START E-STEP
-        for g in range(num_components):
-            logS[g, :] = logpdf_GAU_ND_fast(X, gmm[g][1], gmm[g][2]) + numpy.log(gmm[g][0])
+        for idx in range(num_components):
+            logS[idx, :] = logpdf_GAU_ND_fast(X, gmm[idx][1], gmm[idx][2]) + numpy.log(gmm[idx][0])
         logSMarginal = scipy.special.logsumexp(logS, axis=0) #compute marginal densities
-        ll_new = logSMarginal.sum() / X.shape[1]
+        llr_1 = numpy.mean(logSMarginal)
         SPost = numpy.exp(logS - logSMarginal)
         
         # END E-STEP
         
         # START M-STEP
         gmm_new = []
-        Z = numpy.zeros(num_components)
+        Z_vec = numpy.zeros(num_components)
         
-        for g in range(num_components):
-            gamma = SPost[g, :]
+        for idx in range(num_components):
+            gamma = SPost[idx, :]
             
             #update model parameters
-            zero_order = gamma.sum()
-            first_order = (mrow(gamma) * X).sum(1)
-            second_order = numpy.dot(X, (mrow(gamma) * X).T)
+            Z = gamma.sum()
+            F = (mrow(gamma) * X).sum(1)
+            S = numpy.dot(X, (mrow(gamma) * X).T)
             
-            Z[g] = zero_order
+            Z_vec[idx] = Z
             
             #new parameters
-            mu = mcol(first_order / zero_order)
-            sigma = second_order / zero_order - numpy.dot(mu, mu.T)
-            w = zero_order / X.shape[1]
+            mu = mcol(F / Z)
+            sigma = S / Z - numpy.dot(mu, mu.T)
+            w = Z / X.shape[1]
             
             
             gmm_new.append((w, mu, sigma))
         # END M-STEP
 
         if covariance_func is not None:
-            gmm_new = covariance_func(gmm_new, Z, X.shape[1])
+            gmm_new = covariance_func(gmm_new, Z_vec, X.shape[1])
 
         # Constraining the eigenvalues
         for i in range(num_components):

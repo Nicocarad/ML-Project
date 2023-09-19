@@ -1,4 +1,4 @@
-from Utils.load import load
+from Utils.load import *
 from Features_Analysis.feature_analysis import *
 from Training.Gaussian.train_gaussian import *
 from Training.LR.train_logistic_regression import *
@@ -10,6 +10,7 @@ from Testing.Logistic_Regression.LR_test import *
 from Testing.GMM.GMM_test import *
 from Testing.SVM.SVM_test import *
 from Metrics.ROC import *
+
 
 if __name__ == '__main__':
 
@@ -118,7 +119,7 @@ if __name__ == '__main__':
 #       GMM_Diagonal_plot_diff_component_PCA(DTR, LTR)
 #       GMM_TiedDiagonal_plot_diff_component(DTR, LTR)
 
-#       GMM_diff_priors(DTR,LTR)
+      GMM_diff_priors(DTR,LTR)
 #       GMM_diff_priors_znorm(DTR,LTR)
 
 
@@ -207,8 +208,8 @@ if __name__ == '__main__':
 
 # # TEST LOGISTIC REGRESSION
 
-#       LR_RAW_val_eval(DTR, LTR, DTE, LTE, 0.5)
-#       LR_znorm_val_eval(DTR, LTR, DTE, LTE, 0.5)
+      # LR_RAW_val_eval(DTR, LTR, DTE, LTE, 0.1)
+      # LR_znorm_val_eval(DTR, LTR, DTE, LTE, 0.1)
 
 
 #----------------------------------------------------------------------------------------# 

@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-
 from Models.LR.logistic_regression import *
 from Metrics.DCF import *
 from Utils.Kfold import *
@@ -89,8 +88,6 @@ def LR_RAW_val_eval(DTR, LTR, DTE, LTE, prior):
         min_dcf_results_01_eval.append(min_DCF(value[1], 1, 1, LTE, scores))
         min_dcf_results_09_eval.append(min_DCF(value[2], 1, 1, LTE, scores))
 
-        print(i)
-
     plot_RAW_results(
         min_dcf_results_05,
         min_dcf_results_01,
@@ -137,8 +134,6 @@ def LR_znorm_val_eval(DTR, LTR, DTE, LTE, prior):
         min_dcf_results_01_eval.append(min_DCF(value[1], 1, 1, LTE, scores))
         min_dcf_results_09_eval.append(min_DCF(value[2], 1, 1, LTE, scores))
 
-        print(i)
-
     plot_RAW_results(
         min_dcf_results_05,
         min_dcf_results_01,
@@ -162,7 +157,7 @@ def LR_test_best(DTR, DTE, LTR, LTE):
     return scores, LTE
 
 
-def LR_test_min_act_dcf_cal(DTR, LTR, DTE, LTE,pi):
+def LR_test_min_act_dcf_cal(DTR, LTR, DTE, LTE, pi):
     print("LR - min_dcf / act_dcf " + str(pi) + "\n")
     llr, Label = LR_test_best(DTR, DTE, LTR, LTE)
     llr_cal, Label_cal = calibration(llr, Label, 0.5)
@@ -170,5 +165,5 @@ def LR_test_min_act_dcf_cal(DTR, LTR, DTE, LTE,pi):
     conf_matrix = confusionMatrix(Label_cal, predicted_labels)
     min_dcf = min_DCF(pi, 1, 1, Label_cal, llr_cal)
     act_dcf = DCF(pi, 1, 1, conf_matrix, "normalized")
-    print("LR (test) min_dcf: ", round(min_dcf,3))
-    print("LR (test) act_dcf: ", round(act_dcf,3))
+    print("LR (test) min_dcf: ", round(min_dcf, 3))
+    print("LR (test) act_dcf: ", round(act_dcf, 3))

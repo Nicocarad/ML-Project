@@ -2,14 +2,6 @@ import numpy
 
 
 
-def mcol(v):
-    return v.reshape((v.size, 1))
-
-
-def mrow(array):
-    return array.reshape((1,array.size))
-
-
 
 def weighted_bounds(C, LTR, prior):
     bounds = numpy.zeros(LTR.shape[0])
