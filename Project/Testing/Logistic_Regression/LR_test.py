@@ -7,7 +7,7 @@ from Preprocessing.Znorm import *
 from Calibration.calibration import *
 
 
-def plot_RAW_results(
+def plot_results(
     min_dcf_05,
     min_dcf_01,
     min_dcf_09,
@@ -25,27 +25,27 @@ def plot_RAW_results(
     plt.ylabel("minDCF")
     plt.title(title)
 
-    plt.plot(lambda_values, min_dcf_05, label="minDCF(\u03C0 = 0.5 VAL)", color="red")
-    plt.plot(lambda_values, min_dcf_01, label="minDCF(\u03C0 = 0.1 VAL)", color="blue")
-    plt.plot(lambda_values, min_dcf_09, label="minDCF(\u03C0 = 0.9 VAL)", color="green")
+    plt.plot(lambda_values, min_dcf_05, label="minDCF(\u03C0_T = 0.5 VAL)", color="red")
+    plt.plot(lambda_values, min_dcf_01, label="minDCF(\u03C0_T = 0.1 VAL)", color="blue")
+    plt.plot(lambda_values, min_dcf_09, label="minDCF(\u03C0_T = 0.9 VAL)", color="green")
     plt.plot(
         lambda_values,
         min_dcf_05_eval,
-        label="minDCF(\u03C0 = 0.5 EVAL)",
+        label="minDCF(\u03C0_T = 0.5 EVAL)",
         color="red",
         linestyle="dashed",
     )
     plt.plot(
         lambda_values,
         min_dcf_01_eval,
-        label="minDCF(\u03C0 = 0.1 EVAL)",
+        label="minDCF(\u03C0_T = 0.1 EVAL)",
         color="blue",
         linestyle="dashed",
     )
     plt.plot(
         lambda_values,
         min_dcf_09_eval,
-        label="minDCF(\u03C0 = 0.9 EVAL)",
+        label="minDCF(\u03C0_T = 0.9 EVAL)",
         color="green",
         linestyle="dashed",
     )
@@ -88,7 +88,7 @@ def LR_RAW_val_eval(DTR, LTR, DTE, LTE, prior):
         min_dcf_results_01_eval.append(min_DCF(value[1], 1, 1, LTE, scores))
         min_dcf_results_09_eval.append(min_DCF(value[2], 1, 1, LTE, scores))
 
-    plot_RAW_results(
+    plot_results(
         min_dcf_results_05,
         min_dcf_results_01,
         min_dcf_results_09,
@@ -96,7 +96,7 @@ def LR_RAW_val_eval(DTR, LTR, DTE, LTE, prior):
         min_dcf_results_01_eval,
         min_dcf_results_09_eval,
         name,
-        "RAW",
+        "Z-NORM",
     )
 
 
@@ -134,7 +134,7 @@ def LR_znorm_val_eval(DTR, LTR, DTE, LTE, prior):
         min_dcf_results_01_eval.append(min_DCF(value[1], 1, 1, LTE, scores))
         min_dcf_results_09_eval.append(min_DCF(value[2], 1, 1, LTE, scores))
 
-    plot_RAW_results(
+    plot_results(
         min_dcf_results_05,
         min_dcf_results_01,
         min_dcf_results_09,
@@ -144,6 +144,135 @@ def LR_znorm_val_eval(DTR, LTR, DTE, LTE, prior):
         name,
         "Z-NORM",
     )
+
+
+
+
+def LR_RAW_priors(DTR, LTR, DTE, LTE, prior):
+    l_values = np.logspace(-5, 2, num=41)
+    value = [0.5, 0.1, 0.9]
+    name = "LR_RAW_priors_val_eval"
+
+    min_dcf_results_05 = []
+    min_dcf_results_01 = []
+    min_dcf_results_09 = []
+    min_dcf_results_05_eval = []
+    min_dcf_results_01_eval = []
+    min_dcf_results_09_eval = []
+
+    regression = Logistic_Regression(0)
+
+    for i, l in enumerate(l_values):
+        regression.l = l
+
+        SPost_1, Label_1 = kfold(regression, 5, DTR, LTR, value[0])
+        res_1 = min_DCF(prior, 1, 1, Label_1, SPost_1)
+        min_dcf_results_05.append(res_1)
+
+        SPost_2, Label_2 = kfold(regression, 5, DTR, LTR, value[1])
+        res_2 = min_DCF(prior, 1, 1, Label_2, SPost_2)
+        min_dcf_results_01.append(res_2)
+
+        SPost_3, Label_3 = kfold(regression, 5, DTR, LTR, value[2])
+        res_3 = min_DCF(prior, 1, 1, Label_3, SPost_3)
+        min_dcf_results_09.append(res_3)
+
+        print(i)
+        
+        regression.train(DTR,LTR,DTE,LTE,value[0])
+        regression.compute_scores()
+        scores = regression.scores
+        min_dcf_results_05_eval.append(min_DCF(prior,1,1,LTE,scores))
+        
+        regression.train(DTR,LTR,DTE,LTE,value[1])
+        regression.compute_scores()
+        scores = regression.scores
+        min_dcf_results_01_eval.append(min_DCF(prior,1,1,LTE,scores))
+        
+        regression.train(DTR,LTR,DTE,LTE,value[2])
+        regression.compute_scores()
+        scores = regression.scores
+        min_dcf_results_09_eval.append(min_DCF(prior,1,1,LTE,scores))
+        
+        print(i)
+
+    plot_results(
+        min_dcf_results_05,
+        min_dcf_results_01,
+        min_dcf_results_09,
+        min_dcf_results_05_eval,
+        min_dcf_results_01_eval,
+        min_dcf_results_09_eval,
+        name,
+        "RAW",
+    )
+
+
+def LR_znorm_priors(DTR, LTR, DTE, LTE, prior):
+    l_values = np.logspace(-5, 2, num=41)
+    value = [0.5, 0.1, 0.9]
+    name = "LR_znorm_priors_val_eval"
+
+    min_dcf_results_05 = []
+    min_dcf_results_01 = []
+    min_dcf_results_09 = []
+    min_dcf_results_05_eval = []
+    min_dcf_results_01_eval = []
+    min_dcf_results_09_eval = []
+
+    regression = Logistic_Regression(0)
+    DTR = znorm(DTR)
+    DTE = znorm(DTE)
+    for i, l in enumerate(l_values):
+        regression.l = l
+
+        SPost_1, Label_1 = kfold(regression, 5, DTR, LTR, value[0])
+        res_1 = min_DCF(prior, 1, 1, Label_1, SPost_1)
+        min_dcf_results_05.append(res_1)
+
+        SPost_2, Label_2 = kfold(regression, 5, DTR, LTR, value[1])
+        res_2 = min_DCF(prior, 1, 1, Label_2, SPost_2)
+        min_dcf_results_01.append(res_2)
+
+        SPost_3, Label_3 = kfold(regression, 5, DTR, LTR, value[2])
+        res_3 = min_DCF(prior, 1, 1, Label_3, SPost_3)
+        min_dcf_results_09.append(res_3)
+
+        print(i)
+        
+        regression.train(DTR,LTR,DTE,LTE,value[0])
+        regression.compute_scores()
+        scores = regression.scores
+        min_dcf_results_05_eval.append(min_DCF(prior,1,1,LTE,scores))
+        
+        regression.train(DTR,LTR,DTE,LTE,value[1])
+        regression.compute_scores()
+        scores = regression.scores
+        min_dcf_results_01_eval.append(min_DCF(prior,1,1,LTE,scores))
+        
+        regression.train(DTR,LTR,DTE,LTE,value[2])
+        regression.compute_scores()
+        scores = regression.scores
+        min_dcf_results_09_eval.append(min_DCF(prior,1,1,LTE,scores))
+        
+        print(i)
+
+    plot_results(
+        min_dcf_results_05,
+        min_dcf_results_01,
+        min_dcf_results_09,
+        min_dcf_results_05_eval,
+        min_dcf_results_01_eval,
+        min_dcf_results_09_eval,
+        name,
+        "Z-NORM",
+    )
+
+
+
+
+
+
 
 
 def LR_test_best(DTR, DTE, LTR, LTE):
