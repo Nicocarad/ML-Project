@@ -378,7 +378,7 @@ def GMM_diff_priors(D, L):
         SPost, Label = kfold(gmm, 5, D, L, None)
         res = min_DCF(pi, 1, 1, Label, SPost)
         print(
-            "min_DCF pi = ", pi, str(2**i) + " components + PCA(11): ", round(res, 3)
+            "GMM min_DCF pi = ", pi, str(2**i) + " components + PCA(11): ", round(res, 3)
         )
 
 
