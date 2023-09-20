@@ -119,8 +119,8 @@ if __name__ == '__main__':
       # GMM_Diagonal_plot_diff_component_PCA(DTR, LTR)
       # GMM_TiedDiagonal_plot_diff_component(DTR, LTR)
 
-      GMM_diff_priors(DTR,LTR)
-      GMM_diff_priors_znorm(DTR,LTR)
+      # GMM_diff_priors(DTR,LTR)
+      # GMM_diff_priors_znorm(DTR,LTR)
 
 
 #----------------------------------------------------------------------------------------# 
