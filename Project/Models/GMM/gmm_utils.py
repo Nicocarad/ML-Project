@@ -1,6 +1,7 @@
 import numpy
 import scipy
 from Utils.utils import *
+from scipy.special import logsumexp
 
 
 def mean_and_covariance(data_matrix):
@@ -27,10 +28,12 @@ def logpdf_gmm(X, gmm):
     s = numpy.zeros((len(gmm), X.shape[1]))
     for i in range(X.shape[1]):
         for idx, component in enumerate(gmm):
-            s[idx, i] = logpdf_GAU_ND_fast(
-                X[:, i : i + 1], component[1], component[2]
-            ) + numpy.log(component[0])
-    return scipy.special.logsumexp(s, axis=0)
+            log_component = numpy.log(component[0])
+            s[idx, i] = (
+                logpdf_GAU_ND_fast(X[:, i : i + 1], component[1], component[2])
+                + log_component
+            )
+    return logsumexp(s, axis=0)
 
 
 def LBG(iterations, X, gmm, alpha, psi, type):

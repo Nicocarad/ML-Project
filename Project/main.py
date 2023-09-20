@@ -22,14 +22,14 @@ if __name__ == '__main__':
       
 # # DATASET INFO
     
-      # num_label_0 = numpy.count_nonzero(LTR == 0)
-      # num_label_1 = numpy.count_nonzero(LTR == 1)
-      # num_label_0 = numpy.count_nonzero(LTE == 0)
-      # num_label_1 = numpy.count_nonzero(LTE == 1)
-      # print("(Train) Number of Male", num_label_0)
-      # print("(Train) Number of Female", num_label_1)
-      # print("(Test) Number of Male", num_label_0)
-      # print("(Test) Number of Female", num_label_1)
+      num_label_0 = numpy.count_nonzero(LTR == 0)
+      num_label_1 = numpy.count_nonzero(LTR == 1)
+      num_label_0 = numpy.count_nonzero(LTE == 0)
+      num_label_1 = numpy.count_nonzero(LTE == 1)
+      print("(Train) Number of Male", num_label_0)
+      print("(Train) Number of Female", num_label_1)
+      print("(Test) Number of Male", num_label_0)
+      print("(Test) Number of Female", num_label_1)
   
   
 #----------------------------------------------------------------------------------------#  
@@ -119,8 +119,8 @@ if __name__ == '__main__':
       # GMM_Diagonal_plot_diff_component_PCA(DTR, LTR)
       # GMM_TiedDiagonal_plot_diff_component(DTR, LTR)
 
-      # GMM_diff_priors(DTR,LTR)
-      # GMM_diff_priors_znorm(DTR,LTR)
+      GMM_diff_priors(DTR,LTR)
+      GMM_diff_priors_znorm(DTR,LTR)
 
 
 #----------------------------------------------------------------------------------------# 
@@ -212,6 +212,8 @@ if __name__ == '__main__':
       # LR_znorm_val_eval(DTR, LTR, DTE, LTE, 0.1)
       # LR_RAW_priors(DTR, LTR, DTE, LTE, 0.5)
       # LR_znorm_priors(DTR, LTR, DTE, LTE, 0.5)
+      
+      
 #----------------------------------------------------------------------------------------# 
 
 
