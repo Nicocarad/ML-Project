@@ -217,7 +217,7 @@ if __name__ == '__main__':
 #----------------------------------------------------------------------------------------# 
 
 
-# # TESTING SUPPORT VECTOR MACHINE
+# # TEST SUPPORT VECTOR MACHINE
 
       # RadKernBased_RAW_eval(DTR,LTR,DTE,LTE,0.5)
       # RadKernBased_znorm_eval(DTR,LTR,DTE,LTE,0.5)
@@ -226,7 +226,7 @@ if __name__ == '__main__':
 #----------------------------------------------------------------------------------------# 
 
 
-# # Testing GMM
+# # TEST GMM
 
       # GMM_plot_diff_component_eval(DTR,LTR,DTE,LTE)
       # GMM_plot_diff_component_eval_PCA(DTR, LTR, DTE, LTE)
