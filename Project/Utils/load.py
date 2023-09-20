@@ -10,13 +10,13 @@ def load(fname):
     with open(fname) as f:
         for line in f:
             try:
-                attrs = line.split(",")[0:12]  # list of string ( the first 4 string)
-                attrs = mcol(numpy.array([float(i) for i in attrs]))  # list compr
+                attrs = line.split(",")[0:12]  
+                attrs = mcol(numpy.array([float(i) for i in attrs]))  
                 name = line.split(",")[-1].strip()
                 label = hLabels[name]
                 DList.append(attrs)
                 labelsList.append(label)
-            except:  # if the file contains an empty line at the end
+            except: 
                 pass
 
     return numpy.hstack(DList), numpy.array(labelsList, dtype=numpy.int32)
